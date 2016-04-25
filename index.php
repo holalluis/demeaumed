@@ -1,5 +1,4 @@
-<!doctype html>
-<html><head>
+<!doctype html><html><head>
 	<meta charset=utf-8>
 	<title>demEAUmed</title>
 	<style>
@@ -33,7 +32,6 @@
 		}
 	</script>
 </head><center><body>
-
 
 <!--main menu-->
 <div>
