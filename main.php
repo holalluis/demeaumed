@@ -1,26 +1,7 @@
 <!doctype html><html><head>
 	<meta charset=utf-8>
+	<link rel=stylesheet href=css.css>
 	<title>demEAUmed</title>
-	<style>
-		*{margin:0}
-		body{font-family:Calibri}
-		table{border-collapse:collapse}
-		th,td{
-			border:1px solid #ccc
-		}
-
-		div{
-			background:#fafafa;
-		}
-		div.container{ 
-			display:inline-block;
-		}
-		div.inline{
-			display:inline-block;
-			vertical-align:top;
-			margin-right:-5px;
-		}
-	</style>
 </head><center><body>
 
 <!--main menu--><div><h1>demEAUmed</h1>Main menu</div><br>
