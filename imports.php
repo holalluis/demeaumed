@@ -1,8 +1,9 @@
 <meta charset=utf-8>
 <title>SambaNet</title>
 <link rel=stylesheet href=css.css>
-<script src=samba.js></script>
+<script src=global.js></script>
 <script src=info.js></script>
+<script src=formulas.js></script>
 
 <!--utils-->
 <script>

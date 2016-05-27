@@ -1,10 +1,12 @@
 /** All Inputs for Sambanet **/
-var Samba =
+var Global =
 {
 	Services:{
 		General:{
 			guests:500,  // number of guests
 			diners:1000, // number of diners
+		},
+		Room:{
 			Toilet:{
 				flushCap:6, // flush capacity (L/flush)
 				useFreq:9,  // use frequency (uses/person/day)
@@ -17,6 +19,7 @@ var Samba =
 			Shower:{
 				discRate:9, // shower discharge rate (L/min)
 				avgRate:8,  // average shower rate (min/use)
+				useFreq:1,  // (uses/day/person)
 			},
 			Bath:{
 				tubVol:0.2, // bathtub volume (m3)
@@ -43,25 +46,13 @@ var Samba =
 			},
 		},
 		Laundry:{
-			Freq:{
-				duration:0, // min
-				loadpday:0, // load per day (kg/day)
-			},
-			PerGuest:{
-				duration:0,      // min
-				loadsPerGuest:0, // loads per guest
-			}
+			capacity:0, // L/load 
+			loadpday:0, // load per day (kg/day)
+			loadsPerGuest:0, // loads per guest
 		},
 		Lobby:{
-			Toilet:{
-				flushCap:6,  // toilet flush capacity (L/min)
-				useFreq:0.3, // (uses/day)
-			},
-			Sink:{
-				discRate:0,    // discharge rate (L/min)
-				useDuration:0, // use duration (min/use)
-				useFreq:0,     // use (uses/person/day)
-			},
+			toiletUseFreq:0.3, // (uses/day)
+			sinkUseFreq:0,     // (uses/person/day)
 		},
 		Kitchen:{
 			watCons:0, //water consumption (L/person/day)
@@ -70,7 +61,7 @@ var Samba =
 				perc:0, // % volume sinks filled
 			},
 			Dishwasher:{
-				cap:0,         // dishwasher capacity (L/load)
+				capacity:0,         // dishwasher capacity (L/load)
 				loadsPdiner:0, // loads per diner
 			},
 		},
