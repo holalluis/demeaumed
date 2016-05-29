@@ -1,25 +1,40 @@
 *{margin:0}
+
 body{
 	overflow-y:scroll;
 	font-family:Calibri;
-	text-align:center;
-}
-table{
-	border-collapse:collapse;
-}
-th,td{
-	border:1px solid #ccc;
-	padding:0.2em;
 }
 
-th,.th{
-	background:lightgreen;
-	text-align:center;
+h3 {padding:0.25em}
+
+div{
+	margin:0 0 0.5em 0;
+	padding:0.3em;
+}
+div.container{ 
+	display:inline-block;
 }
 
-td{
-	text-align:left;
-}
+/* tables */
+	table{
+		border-collapse:collapse;
+	}
+
+	th,td{
+		border:1px solid #ccc;
+		padding:0.2em;
+	}
+
+	th,.th{
+		background:#abc;
+		color:white;
+		text-align:center;
+	}
+
+	td{
+		text-align:left;
+	}
+/**/
 
 .inline{
 	display:inline-block;
@@ -27,13 +42,3 @@ td{
 	margin-right:-5px;
 }
 
-div{
-	background:#fafafa;
-	margin:0 0 0.5em 0;
-	padding:0.3em;
-	border-top:1px solid #aaa;
-	border-bottom:1px solid #aaa;
-}
-div.container{ 
-	display:inline-block;
-}

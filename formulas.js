@@ -27,11 +27,47 @@
 	var MPC		= Global.Services.Laundry.loadsPerGuest
 	var LTUF	= Global.Services.Lobby.toiletUseFreq
 	var LSUF	= Global.Services.Lobby.sinkUseFreq
-	var VS		= Global.Services.ThreeSink.vol
-	var PV		= Global.Services.ThreeSink.perc
-	var KC		= Global.Services.Dishwasher.capacity
-	var KD		= Global.Services.Dishwasher.loadsPdiner
-	var CD		= Global.Services.watCons
+	var VS		= Global.Services.Kitchen.ThreeSink.vol
+	var PV		= Global.Services.Kitchen.ThreeSink.perc
+	var KC		= Global.Services.Kitchen.Dishwasher.capacity
+	var KD		= Global.Services.Kitchen.Dishwasher.loadsPdiner
+	var CD		= Global.Services.Kitchen.watCons
+	function updateInputs()
+	{
+		G		= Global.Services.General.guests
+		D		= Global.Services.General.diners
+		TFC		= Global.Services.Room.Toilet.flushCap
+		TUF		= Global.Services.Room.Toilet.useFreq
+		SDR		= Global.Services.Room.Sink.discRate
+		SUD		= Global.Services.Room.Sink.useDuration
+		SUF		= Global.Services.Room.Sink.useFreq
+		RDR		= Global.Services.Room.Shower.discRate
+		RSR		= Global.Services.Room.Shower.avgRate
+		RF		= Global.Services.Room.Shower.useFreq
+		BV		= Global.Services.Room.Bath.tubVol
+		BP		= Global.Services.Room.Bath.perc
+		BF		= Global.Services.Room.Bath.freq
+		PSA		= Global.Services.Pool.area
+		TA		= Global.Services.Pool.ambTemp
+		TW		= Global.Services.Pool.watTemp
+		W		= Global.Services.Pool.windVel
+		TDP		= Global.Services.Pool.dewPoin
+		A		= Global.Services.Garden.Calculation.area
+		IR		= Global.Services.Garden.Calculation.irrigationRate
+		NS		= Global.Services.Garden.Sprinkler.amount
+		vsp		= Global.Services.Garden.Sprinkler.speed
+		t		= Global.Services.Garden.Sprinkler.duration
+		MC		= Global.Services.Laundry.capacity
+		ML		= Global.Services.Laundry.loadpday
+		MPC		= Global.Services.Laundry.loadsPerGuest
+		LTUF	= Global.Services.Lobby.toiletUseFreq
+		LSUF	= Global.Services.Lobby.sinkUseFreq
+		VS		= Global.Services.Kitchen.ThreeSink.vol
+		PV		= Global.Services.Kitchen.ThreeSink.perc
+		KC		= Global.Services.Kitchen.Dishwasher.capacity
+		KD		= Global.Services.Kitchen.Dishwasher.loadsPdiner
+		CD		= Global.Services.Kitchen.watCons
+	}
 /*Symbols end*/
 
 var Formulas =

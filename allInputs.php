@@ -1,5 +1,5 @@
-<!doctype html><html><head>
-	<?php include'imports.php'?>
+<!doctype html><html><head><?php include'imports.php'?>
+
 	<style>
 		/**general things*/
 			input.input {margin-left:1em;width:50px}
@@ -58,8 +58,14 @@
 			input.classList.add('input');
 			//set properties
 			input.value=obj[field];
-			input.onchange=function(){obj[field]=parseFloat(this.value)}
+			input.onchange=function(){updateValue(obj,field,parseFloat(this.value))}
 			return input
+		}
+
+		function updateValue(obj,field,newValue)
+		{
+			obj[field]=newValue
+			allFormulas()
 		}
 
 		function setAll(option)
@@ -138,66 +144,91 @@
 			}
 		}
 
+		function allFormulas()
+		{
+			updateInputs() //see formulas.js
+			var cells = document.querySelectorAll('td[formula]')
+			for(var i=0;i<cells.length;i++)
+			{
+				var formula = cells[i].getAttribute('formula')
+				formula = "Formulas."+formula+"()"
+				var value = eval(formula)
+				cells[i].innerHTML=format(value)
+			}
+		}
+
 		function init()
 		{
 			allInputs()
+			allFormulas()
 		}
 	</script>
-</head><body onload=init()><!--title--><div><h1>SambaNet</h1></div>
+
+</head><body onload=init()><!--title--><?php include'navbar.php'?>
 
 <!--inputs menu-->
-<div style="text-align:center">
-	<!--title-->
-	<h3> 
+<div class=inline style="width:45%">
+	<!--title--><h3> 
 		All inputs 
-		<button onclick=setAll('active')>Expand All</button>
-		<button onclick=setAll('inactive')>Collapse All</button>
+		<button id=toggleInputVisibility
+						onclick=toggleInputVisibility()
+						action="expand"
+		>Expand All</button>
+		<script>
+			function toggleInputVisibility()
+			{
+				var button=document.querySelector('#toggleInputVisibility')
+				if(button.getAttribute('action')=="expand")
+				{
+					setAll('active')
+					button.setAttribute('action','collapse')
+					button.innerHTML="Collapse all"
+				}
+				else
+				{
+					setAll('inactive')
+					button.setAttribute('action','expand')
+					button.innerHTML="Expand all"
+				}
+			}
+		</script>
 	</h3>
-
-	<!--input tree goes inside here-->
-	<ul id=root style="width:40%;display:inline-block;"></ul>
+	<!--inputs tree here--><ul id=root style="display:inline-block;"></ul>
 </div>
 
 <!--outputs-->
-<div>
-	<h3>Outputs</h4>
+<div class=inline style="max-width:45%">
+	<h3>All outputs</h4>
 	<table style=display:inline-block>
+		<tr><th colspan=2>Service<th>Water (m<sup>3</sup>)
 		<tr><th rowspan=4> Room
-			<td> Toilet	(TFC×TUF×G) 
-				<td formula="Room.Toilet">
-			<tr><td> Sink	(SDR×SUD×SUF×G) 
-				<td formula="Room.Sink">
-			<tr><td> Shower	(RDR×RSR×RF×G) 
-				<td formula="Room.Shower">
-			<tr><td> Bath	(BV×BP×BF×G) 
-				<td formula="Room.Bath">
+			<td title="(TFC×TUF×G)"> Toilet	<td formula="Room.Toilet">
+			<tr><td title="(SDR×SUD×SUF×G)" > Sink	<td formula="Room.Sink">
+			<tr><td title="(RDR×RSR×RF×G)" > Shower	<td formula="Room.Shower">
+			<tr><td title="(BV×BP×BF×G)" > Bath	<td formula="Room.Bath">
 
-		<tr><th>Pool<td>Pool 
+		<tr><th>Pool<td
+			title="
 			PA=630.25e^(0.0644TA )
 			PW=630.25e^(0.0644TDP )
 			Evp=A(PW-PA )(0.089+(0.0782W) )*2264
-			Pool=86.4*Evp 
-				<td formula="Pool">
+			Pool=86.4*Evp " >Pool <td formula="Pool">
 
 		<tr><th rowspan=2>Garden	
-			<td>By Area	G=A×IR 
-				<td formula="Garden.ByArea">
-			<tr><td>By Sprinklers	G=Ns×v×t 
-				<td formula="Garden.BySprinklers">
+			<td title="(G=A×IR" >By Area	<td formula="Garden.ByArea">
+			<tr><td title="(G=Ns×v×t" >By Sprinklers	<td formula="Garden.BySprinklers">
 
 		<tr><th rowspan=2>Laundry	
-			<td> By Load	M=MC×ML 
-				<td formula="Laundry.ByLoad">
-			<tr><td> By Person	M=MC×MPC×G 
-				<td formula="Room.Shower">
+			<td title="(M=MC×ML" > By Load	<td formula="Laundry.ByLoad">
+			<tr><td title="(M=MC×MPC×G)" > By Person	<td formula="Laundry.ByPerson">
 
 		<tr><th rowspan=2>Lobby	
-			<td>Toilet	T=TFC×TUF×G <td formula="Room.Shower">
-			<tr><td>Sink	S=SDR×SUD×SUF×G <td formula="Room.Shower">
+			<td title="(T=TFC×TUF×G)" >Toilet	<td formula="Lobby.Toilet">
+			<tr><td title="(S=SDR×SUD×SUF×G)" >Sink	<td formula="Lobby.Sink">
 
 		<tr><th rowspan=3>Kitchen	
-			<td>3-Sink	K=Vs×Pv×3 <td formula="Room.Shower">
-			<tr><td>Dishwasher	K=Kc×KD×D <td formula="Room.Shower">
-			<tr><td>Per-Person	K=CD×D <td formula="Room.Shower">
+			<td title="(K=Vs×Pv×3" >3-Sink	<td formula="Kitchen.ThreeSink">
+			<tr><td title="(K=Kc×KD×D)" >Dishwasher	<td formula="Kitchen.Dishwasher">
+			<tr><td title="(K=CD×D)" >Per-Person	<td formula="Kitchen.PerPerson">
 	</table>
 </div>
