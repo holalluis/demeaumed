@@ -13,7 +13,7 @@
 	function format(number)
 	{
 		var str = new Intl.NumberFormat('en-IN',{maximumFractionDigits:1}).format(number);
-		if(str=="NaN" || !isFinite(number)) return null 
+		if(str=="NaN" || !isFinite(number)) return number 
 		return str;
 	}
 </script>
