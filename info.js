@@ -13,7 +13,7 @@ var Info = {
 	guests:"Number of guests",
 	irrigationRate:"Irrigation rate (L/m2/day)",
 	loadsDayGuest:"Loads per day per guest (loads/day/person)",
-	loadsPdiner:"Loads per diner (loads/diner)",
+	loadsDayDiner:"Loads per day per diner (loads/day/diner)",
 	perc:"Average % of volume filled per use (%/use)",
 	flow:"Flow (L/min/sprinkler)",
 	tubVol:"Bathtub volume (L)",
