@@ -1,5 +1,5 @@
 /** All Inputs for Sambanet **/
-var Global =
+var Inputs =
 {
 	Services:{
 		General:{
@@ -23,7 +23,7 @@ var Global =
 			},
 			Bath:{
 				tubVol:0.2, // bathtub volume (m3)
-				perc:80,     // volume filled by bath water (%)
+				perc:0.8,     // volume filled by bath water (%)
 				freq:0.05,  // (uses/person/day)
 			},
 		},
@@ -61,7 +61,7 @@ var Global =
 				perc:0, // % volume sinks filled
 			},
 			Dishwasher:{
-				capacity:0,         // dishwasher capacity (L/load)
+				capacity:0,    // dishwasher capacity (L/load)
 				loadsPdiner:0, // loads per diner
 			},
 		},

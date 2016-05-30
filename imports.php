@@ -1,9 +1,11 @@
 <meta charset=utf-8>
 <title>SambaNet</title>
 <link rel=stylesheet href=css.css>
-<script src=global.js></script>
+
+<!--imports-->
+<script src=inputs.js></script>
 <script src=info.js></script>
-<script src=formulas.js></script>
+<script src=outputs.js></script>
 
 <!--utils-->
 <script>

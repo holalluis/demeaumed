@@ -92,7 +92,7 @@
 		function allInputs(obj,name,destiny)
 		{
 			//initial conditions
-			obj = obj || Global.Services
+			obj = obj || Inputs.Services
 			name = name || "Services"
 			destiny = destiny || document.querySelector('#root')
 
@@ -151,7 +151,7 @@
 			for(var i=0;i<cells.length;i++)
 			{
 				var formula = cells[i].getAttribute('formula')
-				formula = "Formulas."+formula+"()"
+				formula = "Outputs."+formula+"()"
 				var value = eval(formula)
 				cells[i].innerHTML=format(value)
 			}
@@ -200,7 +200,7 @@
 <div class=inline style="max-width:45%">
 	<h3>All outputs</h4>
 	<table style=display:inline-block>
-		<tr><th colspan=2>Service<th>Water (m<sup>3</sup>)
+		<tr><th colspan=2>Service<th>Water (L/day)
 		<tr><th rowspan=4> Room
 			<td title="(TFC×TUF×G)"> Toilet	<td formula="Room.Toilet">
 			<tr><td title="(SDR×SUD×SUF×G)" > Sink	<td formula="Room.Sink">
