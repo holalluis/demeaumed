@@ -3,9 +3,9 @@
 <link rel=stylesheet href=css.css>
 
 <!--imports-->
-<script src=inputs.js></script>
-<script src=info.js></script>
-<script src=outputs.js></script>
+<script src=js/inputs.js></script>
+<script src=js/info.js></script>
+<script src=js/outputs.js></script>
 
 <!--utils-->
 <script>

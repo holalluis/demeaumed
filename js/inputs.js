@@ -28,11 +28,12 @@ var Inputs =
 			},
 		},
 		Pool:{
-			area:20,    // Surface Area (m2)
-			ambTemp:22, // Ambient Temp (ºC)
-			watTemp:20, // Water Temp (ºC)
-			windVel:1,  // Wind Velocity (m/s)
-			dewPoin:20, // Dew Point (ºC)
+			ambTemp:22,     // Ambient Temp (ºC)
+			watTemp:20,     // Water Temp (ºC)
+			humid:5,        // Humidity (%)
+			area:20,        // Surface Area (m2)
+			avgDepth:1,     // Average Depth (m)
+			prcDivToFlow:3, // % Volume diverted to Flow (%/day)
 		},
 		Garden:{
 			Area:{

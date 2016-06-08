@@ -31,19 +31,27 @@ var Outputs =
 	},	
 	Pool:{
 		Evaporation:function(){
-			var TW  = Inputs.Services.Pool.watTemp // ºC
-			var TDP = Inputs.Services.Pool.dewPoin // ºC
-			var PSA = Inputs.Services.Pool.area    // m2
-			var AT  = Inputs.Services.Pool.ambTemp // ºC
-			var W   = Inputs.Services.Pool.windVel // m/s
+			var airtemp = Inputs.Services.Pool.ambTemp // ºC
+			var wtemp   = Inputs.Services.Pool.watTemp // ºC
+			var humid   = Inputs.Services.Pool.humid   // %
+			var area    = Inputs.Services.Pool.area    // m2
 
-			var PA = 630.25*Math.exp(0.0644*TW);  //Vapor pressure water
-			var PW = 630.25*Math.exp(0.0644*TDP); //Vapor pressure dp
-			var Evp = PSA*(PW-PA)*(0.089+(0.0782*W))*2264.76;
-			var P = Evp*60*60*24/1000;
-
-			return 0 //units? 
+			//First, get dew point
+			var dew = airtemp - 0.2*(100-humid);  //ºC
+			//Then, get the vapor pressures
+			var pw = 0.7198*Math.exp(0.058*wtemp);
+			var pa = 0.0323*humid+0.0953*dew-2.374;
+			//Finally caluculate evaporation assuming water density is 1kg
+			var evp = 0.0000416*area*(pw-pa)*0.8; //units?
+			var p = (evp*60*60*24)/1000; // units?
+			return p
 		},
+		Flow:function(){
+			var A = Inputs.Services.Pool.area         // m2
+			var D = Inputs.Services.Pool.avgDepth     // m
+			var P = Inputs.Services.Pool.prcDivToFlow // %/day
+			return A*D*P*1000; // L/day
+		}
 	},	
 	Garden:{
 		Area:function(){
@@ -103,6 +111,7 @@ var Outputs =
 			+this.Room.Shower()
 			+this.Room.Bath()
 			+this.Pool.Evaporation()
+			+this.Pool.Flow()
 			+this.Garden.Area()
 			+this.Garden.Sprinklers()
 			+this.Laundry()

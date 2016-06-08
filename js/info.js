@@ -1,6 +1,6 @@
 //long descriptions
 var Info = {
-	ambTemp:"Ambient Temp (ºC)",
+	ambTemp:"Ambient Temperature (ºC)",
 	amount:"Number of sprinklers",
 	area:"Area (m2)",
 	avgRate:"Average use (min/use)",
@@ -21,6 +21,8 @@ var Info = {
 	useFreq:"Use frequency (uses/person/day)",
 	sinkVol:"Total volume (L)",
 	watCons:"Water consumption (L/person/day)",
-	watTemp:"Water Temp (ºC)",
-	windVel:"Wind Velocity (m/s)",
+	watTemp:"Water Temperature (ºC)",
+	avgDepth:"Average Depth (m)",
+	prcDivToFlow:"% Volume diverted to flow (%/day)", 
+	humid:"Humidity (%)"
 }

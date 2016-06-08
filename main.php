@@ -194,7 +194,7 @@
 <!--outputs-->
 <div class=inline style="max-width:45%">
 
-	<h3>All outputs</h4><table style=display:inline-block>
+	<h3>All outputs (<a href=js/outputs.js>see equations</a>)</h4><table style=display:inline-block>
 		<tr><th colspan=2>Service<th>Water (L/day)
 
 		<tr><th rowspan=4> Room
@@ -203,8 +203,9 @@
 			<tr><td>Shower	<td formula="Room.Shower">
 			<tr><td>Bath	<td formula="Room.Bath">
 
-		<tr><th>Pool
-			<td>Evaporation <td formula="Pool.Evaporation">
+		<tr><th rowspan=2>Pool
+			    <td>Evaporation <td formula="Pool.Evaporation">
+			<tr><td>Flow <td formula="Pool.Flow">
 
 		<tr><th rowspan=2>Garden
 			    <td>Area 	   <td formula="Garden.Area">
