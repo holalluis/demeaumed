@@ -66,11 +66,13 @@ var Outputs =
 			return NS*vsp*t;                                     // L/day
 		},
 	},
-	Laundry:function(){
-		var MC  = Inputs.Services.Laundry.capacity      // L/load
-		var MPC = Inputs.Services.Laundry.loadsDayGuest // loads/day/person
-		var G   = Inputs.Services.General.guests        // person
-		return MC*MPC*G;                                // L/day
+	Laundry:{
+		Laundry:function(){
+			var MC  = Inputs.Services.Laundry.capacity      // L/load
+			var MPC = Inputs.Services.Laundry.loadsDayGuest // loads/day/person
+			var G   = Inputs.Services.General.guests        // person
+			return MC*MPC*G;                                // L/day
+		},
 	},	
 	Lobby:{
 		Toilet:function(){ 
@@ -103,7 +105,7 @@ var Outputs =
 			return KC*KD*D
 		},
 	},	
-	Total:function()
+	TOTAL:function()
 	{
 		return 0 
 			+this.Room.Toilet()
@@ -114,7 +116,7 @@ var Outputs =
 			+this.Pool.Flow()
 			+this.Garden.Area()
 			+this.Garden.Sprinklers()
-			+this.Laundry()
+			+this.Laundry.Laundry()
 			+this.Lobby.Toilet()
 			+this.Lobby.Sink()
 			+this.Kitchen.Sink()

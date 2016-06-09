@@ -2,15 +2,22 @@
 
 body{
 	overflow-y:scroll;
-	font-family:Georgia,"bitstream vera serif",Times,serif;
+	font-family: 'Open Sans',Arial,sans-serif;
+}
+
+.title {
+	padding:0.8em;
+	background:#bca;
+	height:25px;
+	font-size:20px;
+}
+
+.subtitle{
+	color:#666;
 }
 
 h3 {padding:0.25em}
 
-div{
-	margin:0 0 0.5em 0;
-	padding:0.3em;
-}
 div.container{ 
 	display:inline-block;
 }
