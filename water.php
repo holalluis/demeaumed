@@ -64,6 +64,7 @@
 		function updateValue(obj,field,newValue)
 		{
 			obj[field]=newValue
+			updateCookies()
 			allOutputs()
 		}
 

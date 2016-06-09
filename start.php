@@ -4,8 +4,20 @@
 
 <div class=title>Start: <span class=subtitle>first steps</span></div>
 
-<ol style="display:inline-block;margin:1em 1em 1em 40em">
-	<li>Calculate water consumed
-	<li>Connect hotel services for water reuse
-	<li>Display results
-</ol>
+<p id=paragraph>
+	<style>
+		#paragraph {
+			margin:1em 4em 1em 2em;
+		}
+	</style>
+	Introduction text here, Introduction text here,<br>
+	Introduction text here, Introduction text here,<br>
+	Introduction text here, Introduction text here,<br>
+	Introduction text here, Introduction text here,<br>
+	Introduction text here, Introduction text here,<br>
+	<ol>
+		<li>Calculate water consumed
+		<li>Connect hotel services for water reuse
+		<li>Display results
+	</ol>
+</p>

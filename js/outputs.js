@@ -105,21 +105,26 @@ var Outputs =
 			return KC*KD*D
 		},
 	},	
-	TOTAL:function()
+	TOTAL:function(obj)
+	//sum all functions inside OUTPUTS
 	{
-		return 0 
-			+this.Room.Toilet()
-			+this.Room.Sink()
-			+this.Room.Shower()
-			+this.Room.Bath()
-			+this.Pool.Evaporation()
-			+this.Pool.Flow()
-			+this.Garden.Area()
-			+this.Garden.Sprinklers()
-			+this.Laundry.Laundry()
-			+this.Lobby.Toilet()
-			+this.Lobby.Sink()
-			+this.Kitchen.Sink()
-			+this.Kitchen.Dishwasher()
+		obj = obj || this; //object iterated
+		var sum=0;
+		for(var field in obj)
+		{
+			//except TOTAL
+			if(field=="TOTAL")continue;
+
+			//do recursive if object
+			//sum if function
+			//else, error
+			if(typeof(obj[field])=='object')
+				sum+=this.TOTAL(obj[field])
+			else if(typeof(obj[field])=='function')
+				sum+=obj[field]()
+			else
+				return "error"
+		}
+		return sum
 	}
 }
