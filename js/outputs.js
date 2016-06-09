@@ -41,16 +41,16 @@ var Outputs =
 			//Then, get the vapor pressures
 			var pw = 0.7198*Math.exp(0.058*wtemp);
 			var pa = 0.0323*humid+0.0953*dew-2.374;
-			//Finally caluculate evaporation assuming water density is 1kg
-			var evp = 0.0000416*area*(pw-pa)*0.8; //units?
-			var p = (evp*60*60*24)/1000; // units?
+			//Finally caluculate evaporation assuming water density is 1 kg/L
+			var evp = 0.0000416*area*(pw-pa)*0.8; // L/s
+			var p = evp*60*60*24; // L/day
 			return p
 		},
 		Flow:function(){
 			var A = Inputs.Services.Pool.area         // m2
 			var D = Inputs.Services.Pool.avgDepth     // m
 			var P = Inputs.Services.Pool.prcDivToFlow // %/day
-			return A*D*P*1000; // L/day
+			return 10*A*D*P; // L/day (10 is 1000/100, to convert m3 to L and percentage to rate per 1)
 		}
 	},	
 	Garden:{
