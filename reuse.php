@@ -9,7 +9,11 @@
 				if(Connections[i].from==from && Connections[i].to==to)
 				{
 					if(tec=='--none--')
+					{
 						Connections.splice(i,1); //remove connection i if tec is --none--
+						//make the select which makes the opposite connection enabled
+						document.querySelector('select[from='+to+'][to='+from+']').removeAttribute('disabled')
+					}
 					else 
 						Connections[i].tec=tec; //else, update it
 
@@ -27,6 +31,10 @@
 			}
 			//add it to Connections
 			Connections.push(Conn)
+
+			//make the select which makes the opposite connection disabled
+			document.querySelector('select[from='+to+'][to='+from+']').setAttribute('disabled',true)
+
 			//update view and cookies
 			updateConnectionsView()
 			updateCookies();
@@ -36,6 +44,8 @@
 		{
 			var div = document.querySelector('#connections')
 			div.innerHTML=""
+			if(Connections.length==0)
+				div.innerHTML="&emsp;<i>No connections</i>"
 			for(var i in Connections)
 			{
 				//new div == connection
@@ -45,7 +55,8 @@
 				var from = Connections[i].from
 				var to = Connections[i].to
 				var tec = Connections[i].tec
-				con.innerHTML=from+" &rarr; "+tec+" &rarr; "+to
+				var n=parseInt(i)+1;
+				con.innerHTML="&emsp;"+n+". "+from+" &rarr; "+to+" (using "+tec+")"
 			}
 		}
 
@@ -56,6 +67,9 @@
 			var select = document.createElement('select')
 			//what happens if we select something
 			select.onchange=function(){newConnection(from,to,this.value)}
+
+			select.setAttribute("from",from)
+			select.setAttribute("to",to)
 
 			var Techs = [
 				"--none--",
@@ -72,10 +86,6 @@
 				option.value=Techs[i]
 			}
 
-			//check if already exists connection
-			var index=existsConnection(from,to)
-			if(index)select.value=Connections[index].tec
-
 			return select
 		}
 
@@ -84,6 +94,7 @@
 		{
 			var t = document.querySelector('#reuse')
 			while(t.rows.length>1)t.deleteRow(-1)
+			while(t.rows[0].cells.length>1)t.rows[0].deleteCell(-1)
 
 			//TO
 			for(var field in Inputs.Services)
@@ -123,6 +134,26 @@
 				}
 			}
 
+			//DISABLE opposite selects already selected
+			for(var i=1; i<t.rows.length; i++)
+			{
+				var from = t.rows[i].getAttribute('field')
+
+				for(var j=1; j<t.rows[0].cells.length; j++)
+				{
+					var to = t.rows[0].cells[j].getAttribute('field')
+
+					//check if already exists connection
+					var index=existsConnection(from,to)
+					if(index)
+					{
+						//set the option from Connections
+						document.querySelector('select[from='+from+'][to='+to+']').value=Connections[index].tec
+						//make the opposite select disabled
+						document.querySelector('select[from='+to+'][to='+from+']').setAttribute('disabled',true)
+					}
+				}
+			}
 		}
 
 		//check if connection exists, and return index
@@ -144,7 +175,9 @@
 	</script>
 
 </head><body onload=init()><!--title--><?php include'navbar.php'?>
-<!--title--><div class=title>2. Water reuse: <span class=subtitle>connect hotel services using technologies</span></div>
+<!--title--><div class=title>2. Water reuse: <span class=subtitle>connect hotel services using technologies</span>
+	<button style=float:right onclick="Connections=[];updateCookies();init()">Remove all Connections</button>
+</div>
 
 <!--reuse table--><div>
 	<table id=reuse>
