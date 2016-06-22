@@ -13,10 +13,11 @@
 
 	<h1 style="display:inline-block">SambaNet</h1>
 
-	:::<a href=start.php>Start</a> 
+	::: <a href=start.php>Start</a> 
 	&#10148; <a href="water.php">  1. Potable water</a>
 	&#10148; <a href="reuse.php">  2. Reuse</a>
 	&#10148; <a href="results.php">3. Results</a>
-	&bull; <a href="map.php">Map</a>
-
+	&bull;
+	&bull;
+	&bull;
 </div>

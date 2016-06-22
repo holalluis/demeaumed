@@ -12,7 +12,7 @@
 					{
 						Connections.splice(i,1); //remove connection i if tec is --none--
 						//make the select which makes the opposite connection enabled
-						document.querySelector('select[from='+to+'][to='+from+']').removeAttribute('disabled')
+						document.querySelector('select[from='+to+'][to='+from+']').style.display='' // or removeAttribute('disabled')
 					}
 					else 
 						Connections[i].tec=tec; //else, update it
@@ -33,7 +33,7 @@
 			Connections.push(Conn)
 
 			//make the select which makes the opposite connection disabled
-			document.querySelector('select[from='+to+'][to='+from+']').setAttribute('disabled',true)
+			document.querySelector('select[from='+to+'][to='+from+']').style.display='none' // or setAttribute('disabled',true)
 
 			//update view and cookies
 			updateConnectionsView()
@@ -76,6 +76,7 @@
 				"MBR",
 				"Tec 1",
 				"Tec 2",
+				"Tec nova",
 			];
 
 			for(var i in Techs)
@@ -150,7 +151,7 @@
 						//set the option from Connections
 						document.querySelector('select[from='+from+'][to='+to+']').value=Connections[index].tec
 						//make the opposite select disabled
-						document.querySelector('select[from='+to+'][to='+from+']').setAttribute('disabled',true)
+						document.querySelector('select[from='+to+'][to='+from+']').style.display='none' // or .setAttribute('disabled',true)
 					}
 				}
 			}

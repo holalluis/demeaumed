@@ -99,7 +99,7 @@
 			name = name || "Services"
 			destiny = destiny || document.querySelector('#inputs')
 
-			//empty root ul
+			//empty root ul the first time
 			if(name=="Services") destiny.innerHTML=""
 
 			//container <li>
@@ -120,7 +120,7 @@
 			label.onclick=function(){this.classList.toggle('active');ul.classList.toggle('invisible')}
 
 			//if not initial case
-			if(name!="Services"){
+			if(name!="Services" && name!="General"){
 				ul.classList.add('invisible');
 			}
 			else
@@ -215,11 +215,12 @@
 
 <!--menu visibility-->
 <div id=title class=title>
-	<span>1. Potable water: <span class=subtitle>calculate water consumed</span></span>
+	<span>1. Potable water: <span class=subtitle>calculate water consumed per day</span></span>
 	<div style="display:inline-block;float:right;font-size:16px">
-		Visibility options
+		Options
 		<button onclick=setAll('active')>&#9660; Expand all</button><!--
-		--><button onclick=setAll('inactive')><span id=coll>&#9660;</span> Collapse all</button>
+		--><button onclick=setAll('inactive')><span id=coll>&#9660;</span> Collapse all</button><!--
+		--><button onclick="removeCookie('Inputs');window.location.reload()">Reset all inputs to default value</button> 
 	</div>
 	<style>
 		#title button {
@@ -237,13 +238,13 @@
 	</style>
 	<!--inputs-->
 	<div class=inline style="width:49%;min-height:700px;border-right:1px solid #aaa">
-		<h3>Inputs: Enter data here</h3>
+		<h3>Inputs: data about the hotel</h3>
 		<ul id=inputs></ul>
 	</div>
 
 	<!--outputs-->
 	<div class=inline style="width:49%">
-		<h3>Outputs (L<sub>H<sub>2</sub>O</sub>/day) - <a href=js/outputs.js target=_blank>see equations</a></h4>
+		<h3>Outputs (L/day) - <a href=js/outputs.js target=_blank>see equations</a></h4>
 		<ul id=outputs></ul>
 	</div>
 </div>
