@@ -1,6 +1,7 @@
 <!doctype html><html><head><?php include'imports.php'?></head>
 
 <body><!--title--><?php include'navbar.php'?>
+hola
 
 <div class=title>Start: <span class=subtitle>first steps</span></div>
 
