@@ -1,7 +1,6 @@
 <!doctype html><html><head><?php include'imports.php'?></head>
 
 <body><!--title--><?php include'navbar.php'?>
-hola
 
 <div class=title>Start: <span class=subtitle>first steps</span></div>
 
@@ -12,9 +11,6 @@ hola
 		}
 	</style>
 	<img src=img/icra.jpg style="display:block;float:right">
-	Introduction text here, Introduction text here,<br>
-	Introduction text here, Introduction text here,<br>
-	Introduction text here, Introduction text here,<br>
 	Introduction text here, Introduction text here,<br>
 	Introduction text here, Introduction text here,<br>
 
@@ -28,8 +24,6 @@ hola
 <!--container-->
 <div class=container style="margin:1em">
 	What is SambaNet?<br>
-	Bla, bla bla, bla bla
-	Bla, bla bla, bla bla
 	Bla, bla bla, bla bla<br>
 
 	<!--left column-->
@@ -98,5 +92,4 @@ hola
 			Kitchen
 		</div>
 	</div>
-
 </div>

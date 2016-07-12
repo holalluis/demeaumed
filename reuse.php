@@ -1,51 +1,90 @@
 <!doctype html><html><head><?php include'imports.php'?>
-
-	<script>
-		function newConnection(from,to,tec) //3 strings
+	<style>
+		#newCon, #newTank, #allCon
 		{
-			//check if connection already exists
-			for(var i in Connections)
-			{
-				if(Connections[i].from==from && Connections[i].to==to)
-				{
-					if(tec=='--none--')
-					{
-						Connections.splice(i,1); //remove connection i if tec is --none--
-						//make the select which makes the opposite connection enabled
-						document.querySelector('select[from='+to+'][to='+from+']').style.display='' // or removeAttribute('disabled')
-					}
-					else 
-						Connections[i].tec=tec; //else, update it
+			padding:1em;
+			border-bottom:1px solid #ccc;
+		}
+	</style>
 
-					updateConnectionsView();
-					updateCookies();
-					return 
+<script>
+	function newConnection()
+	{
+		//inputs
+		var from = document.querySelector('#newCon #from').value;
+		var to   = document.querySelector('#newCon #to').value;
+		var tec  = document.querySelector('#newCon #using').value;
+
+		//create new object
+		var Con = {from:from,to:to,tec:tec};
+
+		//add it to Connections
+		Connections.push(Con);
+
+		init();
+	}
+
+	/** functions that update visual elements*/
+	var Views = 
+	{
+		update:function()
+		{
+			this.updateNewConMenus();
+			this.updateConList();
+		},
+		updateNewConMenus:function()
+		{
+			updateFrom();
+			updateTo();
+			updateUsing();
+
+			function updateFrom()
+			{
+				var select=document.querySelector('#newCon #from')
+				select.innerHTML=""
+				for(var service in Inputs.Services)
+				{
+					var option = document.createElement('option');
+					select.appendChild(option);
+					option.innerHTML=service
 				}
 			}
-
-			//if not exists, create new object
-			var Conn = {
-				from:from,
-				to:to,
-				tec:tec,
+			function updateTo()
+			{
+				var select=document.querySelector('#newCon #to')
+				select.innerHTML=""
+				for(var service in Inputs.Services)
+				{
+					var option = document.createElement('option');
+					select.appendChild(option);
+					option.innerHTML=service
+				}
 			}
-			//add it to Connections
-			Connections.push(Conn)
+			function updateUsing()
+			{
+				var Techs = [
+					"MBR",
+					"Tec 1",
+					"Tec 2",
+					"Tec nova",
+				];
 
-			//make the select which makes the opposite connection disabled
-			document.querySelector('select[from='+to+'][to='+from+']').style.display='none' // or setAttribute('disabled',true)
-
-			//update view and cookies
-			updateConnectionsView()
-			updateCookies();
-		}
-
-		function updateConnectionsView()
+				var select=document.querySelector('#newCon #using')
+				select.innerHTML=""
+				for(var i in Techs)
+				{
+					var option = document.createElement('option');
+					select.appendChild(option);
+					option.innerHTML=Techs[i];
+				}
+			}
+		},
+		updateConList:function()
 		{
 			var div = document.querySelector('#connections')
 			div.innerHTML=""
 			if(Connections.length==0)
-				div.innerHTML="&emsp;<i>No connections</i>"
+				div.innerHTML="<i style='color:#ccc'>~No connections</i>"
 			for(var i in Connections)
 			{
 				//new div == connection
@@ -58,150 +97,41 @@
 				var n=parseInt(i)+1;
 				con.innerHTML="&emsp;"+n+". "+from+" &rarr; "+to+" (using "+tec+")"
 			}
-		}
+		},
+	};
 
-		/* Create a menu for selecting a technology */
-		function createSelect(from,to)
-		{
-			if(from==to) return document.createElement('br')
-			var select = document.createElement('select')
-			//what happens if we select something
-			select.onchange=function(){newConnection(from,to,this.value)}
+	function init()
+	{
+		Views.update();
+		updateCookies();
+	}
+</script>
 
-			select.setAttribute("from",from)
-			select.setAttribute("to",to)
+</head><body onload=init()>
+<!--navbar--><?php include'navbar.php'?>
+<!--title--><div class=title>2. Water reuse: <span class=subtitle>connect hotel services using technologies</span></div>
 
-			var Techs = [
-				"--none--",
-				"MBR",
-				"Tec 1",
-				"Tec 2",
-				"Tec nova",
-			];
-
-			for(var i in Techs)
-			{
-				var option = document.createElement('option')
-				select.appendChild(option)
-				option.innerHTML=Techs[i]
-				option.value=Techs[i]
-			}
-
-			return select
-		}
-
-		/* Fill table reuse */
-		function reuse()
-		{
-			var t = document.querySelector('#reuse')
-			while(t.rows.length>1)t.deleteRow(-1)
-			while(t.rows[0].cells.length>1)t.rows[0].deleteCell(-1)
-
-			//TO
-			for(var field in Inputs.Services)
-			{
-				if(field=="General") continue //skip "General"
-				//append new th to row 0
-				var newCell = t.rows[0].insertCell(-1)
-				newCell.innerHTML=field
-				newCell.setAttribute('field',field)
-			}
-
-			//FROM
-			for(var field in Inputs.Services)
-			{
-				//skip "General"
-				if(field=="General") continue
-				//new row
-				var newRow = t.insertRow(-1)
-				newRow.setAttribute('field',field)
-				var newCell = newRow.insertCell(-1)
-				newCell.innerHTML=field
-			}
-
-			//SELECT TECH
-			for(var i=1; i<t.rows.length; i++)
-			{
-				var from = t.rows[i].getAttribute('field')
-
-				for(var j=1; j<t.rows[0].cells.length; j++)
-				{
-					var to = t.rows[0].cells[j].getAttribute('field')
-					var newCell = t.rows[i].insertCell(-1)
-					newCell.title="From "+from+" To "+to
-					//create new select
-					var select = createSelect(from,to)
-					newCell.appendChild(select)
-				}
-			}
-
-			//DISABLE opposite selects already selected
-			for(var i=1; i<t.rows.length; i++)
-			{
-				var from = t.rows[i].getAttribute('field')
-
-				for(var j=1; j<t.rows[0].cells.length; j++)
-				{
-					var to = t.rows[0].cells[j].getAttribute('field')
-
-					//check if already exists connection
-					var index=existsConnection(from,to)
-					if(index)
-					{
-						//set the option from Connections
-						document.querySelector('select[from='+from+'][to='+to+']').value=Connections[index].tec
-						//make the opposite select disabled
-						document.querySelector('select[from='+to+'][to='+from+']').style.display='none' // or .setAttribute('disabled',true)
-					}
-				}
-			}
-		}
-
-		//check if connection exists, and return index
-		function existsConnection(from,to)
-		{
-			for(var i in Connections)
-			{
-				if(Connections[i].from==from && Connections[i].to==to)
-					return i
-			}
-			return false
-		}
-
-		function init()
-		{
-			reuse()
-			updateConnectionsView()
-		}
-	</script>
-
-</head><body onload=init()><!--title--><?php include'navbar.php'?>
-<!--title--><div class=title>2. Water reuse: <span class=subtitle>connect hotel services using technologies</span>
-	<button style=float:right onclick="Connections=[];updateCookies();init()">Remove all Connections</button>
+<!--new connection menu-->
+<div id=newCon>
+	<h3>New connection</h4>
+	From  <select id=from>  </select>
+	&rarr; To 	  <select id=to>    </select>
+	&rarr; Using <select id=using> </select>
+	<button onclick=newConnection()>Add</button>
 </div>
 
-<!--reuse table--><div>
-	<table id=reuse>
-		<tr><td> &darr; From | To &rarr;
-	</table>
-		<style>
-			#reuse {
-				margin:1em;
-			}
-			#reuse tr:first-child,
-			#reuse tr td:first-child {
-				background:#abc;
-				color:white;
-				text-align:center;
-			}
-			#reuse tr:first-child td:first-child {
-				color:black;
-				font-weight:bold;
-			}
-		</style>
+<!--new tank menu-->
+<div id=newTank>
+	<h3>New tank</h4>
+	Name   <input id=name   placeholder="Tank name">
+	Volume <input id=volume placeholder="Volume" type=number> (L)
+	<button onclick=newTank()>Add</button>
 </div>
 
-<!--Connections--><div style="padding:1em">
-	<b>Connections</b>
+<!--connections created-->
+<div id=allCon>
+	<h3>All Connections
+		<button onclick="Connections=[];updateCookies();init()">Remove all</button>
+	</h3> 
 	<div id=connections></div>
 </div>

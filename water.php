@@ -244,7 +244,7 @@
 
 	<!--outputs-->
 	<div class=inline style="width:49%">
-		<h3>Outputs (L/day) - <a href=js/outputs.js target=_blank>see equations</a></h4>
+		<h3>Outputs (L/day) &mdash; <a href=js/outputs.js target=_blank>see equations</a></h4>
 		<ul id=outputs></ul>
 	</div>
 </div>

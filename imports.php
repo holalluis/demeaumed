@@ -3,11 +3,11 @@
 <link rel=stylesheet href=css.css>
 
 <!--imports-->
-<script src=js/cookies.js></script>
-<script src=js/inputs.js></script>
-<script src=js/info.js></script>
-<script src=js/outputs.js></script>
-<script src=js/connections.js></script>
+<script src="js/cookies.js"></script>
+<script src="js/inputs.js"></script>
+<script src="js/info.js"></script>
+<script src="js/outputs.js"></script>
+<script src="js/connections.js"></script>
 
 <!--utils-->
 <script>
