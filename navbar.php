@@ -16,8 +16,7 @@
 	::: <a href=start.php>Start</a> 
 	&#10148; <a href="water.php">  1. Potable water</a>
 	&#10148; <a href="reuse.php">  2. Reuse</a>
-	&#10148; <a href="graph.php">  3. Graph</a>
-	&#10148; <a href="results.php">4. Results</a>
+	&#10148; <a href="results.php">3. Results</a>
 	&bull;
 	&bull;
 	&bull;
