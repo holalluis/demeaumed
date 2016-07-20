@@ -9,7 +9,7 @@
 
 		#newTank input,
 		#newCon input {
-			width:80px;
+			width:65px;
 		}
 	</style>
 
@@ -186,7 +186,7 @@
 		&emsp; From   <select id=from>  </select>
 		&rarr; To 	  <select id=to>    </select>
 		&rarr; Using  <select id=using> </select>
-		&rarr; Volume <input id=vol value=0.5>
+		&rarr; Volume <input id=vol value=0.5> (%)
 		<button onclick=newConnection()>Add</button>
 	</div>
 
