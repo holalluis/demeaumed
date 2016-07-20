@@ -1,6 +1,7 @@
 <meta charset=utf-8>
 <title>SambaNet</title>
 <link rel=stylesheet href=css.css>
+<link rel="icon" href="img/favicon.ico" type="image/x-icon">
 
 <!--imports-->
 <script src="js/cookies.js"></script>

@@ -4,4 +4,7 @@
 
 <div class=title>3. Results: <span class=subtitle>water saved</span></div>
 
-<p>Results will appear here (work in progress)</p>
+<pre style=margin:1em>
+	Results will appear here (work in progress)
+	for example, summary tables
+</pre>

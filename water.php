@@ -38,6 +38,7 @@
 				background:#dadada;
 				border-radius:0.3em;
 				padding:0.2em;
+				box-shadow: 0 1px 2px rgba(0,0,0,.1);
 			}
 			label.header:hover {background:#ccc}
 			label.header:before {content:"\25b6\00a0";display:inline-block;transition:all 0.15s;font-size:15px}

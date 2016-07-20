@@ -6,6 +6,11 @@
 			border-bottom:1px solid #ccc;
 			border-right:1px solid #ccc;
 		}
+
+		#newTank input,
+		#newCon input {
+			width:80px;
+		}
 	</style>
 
 <script>
@@ -15,9 +20,15 @@
 		var from = document.querySelector('#newCon #from').value;
 		var to   = document.querySelector('#newCon #to').value;
 		var tec  = document.querySelector('#newCon #using').value;
+		var vol  = document.querySelector('#newCon #vol').value;
 
 		//create new object
-		var Con = {from:from,to:to,tec:tec};
+		var Con = {
+			from:from,
+			to:to,
+			tec:tec,
+			vol:vol,
+		};
 
 		//add it to Connections
 		Connections.push(Con);
@@ -98,6 +109,7 @@
 			function updateUsing()
 			{
 				var Techs = [
+					"none",
 					"MBR",
 					"Tec 1",
 					"Tec 2",
@@ -129,8 +141,9 @@
 				var from = Connections[i].from
 				var to = Connections[i].to
 				var tec = Connections[i].tec
+				var vol = Connections[i].vol
 				var n=parseInt(i)+1;
-				con.innerHTML="&emsp;"+n+". "+from+" &rarr; "+to+" (using "+tec+")"
+				con.innerHTML="&emsp;"+n+". "+from+" &rarr; "+to+" [using "+tec+"] [Volume: "+vol+"]"
 			}
 		},
 		updateTankList:function()
@@ -169,16 +182,17 @@
 <div class=inline style=width:50%>
 	<!--new connection menu-->
 	<div id=newCon>
-		<h3>New connection</h4>
-		&emsp; From  <select id=from>  </select>
+		<h3>+ New connection</h4>
+		&emsp; From   <select id=from>  </select>
 		&rarr; To 	  <select id=to>    </select>
-		&rarr; Using <select id=using> </select>
+		&rarr; Using  <select id=using> </select>
+		&rarr; Volume <input id=vol value=0.5>
 		<button onclick=newConnection()>Add</button>
 	</div>
 
 	<!--new tank menu-->
 	<div id=newTank>
-		<h3>New tank</h4>
+		<h3>+ New tank</h4>
 		&emsp;Name   <input id=name   placeholder="Tank name"> &emsp;
 		Volume <input id=volume placeholder="Volume" type=number value=100> (L)
 		<button onclick=newTank()>Add</button>

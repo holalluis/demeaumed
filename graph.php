@@ -1,28 +1,17 @@
 
 <!--to be included somewhere (needs imports.php)-->
 <style>
-	.links line {
-		stroke:#999;
-		stroke-opacity: 0.6;
-	}
-
-	.nodes circle {
-		stroke:#fff;
-		stroke-width: 1.5px;
-	}
-
-	.node text {
-		pointer-events: none;
-		font: 10px sans-serif;
-	}
+	.links line { stroke:#999; stroke-opacity: 0.6; }
+	.nodes circle { stroke:#fff; stroke-width: 1.5px; }
+	.node text { pointer-events: none; font: 10px sans-serif; }
 </style>
 
 <script src="https://d3js.org/d3.v4.min.js"></script>
 
-<svg width="400" height="300"></svg>
+<svg width="600" height="500"></svg>
 
 <script>
-	createGraph()
+	createGraph() //to be called on <body onload=init()>
 	function createGraph()
 	{
 		//empty element
