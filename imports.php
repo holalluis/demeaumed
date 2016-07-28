@@ -16,7 +16,7 @@
 	/** return 3.999,4 instead of 3999.4*/
 	function format(number)
 	{
-		var str = new Intl.NumberFormat('en-EN',{maximumFractionDigits:2}).format(number);
+		var str = new Intl.NumberFormat('en-EN',{maximumFractionDigits:2}).format(number)
 		if(str=="NaN" || !isFinite(number)){return number} 
 		return str
 	}

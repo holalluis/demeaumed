@@ -39,8 +39,8 @@
 	function newTank()
 	{
 		//inputs
-		var name = document.querySelector('#newTank #name').value;
-		var volume   = document.querySelector('#newTank #volume').value;
+		var name   = document.querySelector('#newTank #name').value;
+		var volume = document.querySelector('#newTank #volume').value;
 
 		//create new object
 		var tank = {name:name,volume:volume};
@@ -56,6 +56,7 @@
 	{
 		update:function()
 		{
+			//wrapper for all functions that update views
 			this.updateNewConMenus();
 			this.updateConList();
 			this.updateTankList();
@@ -132,6 +133,7 @@
 			div.innerHTML=""
 			if(Connections.length==0)
 				div.innerHTML="<i style='color:#ccc'>~No connections</i>"
+
 			for(var i in Connections)
 			{
 				//new div == connection
@@ -143,7 +145,12 @@
 				var tec = Connections[i].tec
 				var vol = Connections[i].vol
 				var n=parseInt(i)+1;
-				con.innerHTML="&emsp;"+n+". "+from+" &rarr; "+to+" [using "+tec+"] [Volume: "+vol+"]"
+				con.innerHTML="&emsp;"+n+". "+from+" &rarr; "+to+" [using "+tec+"] [Volume: "+vol+"] "
+				//button for removing the connection
+				var button = document.createElement('button')
+				con.appendChild(button)
+				button.innerHTML="X"
+				button.setAttribute('onclick','Connections.splice('+i+',1);init()')
 			}
 		},
 		updateTankList:function()
@@ -161,7 +168,12 @@
 				var name = Tanks[i].name
 				var volume = Tanks[i].volume
 				var n=parseInt(i)+1;
-				tank.innerHTML="&emsp;"+n+". "+name+" ["+volume+" L]";
+				tank.innerHTML="&emsp;"+n+". "+name+" ["+volume+" L] ";
+				//button for removing the tank
+				var button = document.createElement('button')
+				tank.appendChild(button)
+				button.innerHTML="X"
+				button.setAttribute('onclick','Tanks.splice('+i+',1);init()')
 			}
 		},
 	};
