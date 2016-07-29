@@ -11,6 +11,8 @@
 		#newCon input {
 			width:65px;
 		}
+
+		span.small {font-size:12px}
 	</style>
 
 <script>
@@ -194,7 +196,7 @@
 <div class=inline style=width:50%>
 	<!--new connection menu-->
 	<div id=newCon>
-		<h3>+ New connection</h4>
+		<h3>+ New connection <span class=small>(=connect nodes)</span></h4>
 		&emsp; From   <select id=from>  </select>
 		&rarr; To 	  <select id=to>    </select>
 		&rarr; Using  <select id=using> </select>
@@ -204,7 +206,7 @@
 
 	<!--new tank menu-->
 	<div id=newTank>
-		<h3>+ New tank</h4>
+		<h3>+ New tank <span class=small>(=new node)</span></h4>
 		&emsp;Name   <input id=name   placeholder="Tank name"> &emsp;
 		Volume <input id=volume placeholder="Volume" type=number value=100> (L)
 		<button onclick=newTank()>Add</button>

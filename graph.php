@@ -21,9 +21,9 @@
 			switch(option)
 			{
 				case "-":
-					gravetat+=20;break;
-				case "+":
 					gravetat-=20;break;
+				case "+":
+					gravetat+=20;break;
 				default:return;break;
 			}
 
@@ -94,7 +94,7 @@
 				.selectAll("line")
 				.data(json.links)
 				.enter().append("line")
-				.attr("stroke-width", function(d) { return Math.sqrt(d.value); })
+				.attr("stroke-width", function(d) { return Math.sqrt(d.value)||1; })
 
 
 			//controla distancia dels nodes
