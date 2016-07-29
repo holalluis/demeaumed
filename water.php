@@ -115,7 +115,7 @@
 			li.appendChild(label)
 			label.classList.add('header')
 			label.innerHTML=name
-			
+
 			//new <ul>
 			var ul = document.createElement('ul');
 			li.appendChild(ul);
