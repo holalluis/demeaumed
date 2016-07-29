@@ -1,0 +1,28 @@
+//long descriptions
+var Info = {
+	ambTemp:"Ambient Temperature (ºC)",
+	amount:"Number of sprinklers",
+	area:"Area (m2)",
+	avgRate:"Average use (min/use)",
+	capacity:"Capacity (L/load)",
+	dewPoin:"Dew point (ºC)",
+	diners:"Number of diners", 
+	discRate:"Discharge rate (L/min)",
+	duration:"Duration per day (min/day)",
+	flushCap:"Flush capacity (L/flush)",
+	guests:"Number of guests",
+	irrigationRate:"Irrigation rate (L/m2/day)",
+	loadsDayGuest:"Loads per day per guest (loads/day/person)",
+	loadsDayDiner:"Loads per day per diner (loads/day/diner)",
+	perc:"Average % of volume filled per use (%/use)",
+	flow:"Flow (L/min/sprinkler)",
+	tubVol:"Bathtub volume (L)",
+	useDuration:"Use duration (min/use)",
+	useFreq:"Use frequency (uses/person/day)",
+	sinkVol:"Total volume (L)",
+	watCons:"Water consumption (L/person/day)",
+	watTemp:"Water Temperature (ºC)",
+	avgDepth:"Average Depth (m)",
+	prcDivToFlow:"% Volume diverted to flow (%/day)", 
+	humid:"Humidity (%)"
+}

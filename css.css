@@ -1,0 +1,51 @@
+*{margin:0}
+
+body{
+	overflow-y:scroll;
+	font-family: 'Open Sans',Arial,sans-serif;
+}
+
+h3 {padding:0.25em 0}
+
+button {
+	box-shadow: 0 1px 2px rgba(0,0,0,.1);
+}
+
+.inline{
+	display:inline-block;
+	vertical-align:top;
+	margin-right:-5px;
+}
+
+.title {
+	padding:0.8em;
+	background:#bca;
+	height:25px;
+	font-size:20px;
+	box-shadow: 0 1px 2px rgba(0,0,0,.1);
+}
+
+.subtitle{
+	color:#666;
+}
+
+/* tables */
+	table{
+		border-collapse:collapse;
+	}
+
+	th,td{
+		border:1px solid #ccc;
+		padding:0.3em;
+	}
+
+	th,.th{
+		background:#abc;
+		color:white;
+		text-align:center;
+	}
+
+	td{
+		text-align:left;
+	}
+/**/
