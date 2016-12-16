@@ -76,10 +76,18 @@
 
 <!--column-->
 <div class=inline style="width:50%">
-	Nodes
-	<div id=nodes></div><br>
-	Connections
+	Nodes 
+	<div id=nodes></div>
+	Connections 
 	<div id=connections></div>
-</div>
 
+	<div>
+		<h1>Calcular</h1>
+		<ul>
+			<li>Cabals de cada connexió i de cada aparell, i de l'aigua residual (final)
+			<li>Calcular estalvis d'aigua reutilitzada
+			<li>Calcular concentracions dels contaminants (càrregues)
+	</div>
+
+</div>
 <!--graph--><div class=inline style="width:50%;border:1px solid #ccc;border-top:none"><?php include'graph.php'?></div>

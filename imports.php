@@ -10,6 +10,7 @@
 <script src="js/outputs.js"></script>
 <script src="js/connections.js"></script>
 <script src="js/tanks.js"></script>
+<script src="js/nodes.js"></script>
 
 <!--utils-->
 <script>

@@ -53,9 +53,8 @@
 		};
 
 		//add nodes: services and tanks
-		for(var node in Inputs.Services)
+		for(var node in Nodes)
 		{
-			if(node=="General")continue; //skip "General"
 			json.nodes.push( {name:node, group:0} )
 		}
 		for(var i in Tanks)
