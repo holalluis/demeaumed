@@ -201,7 +201,7 @@
 			var con={from:"Tap",                to:"Pool",               tec:"none", vol:"100"}; Connections.push(con);
 			var con={from:"Tap",                to:"Laundry",            tec:"none", vol:"100"}; Connections.push(con);
 			var con={from:"Tap",                to:"Garden",             tec:"none", vol:"100"}; Connections.push(con);
-			var con={from:"Room Bath",          to:"Room",               tec:"none", vol:Nodes["Room Bath"].value}; Connections.push(con);
+			var con={from:"Room Bath",          to:"Room",               tec:"none", vol:Nodes["Room Bath"].value()}; Connections.push(con);
 			var con={from:"Room Shower",        to:"Room",               tec:"none", vol:"100"}; Connections.push(con);
 			var con={from:"Room Sink",          to:"Room",               tec:"none", vol:"100"}; Connections.push(con);
 			var con={from:"Room Toilet",        to:"Room",               tec:"none", vol:"100"}; Connections.push(con);
@@ -231,7 +231,7 @@
 
 </head><body onload=init()>
 <!--navbar--><?php include'navbar.php'?>
-<!--title--><div class=title>2. Water reuse: <span class=subtitle>connect hotel services using technologies. Optional: create tanks</span></div>
+<!--title--><div class=title>2. Water reuse: <span class=subtitle>Create a network connecting hotel services using technologies. Optional: create tanks</span></div>
 
 <!--column-->
 <div class=inline style=width:50%>

@@ -1,5 +1,5 @@
+<!--figure to be included anywhere (needs imports.php)-->
 
-<!--to be included somewhere (needs imports.php)-->
 <style>
 	.links line { stroke:#999; stroke-opacity: 0.6; }
 	.nodes circle { stroke:#fff; stroke-width: 1.5px; }
@@ -10,27 +10,28 @@
 
 <svg width="600" height="500"></svg>
 
-<!--zoom-->
-	<button onclick=zoom("-")>-</button>
-	<button onclick=zoom("+")>+</button>
-	<script>
-		function zoom(option)
+<!--btns zoom-->
+<button onclick=zoom("-")>-</button>
+<button onclick=zoom("+")>+</button>
+<script>
+	function zoom(option)
+	{
+		var gravetat=parseInt(document.querySelector('svg').getAttribute('gravetat'))
+
+		switch(option)
 		{
-			var gravetat=parseInt(document.querySelector('svg').getAttribute('gravetat'))
-
-			switch(option)
-			{
-				case "-":
-					gravetat-=20;break;
-				case "+":
-					gravetat+=20;break;
-				default:return;break;
-			}
-
-			createGraph(gravetat)
+			case "-":
+				gravetat-=20;break;
+			case "+":
+				gravetat+=20;break;
+			default:return;break;
 		}
-	</script>
 
+		createGraph(gravetat)
+	}
+</script>
+
+<!--create graph-->
 <script>
 	createGraph() //to be called on <body onload=init()>
 	function createGraph(gravetat)

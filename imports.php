@@ -33,9 +33,12 @@
 	/** Read cookies and update objects **/
 	(function updateFromCookies()
 	{
-		if(getCookie('Inputs')!=null) Inputs=JSON.parse(getCookie('Inputs'))
-		if(getCookie('Connections')!=null) Connections=JSON.parse(getCookie('Connections'))
-		if(getCookie('Tanks')!=null) Tanks=JSON.parse(getCookie('Tanks'))
+		if(getCookie('Inputs')!=null) 
+			Inputs=JSON.parse(getCookie('Inputs'))
+		if(getCookie('Connections')!=null) 
+			Connections=JSON.parse(getCookie('Connections'))
+		if(getCookie('Tanks')!=null) 
+			Tanks=JSON.parse(getCookie('Tanks'))
 	})(); //execute it
 
 </script>
