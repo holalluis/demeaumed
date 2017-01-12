@@ -53,14 +53,25 @@
 			],
 		};
 
-		//add nodes: services and tanks
-		for(var node in Nodes)
+		function existsTank(tank)
 		{
-			json.nodes.push( {name:node, group:0} )
+			for(var i in Tanks)
+			{
+				if(Tanks[i].name==tank) return true
+			}
+			return false
 		}
+
+		//add nodes: services and tanks
 		for(var i in Tanks)
 		{
 			json.nodes.push( {name:Tanks[i].name, group:1} )
+		}
+		for(var node in Nodes)
+		{
+			//add only if not exists in tanks
+			if(!existsTank(node))
+				json.nodes.push( {name:node, group:0} )
 		}
 
 		//add links

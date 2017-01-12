@@ -29,16 +29,6 @@
 				//get fields
 				con.innerHTML=n+". "+node+" ("+Nodes[node].value+")";
 				n++;
-				console.log(node)
-			}
-			for(var i in Tanks)
-			{
-				//new div == node
-				var con = document.createElement('div')
-				div.appendChild(con)
-				//get fields
-				con.innerHTML=n+". "+Tanks[i].name;
-				n++
 			}
 		},
 
@@ -74,7 +64,8 @@
 </script>
 
 <script>
-	//Structure of a "Network" object
+	//Solve the Network
+	//Construct new object "Network"
 	/*
 		"Network":{
 			"Nodes":{
@@ -83,7 +74,7 @@
 				"Node C":{value:2},
 				[...]
 			},
-			"Connections":[            // [ {},{},{},... ]
+			"Connections":[
 				{
 					"from":<string>,
 					"tec":<string>,
@@ -96,33 +87,29 @@
 					"to":<string>,
 					"vol":<number>
 				},
-				[...]
+				...
 			]
 		}
 	*/
-	//construct the above structure
-	var Network = {};
-	(function(){
-		Network.Connections=Connections; //from 'js/connections.js'
-		Network.Nodes=Nodes;             //from 'js/nodes.js' but we need tanks as well ('js/tanks.js')
-		Network.Tanks=Tanks;             //they are nodes as well
-		/*
-		for(var i in Tanks)
-		{
-			var newNode = {"value":null};
-			var newName = Tanks[i].name;
-			Network.Nodes[newName]=newNode;
-		}
-		*/
-	})();
+	var Network={
+		Nodes:Nodes,             //from 'js/nodes.js'
+		Connections:Connections, //from 'js/connections.js'
+	};
+	//Add tanks from 'js/tanks.js' they are nodes as well (user-created)
+	for(var i in Tanks)
+	{
+		var name=Tanks[i].name;
+		var node={value:null};
+		if(Nodes[name]===undefined)
+			Nodes[name]=node;
+	}
 
-	//value means the sum of all outputs
 	//solving the network means finding a flow for each connection,which is a new property
 	function solveNetwork(Network)
 	{
 		//find "calculable" connections //NOW
+		//Node.value means the sum of all outputs
 	}
-
 </script>
 
 </head><body onload=init()>
@@ -131,8 +118,8 @@
 
 <!--column-->
 <div class=inline style="width:50%">
-	<div id=nodes       class=inline style="max-width:50%"></div>
-	<div id=connections class=inline style="max-width:50%"></div>
+	<div id=nodes       class=inline style="font-size:10px;max-width:50%"></div>
+	<div id=connections class=inline style="font-size:10px;max-width:50%"></div>
 
 	<div>
 		<h1>Calcular</h1>
