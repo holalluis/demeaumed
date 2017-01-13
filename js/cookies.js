@@ -1,6 +1,6 @@
 /** 
 	*
-	* RAW COOKIES FUNCTIONS 
+	* RAW COOKIE FUNCTIONS 
 	*
 	*/
 

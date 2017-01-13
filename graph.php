@@ -17,16 +17,15 @@
 	function zoom(option)
 	{
 		var gravetat=parseInt(document.querySelector('svg').getAttribute('gravetat'))
-
+		var augments=250;
 		switch(option)
 		{
 			case "-":
-				gravetat-=20;break;
+				gravetat-=augments;break;
 			case "+":
-				gravetat+=20;break;
+				gravetat+=augments;break;
 			default:return;break;
 		}
-
 		createGraph(gravetat)
 	}
 </script>
