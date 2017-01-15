@@ -8,31 +8,49 @@
 
 <script src="https://d3js.org/d3.v4.min.js"></script>
 
-<svg width="600" height="500"></svg>
-
 <!--btns zoom-->
-<button onclick=zoom("-")>-</button>
-<button onclick=zoom("+")>+</button>
-<script>
-	function zoom(option)
-	{
-		var gravetat=parseInt(document.querySelector('svg').getAttribute('gravetat'))
-		var augments=250;
-		switch(option)
-		{
-			case "-":
-				gravetat-=augments;break;
-			case "+":
-				gravetat+=augments;break;
-			default:return;break;
+<div id=graph_zoom>
+	<style>
+		#graph_zoom { 
+			padding:0.2em;
+			border-bottom:1px solid #ccc;
+			text-align:center;
 		}
-		createGraph(gravetat)
-	}
-</script>
+		#graph_zoom button { 
+			border-radius:1em;
+			padding:0.5em 2em;
+			background:#abc;
+			border:none;
+			font-size:18px
+		}
+	</style>
+	Zoom
+	&#128270; 
+	<button onclick=zoom("-")>-</button>
+	<button onclick=zoom("+")>+</button>
+	<script>
+		function zoom(option)
+		{
+			var gravetat=parseInt(document.querySelector('svg').getAttribute('gravetat'))
+			var augments=250;
+			switch(option)
+			{
+				case "-":
+					gravetat-=augments;break;
+				case "+":
+					gravetat+=augments;break;
+				default:return;break;
+			}
+			createGraph(gravetat)
+		}
+	</script>
+</div>
+
+<svg width="700" height="600"></svg>
 
 <!--create graph-->
 <script>
-	createGraph() //to be called on <body onload=init()>
+	createGraph() //called in <body onload=init()>
 	function createGraph(gravetat)
 	{
 		gravetat = Math.abs(gravetat)+0.01 || 60;
@@ -76,7 +94,24 @@
 		//add links
 		for(var i in Connections)
 		{
-			json.links.push( {source:Connections[i].from, target:Connections[i].to, value:Connections[i].vol} )
+			//count the number of links going out from node "from"
+			var n_links = (function(){
+				var n=0;
+				for(var j in Connections)
+				{
+					if(Connections[i].from==Connections[j].from) 
+						n++;
+				}
+				return n;
+			})();
+			var link_width_divisor = 350;
+			var value=(function(){
+				try{
+					return Nodes[Connections[i].from].value/link_width_divisor/n_links||1;
+				}catch(e){return 1}
+			})();
+
+			json.links.push( { source:Connections[i].from, target:Connections[i].to, value:value } )
 		}
 		
 		//draw

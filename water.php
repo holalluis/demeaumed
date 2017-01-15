@@ -219,7 +219,7 @@
 
 <!--menu visibility-->
 <div id=title class=title>
-	<span>1. Potable water: <span class=subtitle>calculate water consumed per day</span></span>
+	<span>1. Water use: <span class=subtitle>calculate water consumed per day</span></span>
 	<div style="display:inline-block;float:right;font-size:16px">
 		Options
 		<button onclick=setAll('active')>&#9660; Expand all</button><!--
@@ -234,7 +234,6 @@
 		#title button span#coll {transform:rotate(-90deg);display:inline-block;}
 	</style>
 </div>
-
 
 <div id=io>
 	<style>

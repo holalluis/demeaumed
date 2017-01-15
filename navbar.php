@@ -25,9 +25,9 @@
 	<h1 style="display:inline-block;margin-right:1em">SambaNet</h1>
 
 	         <a href="start.php">Start</a> 
-	&#10148; <a href="water.php">1. Potable water</a>
-	&#10148; <a href="reuse.php">2. Water reuse</a>
+	&#10148; <a href="water.php">1. Water use</a>
+	&#10148; <a href="reuse.php">2. Create Network</a>
 	&#10148; <a href="solveNetwork.php">3. Solve Network</a>
-	&#10148; <a href="loads.php">4. Loads</a>
+	&#10148; <a href="loads.php">4. Solve Loads</a>
 	&#10148; <a href="results.php">5. Results</a>
 </div>

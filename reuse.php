@@ -140,9 +140,9 @@
 				var from = Connections[i].from
 				var to =  Connections[i].to
 				var tec = Connections[i].tec
-				var vol = Connections[i].vol
+				var vol = Connections[i].vol //Delete
 				var n=parseInt(i)+1;
-				con.innerHTML="&emsp;"+n+". "+from+" &rarr; "+to+" [using "+tec+"] [Volume: "+vol+"] "
+				con.innerHTML="&emsp;"+n+". "+from+" &rarr; "+to+" [using "+tec+"] "
 
 				//button for removing the connection
 				var button = document.createElement('button')
@@ -223,21 +223,33 @@
 
 	function init()
 	{
+		//Add tanks from 'js/tanks.js' they are nodes as well (user-created)
+		(function(){
+			for(var i in Tanks){
+				var name=Tanks[i].name;
+				var node={value:null};
+				if(Nodes[name]===undefined)
+					Nodes[name]=node;
+			}
+		})();
+
 		Views.update();
-		createGraph(); //inside graph.php
+		createGraph(); //inside "graph.php"
 		updateCookies();
 	}
 </script>
 
 </head><body onload=init()>
 <!--navbar--><?php include'navbar.php'?>
-<!--title--><div class=title>2. Water reuse: <span class=subtitle>Create a network connecting hotel services using technologies. Optional: create tanks</span></div>
+<!--title--><div class=title>2. Create network: <span class=subtitle>Connect hotel services using technologies. Optional: create tanks</span></div>
 
 <!--column-->
 <div class=inline style=width:50%>
 	<!--Default network-->
 	<div id=defaultNet style="padding:1em 0.5em">
-		<button onclick=initialData()>Load a default network</button>
+		<button onclick=initialData() style="display:block;margin:auto;padding:1em 4em">
+		&#65843;
+		Create a default network</button>
 	</div>
 
 	<!--new connection menu-->
@@ -246,7 +258,7 @@
 		&emsp; From   <select id=from>  </select>
 		&rarr; To 	  <select id=to>    </select>
 		&rarr; Using  <select id=using> </select>
-		&rarr; Volume <input id=vol value=0.5> (%)
+		&rarr; Volume <input id=vol value=0.5 disabled> (%)
 		<button onclick=newConnection()>Add</button>
 	</div>
 

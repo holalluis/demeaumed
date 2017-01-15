@@ -18,14 +18,14 @@
 
 			if(Nodes.length==0){ div.innerHTML="<i style='color:#ccc'>~No nodes</i>";return}
 
-			div.innerHTML="<b>Nodes</b>";
+			div.innerHTML="";
 			var table=document.createElement('table');
 			div.appendChild(table);
 			
 			var newRow=table.insertRow(-1);
-			newRow.insertCell(-1).innerHTML="n";
-			newRow.insertCell(-1).innerHTML="node";
-			newRow.insertCell(-1).innerHTML="flow (L/day)";
+			newRow.insertCell(-1).innerHTML="<b>Nodes</b>";
+			newRow.insertCell(-1).innerHTML="<b>Name</b>";
+			newRow.insertCell(-1).innerHTML="<b>Flow (L/day)</b>";
 
 			var n=1;
 			for(var node in Nodes)
@@ -33,7 +33,7 @@
 				var newRow=table.insertRow(-1);
 				newRow.insertCell(-1).innerHTML=n;
 				newRow.insertCell(-1).innerHTML=node;
-				newRow.insertCell(-1).innerHTML=Nodes[node].value;
+				newRow.insertCell(-1).innerHTML=format(Nodes[node].value);
 				n++;
 			}
 		},
@@ -78,15 +78,15 @@
 
 <!--column-->
 <div class=inline style="width:50%">
-	<div id=nodes       class=inline style="font-size:10px;max-width:50%"></div>
-	<div id=connections class=inline style="font-size:10px;max-width:50%"></div>
+	<div id=nodes       class=inline style="padding:0.5em;font-size:10px;max-width:50%"></div>
+	<div id=connections class=inline style="padding:0.5em;font-size:10px;max-width:50%"></div>
 
-	<div class=inline>
-		<h1>Calcular</h1>
+	<div class=inline style=padding:0.5em>
+		<h3>TO DO</h3>
 		<ul>
-			<li>Cabals de cada connexió <b>FET</b>
+			<li>Cabals de cada connexió &mdash; <b>FET</b>
+			<li>Calcular càrregues contaminants
 			<li>Calcular estalvis d'aigua reutilitzada
-			<li>Calcular concentracions dels contaminants (càrregues)
 	</div>
 </div>
 <!--graph--><div class=inline style="width:50%;border:1px solid #ccc;border-top:none"><?php include'graph.php'?></div>
