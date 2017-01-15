@@ -22,7 +22,7 @@
 		}
 	</style>
 
-	<h1 style="display:inline-block;margin-right:1em">SambaNet</h1>
+	<h1 style="display:inline-block;margin-right:0.5em">SambaNet</h1>
 
 	         <a href="index.php">Start</a> 
 	&#10148; <a href="water.php">1. Water use</a>
