@@ -23,14 +23,13 @@
 		var from = document.querySelector('#newCon #from').value;
 		var to   = document.querySelector('#newCon #to').value;
 		var tec  = document.querySelector('#newCon #using').value;
-		var vol  = document.querySelector('#newCon #vol').value;
 
 		//create new object
 		var Con = {
 			from:from,
 			to:to,
 			tec:tec,
-			vol:vol,
+			flow:0,
 		};
 
 		//add it to Connections
@@ -140,7 +139,6 @@
 				var from = Connections[i].from
 				var to =  Connections[i].to
 				var tec = Connections[i].tec
-				var vol = Connections[i].vol //Delete
 				var n=parseInt(i)+1;
 				con.innerHTML="&emsp;"+n+". "+from+" &rarr; "+to+" [using "+tec+"] "
 
@@ -189,33 +187,33 @@
 			var tank={name:"INPUT",  volume:100};Tanks.push(tank);
 			var tank={name:"OUTPUT", volume:100};Tanks.push(tank);
 			//create new connections
-			var con={from:"INPUT",              to:"Tap",                tec:"none", vol:"100"}; Connections.push(con);
-			var con={from:"Tap",                to:"Room Bath",          tec:"none", vol:"100"}; Connections.push(con);
-			var con={from:"Tap",                to:"Room Shower",        tec:"none", vol:"100"}; Connections.push(con);
-			var con={from:"Tap",                to:"Room Sink",          tec:"none", vol:"100"}; Connections.push(con);
-			var con={from:"Tap",                to:"Room Toilet",        tec:"none", vol:"100"}; Connections.push(con);
-			var con={from:"Tap",                to:"Lobby Sink",         tec:"none", vol:"100"}; Connections.push(con);
-			var con={from:"Tap",                to:"Lobby Toilet",       tec:"none", vol:"100"}; Connections.push(con);
-			var con={from:"Tap",                to:"Kitchen Sink",       tec:"none", vol:"100"}; Connections.push(con);
-			var con={from:"Tap",                to:"Kitchen Dishwasher", tec:"none", vol:"100"}; Connections.push(con);
-			var con={from:"Tap",                to:"Pool",               tec:"none", vol:"100"}; Connections.push(con);
-			var con={from:"Tap",                to:"Laundry",            tec:"none", vol:"100"}; Connections.push(con);
-			var con={from:"Tap",                to:"Garden",             tec:"none", vol:"100"}; Connections.push(con);
-			var con={from:"Room Bath",          to:"Room",               tec:"none", vol:"100"}; Connections.push(con);
-			var con={from:"Room Shower",        to:"Room",               tec:"none", vol:"100"}; Connections.push(con);
-			var con={from:"Room Sink",          to:"Room",               tec:"none", vol:"100"}; Connections.push(con);
-			var con={from:"Room Toilet",        to:"Room",               tec:"none", vol:"100"}; Connections.push(con);
-			var con={from:"Lobby Sink",         to:"Lobby",              tec:"none", vol:"100"}; Connections.push(con);
-			var con={from:"Lobby Toilet",       to:"Lobby",              tec:"none", vol:"100"}; Connections.push(con);
-			var con={from:"Kitchen Sink",       to:"Kitchen",            tec:"none", vol:"100"}; Connections.push(con);
-			var con={from:"Kitchen Dishwasher", to:"Kitchen",            tec:"none", vol:"100"}; Connections.push(con);
-			var con={from:"Room",               to:"Sewer",              tec:"none", vol:"100"}; Connections.push(con);
-			var con={from:"Lobby",              to:"Sewer",              tec:"none", vol:"100"}; Connections.push(con);
-			var con={from:"Kitchen",            to:"Sewer",              tec:"none", vol:"100"}; Connections.push(con);
-			var con={from:"Pool",               to:"Sewer",              tec:"none", vol:"100"}; Connections.push(con);
-			var con={from:"Laundry",            to:"Sewer",              tec:"none", vol:"100"}; Connections.push(con);
-			var con={from:"Garden",             to:"Sewer",              tec:"none", vol:"100"}; Connections.push(con);
-			var con={from:"Sewer",              to:"OUTPUT",             tec:"none", vol:"100"}; Connections.push(con);
+			var con={from:"INPUT",              to:"Tap",                tec:"none", flow:0}; Connections.push(con);
+			var con={from:"Tap",                to:"Room Bath",          tec:"none", flow:0}; Connections.push(con);
+			var con={from:"Tap",                to:"Room Shower",        tec:"none", flow:0}; Connections.push(con);
+			var con={from:"Tap",                to:"Room Sink",          tec:"none", flow:0}; Connections.push(con);
+			var con={from:"Tap",                to:"Room Toilet",        tec:"none", flow:0}; Connections.push(con);
+			var con={from:"Tap",                to:"Lobby Sink",         tec:"none", flow:0}; Connections.push(con);
+			var con={from:"Tap",                to:"Lobby Toilet",       tec:"none", flow:0}; Connections.push(con);
+			var con={from:"Tap",                to:"Kitchen Sink",       tec:"none", flow:0}; Connections.push(con);
+			var con={from:"Tap",                to:"Kitchen Dishwasher", tec:"none", flow:0}; Connections.push(con);
+			var con={from:"Tap",                to:"Pool",               tec:"none", flow:0}; Connections.push(con);
+			var con={from:"Tap",                to:"Laundry",            tec:"none", flow:0}; Connections.push(con);
+			var con={from:"Tap",                to:"Garden",             tec:"none", flow:0}; Connections.push(con);
+			var con={from:"Room Bath",          to:"Room",               tec:"none", flow:0}; Connections.push(con);
+			var con={from:"Room Shower",        to:"Room",               tec:"none", flow:0}; Connections.push(con);
+			var con={from:"Room Sink",          to:"Room",               tec:"none", flow:0}; Connections.push(con);
+			var con={from:"Room Toilet",        to:"Room",               tec:"none", flow:0}; Connections.push(con);
+			var con={from:"Lobby Sink",         to:"Lobby",              tec:"none", flow:0}; Connections.push(con);
+			var con={from:"Lobby Toilet",       to:"Lobby",              tec:"none", flow:0}; Connections.push(con);
+			var con={from:"Kitchen Sink",       to:"Kitchen",            tec:"none", flow:0}; Connections.push(con);
+			var con={from:"Kitchen Dishwasher", to:"Kitchen",            tec:"none", flow:0}; Connections.push(con);
+			var con={from:"Room",               to:"Sewer",              tec:"none", flow:0}; Connections.push(con);
+			var con={from:"Lobby",              to:"Sewer",              tec:"none", flow:0}; Connections.push(con);
+			var con={from:"Kitchen",            to:"Sewer",              tec:"none", flow:0}; Connections.push(con);
+			var con={from:"Pool",               to:"Sewer",              tec:"none", flow:0}; Connections.push(con);
+			var con={from:"Laundry",            to:"Sewer",              tec:"none", flow:0}; Connections.push(con);
+			var con={from:"Garden",             to:"Sewer",              tec:"none", flow:0}; Connections.push(con);
+			var con={from:"Sewer",              to:"OUTPUT",             tec:"none", flow:0}; Connections.push(con);
 		}
 		else alert("Network must be empty");
 		init();
@@ -258,7 +256,6 @@
 		&emsp; From   <select id=from>  </select>
 		&rarr; To 	  <select id=to>    </select>
 		&rarr; Using  <select id=using> </select>
-		&rarr; Volume <input id=vol value=0.5 disabled> (%)
 		<button onclick=newConnection()>Add</button>
 	</div>
 

@@ -2,7 +2,6 @@
 <title>SambaNet</title>
 <link rel=stylesheet href=css.css>
 <link rel="icon" href="img/favicon.ico" type="image/x-icon">
-
 <!--imports-->
 <script src="js/cookies.js"></script>
 <script src="js/inputs.js"></script>
@@ -10,7 +9,6 @@
 <script src="js/outputs.js"></script>
 <script src="js/connections.js"></script>
 <script src="js/tanks.js"></script>
-
 <!--utils-->
 <script>
 	/** return 3.999,4 instead of 3999.4*/
@@ -39,8 +37,6 @@
 		if(getCookie('Tanks')!=null) 
 			Tanks=JSON.parse(getCookie('Tanks'))
 	})(); //execute it
-
 </script>
-
 <!--update nodes after cookies-->
 <script src="js/nodes.js"></script>

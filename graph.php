@@ -1,13 +1,5 @@
 <!--figure to be included anywhere (needs imports.php)-->
-
-<style>
-	.links line { stroke:#999; stroke-opacity: 0.6; }
-	.nodes circle { stroke:#fff; stroke-width: 1.5px; }
-	.node text { pointer-events: none; font: 10px sans-serif; }
-</style>
-
 <script src="https://d3js.org/d3.v4.min.js"></script>
-
 <!--btns zoom-->
 <div id=graph_zoom>
 	<style>
@@ -21,8 +13,10 @@
 			padding:0.5em 2em;
 			background:#abc;
 			border:none;
-			font-size:18px
+			font-size:18px;
+			outline:none;
 		}
+		#graph_zoom button:hover {background:#bca}
 	</style>
 	Zoom
 	&#128270; 
@@ -32,7 +26,7 @@
 		function zoom(option)
 		{
 			var gravetat=parseInt(document.querySelector('svg').getAttribute('gravetat'))
-			var augments=250;
+			var augments=750;
 			switch(option)
 			{
 				case "-":
@@ -45,8 +39,13 @@
 		}
 	</script>
 </div>
-
+<!--main svg-->
 <svg width="700" height="600"></svg>
+<style>
+	.links line { stroke:#999; stroke-opacity: 0.6; }
+	.nodes circle { stroke:#fff; stroke-width: 1.5px; }
+	.node text { pointer-events: none; font: 10px sans-serif; }
+</style>
 
 <!--create graph-->
 <script>
@@ -58,8 +57,7 @@
 		//empty element
 		document.querySelector('svg').innerHTML="";
 
-		var json = 
-		{ 
+		var json = { 
 			nodes: [
 				// {"name": "Napoleon", "group": 1},
 				// {"name": "Myriel",   "group": 1},
@@ -92,66 +90,43 @@
 		}
 
 		//add links
+		//find max flow
+		var max_flow = Connections.map(function(con){return con.flow}).reduce(function(max,item){if(item>max){max=item};return max},0)
 		for(var i in Connections)
 		{
-			//count the number of links going out from node "from"
-			var n_links = (function(){
-				var n=0;
-				for(var j in Connections)
-				{
-					if(Connections[i].from==Connections[j].from) 
-						n++;
-				}
-				return n;
-			})();
-			var link_width_divisor = 350;
-			var value=(function(){
-				try{
-					return Nodes[Connections[i].from].value/link_width_divisor/n_links||1;
-				}catch(e){return 1}
-			})();
-
+			var divisor=max_flow/300;
+			var value=Connections[i].flow/divisor||1;
 			json.links.push( { source:Connections[i].from, target:Connections[i].to, value:value } )
 		}
 		
 		//draw
 		dibuixa(json,gravetat);
-
 		function dibuixa(json,gravetat) 
 		{
 			gravetat = gravetat || 60;
-
 			var svg = d3.select("svg"),
 			width   = +svg.attr("width"),
 			height  = +svg.attr("height");
-
 			document.querySelector('svg').setAttribute('gravetat',gravetat)
-
 			var color = d3.scaleOrdinal(d3.schemeCategory20);
-
 			var simulation = d3.forceSimulation()
 				.force("link", d3.forceLink().id(function(d){return d.name}))
 				.force("charge",d3.forceManyBody())
 				.force("center",d3.forceCenter(width/2,height/2))
-
 			var link = svg.append("g")
 				.attr("class", "links")
 				.selectAll("line")
 				.data(json.links)
 				.enter().append("line")
 				.attr("stroke-width", function(d) { return Math.sqrt(d.value)||1; })
-
-
 			//controla distancia dels nodes
 			simulation.force('charge',d3.forceManyBody().strength(function(){return -1*gravetat}))
-
 			var node = svg.append("g")
 				.attr("class","nodes")
 				.selectAll("node")
 				.data(json.nodes)
 				.enter().append("g")
 				.attr("class", "node")
-
 			node.append("circle")
 				.attr("r", 7)
 				.attr("fill", function(d) { return color(d.group); })
@@ -159,19 +134,15 @@
 					.on("start", dragstarted)
 					.on("drag", dragged)
 					.on("end", dragended));
-
 			node.append("text")
 				.attr("dx", 12)
 				.attr("dy", ".35em")
 				.text(function(d) { return d.name; });
-
 			simulation
 				.nodes(json.nodes)
 				.on("tick", ticked);
-
 			simulation.force("link")
 				.links(json.links);
-
 			function ticked(){
 				link
 					.attr("x1", function(d) {return d.source.x;})
@@ -185,18 +156,15 @@
 					.attr("x", function(d) {return d.x;})
 					.attr("y", function(d) {return d.y;});
 			}
-
 			function dragstarted(d) {
 				if (!d3.event.active) simulation.alphaTarget(0.3).restart();
 					d.fx = d.x;
 					d.fy = d.y;
 			}
-
 			function dragged(d) {
 				d.fx = d3.event.x;
 				d.fy = d3.event.y;
 			}
-
 			function dragended(d) {
 				if (!d3.event.active) simulation.alphaTarget(0);
 				d.fx = null;
