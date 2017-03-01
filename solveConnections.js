@@ -12,7 +12,10 @@ for(var i in Connections)
 	var from=Connections[i].from;
 	if(getOutputs(from).length==1)
 	{
-		Connections[i].flow=Nodes[from].value;
+		if(Connections[i].flow==0)
+		{
+			Connections[i].flow=Nodes[from].value;
+		}
 	}
 }
 
@@ -23,7 +26,7 @@ for(var i in Connections)
 for(var i in Connections)
 {
 	var to=Connections[i].to;
-	if(getInputs(to).length==1)
+	if(getInputs(to).length==1 && Connections[i].flow==0)
 	{
 		for(var j in Connections)
 		{

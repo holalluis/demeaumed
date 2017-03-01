@@ -1,5 +1,5 @@
 /* Table of mg/use		*/
-var Carrega = {
+var Loads = {
 	"Room Toilet":{
 		SST:1377.2,
 		PO4:73.0286,

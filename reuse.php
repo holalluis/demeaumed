@@ -246,7 +246,6 @@
 	<!--Default network-->
 	<div id=defaultNet style="padding:1em 0.5em">
 		<button onclick=initialData() style="display:block;margin:auto;padding:1em 4em">
-		&#65843;
 		Create a default network</button>
 	</div>
 
