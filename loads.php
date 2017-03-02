@@ -33,7 +33,7 @@
 				var newRow=table.insertRow(-1)
 				for(var contaminant in Loads[node].contaminants)
 				{
-					newRow.insertCell(-1).innerHTML="<b>"+contaminant+"</b>";
+					newRow.insertCell(-1).outerHTML="<td style=background:orange><b>"+contaminant+"</b></td>";
 				}
 				break;
 			}
@@ -59,12 +59,16 @@
 		{
 			var table=document.querySelector('#concentrations');
 
-			//add headers for contaminants
+			//add flow header
+			var newRow=table.insertRow(-1);
+			newRow.insertCell(-1).outerHTML="<th rowspan=2 colspan=3>Connection</th>";
+			newRow.insertCell(-1).outerHTML="<th rowspan=2>Flow (L/day)</th>"
+			newRow.insertCell(-1).outerHTML="<th colspan=11>Concentration (mg/L)</th>"
+			//add contaminant headers
+			var newRow=table.insertRow(-1);
 			for(var node in Loads) {
-				var newRow=table.insertRow(-1)
-				newRow.insertCell(-1).outerHTML="<th colspan=3>Connection</th>";
 				for(var contaminant in Loads[node].contaminants) {
-					newRow.insertCell(-1).outerHTML="<th><b>"+contaminant+"</b></th>";
+					newRow.insertCell(-1).outerHTML="<td style=background:orange><b>"+contaminant+"</b></td>";
 				}
 				break;
 			}
@@ -73,10 +77,16 @@
 			{
 				var from = Connections[i].from;
 				var to = Connections[i].to;
+				var flow = Connections[i].flow;
+
+				//connection
 				var newRow=table.insertRow(-1);
-				newRow.insertCell(-1).innerHTML=from;
+				newRow.insertCell(-1).outerHTML="<td style=text-align:right>"+from+"</td>";
 				newRow.insertCell(-1).innerHTML="&rarr;"
 				newRow.insertCell(-1).innerHTML=to;
+
+				//flow
+				newRow.insertCell(-1).innerHTML=flow;
 			}
 		}
 	</script>

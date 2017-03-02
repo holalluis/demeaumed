@@ -38,6 +38,9 @@
 			createGraph(gravetat)
 		}
 	</script>
+
+	<!--full-screen-btn-->
+	<button onclick=window.location='fullScreen.php' style=float:right>[ ]</button>
 </div>
 <!--main svg-->
 <svg width="700" height="600"></svg>
