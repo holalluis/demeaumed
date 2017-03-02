@@ -61,8 +61,8 @@ var Inputs =
 				useFreq:0.5, // uses/day/person
 			},
 			Dishwasher:{
-				capacity:0,      // dishwasher capacity (L/load)
-				loadsDayDiner:0, // loads per day per diner (loads/day/diner)
+				capacity:0,      //dishwasher capacity (L/load)
+				loadsDayDiner:0, //loads per day per diner(loads/day/diner)
 			},
 		},
 	},

@@ -4,19 +4,15 @@ body{
 	overflow-y:scroll;
 	font-family: 'Open Sans',Arial,sans-serif;
 }
-
 h3 {padding:0.25em 0}
-
 button {
 	box-shadow: 0 1px 2px rgba(0,0,0,.1);
 }
-
 .inline{
 	display:inline-block;
 	vertical-align:top;
 	margin-right:-5px;
 }
-
 .title {
 	padding:0.8em;
 	background:#bca;
@@ -24,12 +20,9 @@ button {
 	font-size:20px;
 	box-shadow: 0 1px 2px rgba(0,0,0,.1);
 }
+.subtitle{ color:#666; }
 
-.subtitle{
-	color:#666;
-}
-
-/* tables */
+/*tables*/
 	table{
 		border-collapse:collapse;
 	}
@@ -49,3 +42,41 @@ button {
 		text-align:left;
 	}
 /**/
+
+/*cards*/
+	.card {
+		background:white;
+		border-radius:0em;
+		border:1px solid #ccc;
+		opacity:0.98;
+		overflow:auto;
+		border:1px solid #ccc;
+		box-shadow: 0 1px 2px rgba(0,0,0,.1);
+		margin:0.2em 0.1em;
+	}
+	.card.folded{
+		max-height:3.0em;
+		overflow:hidden;
+		font-size:10px;
+	}
+	.card.folded > *:nth-child(n+2) {opacity:0;}
+	.card .menu {
+		text-align:left;
+		opacity:1;
+		background:#f6f6f6;
+		cursor:pointer;
+		font-size:12px;
+	}
+	.card.folded .menu{color:#777;}
+	.card .menu button {
+		padding:0.3em;
+		height:2.3em;
+		margin-left:-1px;
+		margin-top:-1px;
+		border-radius:0;
+		width:20px;
+		display:inline-block;
+	}
+	.card        .menu button:before {content:"-"}
+	.card.folded .menu button:before {content:"+"}
+/*end cards*/

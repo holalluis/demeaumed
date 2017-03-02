@@ -59,6 +59,14 @@
 		createGraph() //inside graph.php
 		updateCookies()
 	}
+
+	//recalculate the flows for current network
+	function recalculateFlows()
+	{
+		Connections.forEach(function(con){con.flow=0})
+		updateCookies()
+		window.location.reload()
+	}
 </script>
 <!--network solving-->
 <script src="solveNodes.js"></script><!--this solves nodes outputs-->
@@ -68,6 +76,12 @@
 <!--title--><div class=title>3. Solve network: <span class=subtitle>Find flows</span></div>
 <!--column-->
 <div class=inline style="width:50%">
+	<div style=padding:0.5em;text-align:center>
+	<button 
+		onclick=recalculateFlows() 
+		style="display:inline-block;margin:auto;padding:1em 4em"
+		>Recalculate Flows</button>
+	</div>
 	<div id=nodes       class=inline style="padding:0.5em;font-size:10px;max-width:50%"></div>
 	<div id=connections class=inline style="padding:0.5em;font-size:10px;max-width:50%"></div>
 </div>

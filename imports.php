@@ -9,7 +9,9 @@
 <script src="js/outputs.js"></script>
 <script src="js/connections.js"></script>
 <script src="js/tanks.js"></script>
-<!--utils-->
+<!--php utils-->
+<?php include'utils.php'?>
+<!--js utils-->
 <script>
 	/** return 3.999,4 instead of 3999.4*/
 	function format(number)

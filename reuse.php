@@ -244,9 +244,15 @@
 <!--column-->
 <div class=inline style=width:50%>
 	<!--Default network-->
-	<div id=defaultNet style="padding:1em 0.5em">
-		<button onclick=initialData() style="display:block;margin:auto;padding:1em 4em">
-		Create a default network</button>
+	<div id=defaultNet style="padding:1em 0.5em;text-align:center">
+		<button 
+			onclick=initialData() 
+			style="display:inline-block;margin:auto;padding:1em 4em"
+			>Create a default network</button>
+		<button 
+			onclick="Connections=[];Tanks=[];updateCookies();init()"
+			style="display:inline-block;margin:auto;padding:1em 4em"
+			>Clear network</button>
 	</div>
 
 	<!--new connection menu-->
