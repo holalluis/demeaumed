@@ -92,6 +92,7 @@
 	</script>
 	<style>
 		body {background:#ddd}
+		#navbar a[page=loads]{background:orange;color:black}
 	</style>
 </head><body onload=init()>
 <!--navbar--><?php include'navbar.php'?>

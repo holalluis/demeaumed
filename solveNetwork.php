@@ -1,5 +1,9 @@
 <!doctype html><html><head>
 <?php include'imports.php'?>
+<style>
+	#navbar a[page=solveNetwork]{background:orange;color:black}
+	#nodes button {font-size:10px}
+</style>
 <script>
 	/** update visual elements */
 	var Views= {
@@ -16,15 +20,15 @@
 			var table=document.createElement('table');
 			div.appendChild(table);
 			var newRow=table.insertRow(-1);
-			newRow.insertCell(-1).innerHTML="<b>Nodes</b>";
-			newRow.insertCell(-1).innerHTML="<b>Name</b>";
+			newRow.insertCell(-1).innerHTML="<b>Node</b>";
 			newRow.insertCell(-1).innerHTML="<b>Output (L/day)</b>";
+			newRow.insertCell(-1).innerHTML="<b>See</b>";
 			var n=1;
 			for(var node in Nodes) {
 				var newRow=table.insertRow(-1);
-				newRow.insertCell(-1).innerHTML=n;
 				newRow.insertCell(-1).innerHTML=node;
 				newRow.insertCell(-1).innerHTML=format(Nodes[node].value);
+				newRow.insertCell(-1).innerHTML="<button onmouseenter=\"see('"+node+"')\" onmouseout=unsee()>see</button>";;
 				n++;
 			}
 		},
@@ -38,7 +42,7 @@
 				div.appendChild(table);
 				//header
 				var newRow=table.insertRow(-1);
-				newRow.insertCell(-1).innerHTML="<b>Connection</b>";
+				newRow.insertCell(-1).outerHTML="<td colspan=3><b>Connection</b></td>";
 				newRow.insertCell(-1).innerHTML="<b>Flow (L/day)</b>";
 				//body
 				for(var i in Connections)
@@ -47,12 +51,38 @@
 					var to = Connections[i].to;
 					var flow = Connections[i].flow;
 					var newRow=table.insertRow(-1);
-					newRow.insertCell(-1).innerHTML=from+" &rarr; "+to;
-					newRow.insertCell(-1).innerHTML=flow;
+					newRow.setAttribute('from',from);
+					newRow.setAttribute('to',to);
+					newRow.insertCell(-1).innerHTML=from;
+					newRow.insertCell(-1).innerHTML="&rarr;";
+					newRow.insertCell(-1).innerHTML=to;
+					newRow.insertCell(-1).outerHTML="<td title='"+flow+"'>"+format(flow)+"</td>";
 				}
 			}
 		},
 	};
+
+	function see(node)
+	{
+		var froms=document.querySelectorAll('div#connections tr[from="'+node+'"]');
+		var tos=document.querySelectorAll('div#connections tr[to="'+node+'"]');
+		for(var i=0;i<froms.length;i++)
+		{
+			froms[i].style.background="#abc";
+		}
+		for(var i=0;i<tos.length;i++)
+		{
+			tos[i].style.background="#bca";
+		}
+	}
+	function unsee()
+	{
+		var list=document.querySelectorAll('div#connections tr');
+		for(var i=0;i<list.length;i++)
+		{
+			list[i].style.background="";
+		}
+	}
 
 	function init() {
 		Views.update()
@@ -77,10 +107,10 @@
 <!--column-->
 <div class=inline style="width:50%">
 	<div style=padding:0.5em;text-align:center>
-	<button 
-		onclick=recalculateFlows() 
-		style="display:inline-block;margin:auto;padding:1em 4em"
-		>Recalculate Flows</button>
+		<button 
+			onclick=recalculateFlows() 
+			style="display:inline-block;margin:auto;padding:1em 4em"
+			>Recalculate Flows</button>
 	</div>
 	<div id=nodes       class=inline style="padding:0.5em;font-size:10px;max-width:50%"></div>
 	<div id=connections class=inline style="padding:0.5em;font-size:10px;max-width:50%"></div>

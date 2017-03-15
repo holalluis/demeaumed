@@ -147,7 +147,7 @@ function calculate(node)
 
 	//end step: set the value
 	Nodes[node].value=value;
-	console.log(node+" flow calculated ("+value+")");
+	console.log("  "+node+" flow calculated ("+value+")");
 }
 
 //get the number of non calculable nodes to see if we are improving each calc iteration

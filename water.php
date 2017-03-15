@@ -47,6 +47,9 @@
 
 		/** description labels*/
 			label.description {display:inline-block;width:200px}
+
+		/*navbar*/
+			#navbar a[page=water]{background:orange;color:black;}
 	</style>
 
 	<script>
@@ -230,6 +233,10 @@
 		#title button {
 			margin-left:0.5em;
 			padding:0.5em;
+			color:rgba(0,0,0,0.65);
+		}
+		#title button:hover {
+			color:rgba(0,0,0,0.85);
 		}
 		#title button span#coll {transform:rotate(-90deg);display:inline-block;}
 	</style>

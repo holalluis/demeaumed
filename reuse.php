@@ -14,6 +14,8 @@
 			overflow-y:auto;
 		}
 		span.small {font-size:12px}
+
+		#navbar a[page=reuse]{background:orange;color:black;}
 	</style>
 
 <script>
@@ -260,7 +262,7 @@
 		<h3>+ New connection <span class=small>(=connect nodes)</span></h4>
 		&emsp; From   <select id=from>  </select>
 		&rarr; To 	  <select id=to>    </select>
-		&rarr; Using  <select id=using> </select>
+		&rarr; Technology  <select id=using> </select>
 		<button onclick=newConnection()>Add</button>
 	</div>
 

@@ -40,10 +40,10 @@
 	</script>
 
 	<!--full-screen-btn-->
-	<button onclick=window.location='fullScreen.php' style=float:right>[ ]</button>
+	<button onclick=window.location='fullScreen.php' style=float:right>full screen</button>
 </div>
 <!--main svg-->
-<svg width="700" height="600"></svg>
+<svg id=main width="700" height="600"></svg>
 <style>
 	.links line { stroke:#999; stroke-opacity: 0.6; }
 	.nodes circle { stroke:#fff; stroke-width: 1.5px; }
