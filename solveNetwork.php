@@ -104,6 +104,7 @@
 </head><body onload=init()>
 <!--navbar--><?php include'navbar.php'?>
 <!--title--><div class=title>3. Solve network: <span class=subtitle>Find flows</span></div>
+
 <!--column-->
 <div class=inline style="width:50%">
 	<div style=padding:0.5em;text-align:center>
@@ -112,6 +113,20 @@
 			style="display:inline-block;margin:auto;padding:1em 4em"
 			>Recalculate Flows</button>
 	</div>
+
+	<ul>
+		<li>
+			Note: Pool evaporation (
+				<script>
+					document.write(format(Outputs.Pool.Evaporation()))
+				</script>
+			L/day) is not accounted (discuss)
+		</li>
+		<li>
+			Connection Loops still not implemented
+		</li>
+	</ul>
+
 	<div id=nodes       class=inline style="padding:0.5em;font-size:10px;max-width:50%"></div>
 	<div id=connections class=inline style="padding:0.5em;font-size:10px;max-width:50%"></div>
 </div>

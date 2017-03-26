@@ -108,22 +108,25 @@ var Outputs =
 	TOTAL:function(obj)
 	//sum all functions inside OUTPUTS
 	{
-		obj = obj || this; //object iterated
+		obj = obj || this; //object iterated. this (Outputs) by default
 		var sum=0;
 		for(var field in obj)
 		{
 			//except TOTAL
 			if(field=="TOTAL")continue;
 
-			//do recursive if object
-			//sum if function
-			//else, error
+			//if object: recursive call
+			//if function: sum
+			//else: error
 			if(typeof(obj[field])=='object')
 				sum+=this.TOTAL(obj[field])
 			else if(typeof(obj[field])=='function')
 				sum+=obj[field]()
 			else
+			{
+				alert('error in Outputs.TOTAL function');
 				return "error"
+			}
 		}
 		return sum
 	}

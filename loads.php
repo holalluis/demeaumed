@@ -1,13 +1,17 @@
-<!doctype html><html><head><?php include'imports.php'?>
+<!doctype html><html><head>
+	<?php include'imports.php'?>
 	<script src=js/loads.js></script>
+
+	<!--perform concentration calculations for each connection-->
+	<script src=calcLoads.js></script>
+
 	<script>
-		function init()
-		{
+		function init() {
 			drawLoadTable();
 			drawConcTable();
 		}
-		function drawLoadTable()
-		{
+
+		function drawLoadTable() {
 			var table=document.querySelector('#loads');
 			var newRow=table.insertRow(-1);
 
@@ -50,28 +54,39 @@
 				for(var contaminant in Loads[node].contaminants)
 				{
 					//mg/use
-					newRow.insertCell(-1).innerHTML=Loads[node].contaminants[contaminant];
+					newRow.insertCell(-1).innerHTML=format(
+						Loads[node].contaminants[contaminant]
+					);
 				}
 			}
 			//add uses
 		}
-		function drawConcTable()
-		{
-			var table=document.querySelector('#concentrations');
+
+		function drawConcTable() {
+			var table=document.querySelector('#connections');
+
+			//get array of contaminants (strings)
+			var contaminants=[];
+			for(var node in Loads) {
+				for(var contaminant in Loads[node].contaminants) {
+					contaminants.push(contaminant);
+				}
+				break;
+			}
 
 			//add flow header
 			var newRow=table.insertRow(-1);
 			newRow.insertCell(-1).outerHTML="<th rowspan=2 colspan=3>Connection</th>";
 			newRow.insertCell(-1).outerHTML="<th rowspan=2>Flow (L/day)</th>"
-			newRow.insertCell(-1).outerHTML="<th colspan=11>Concentration (mg/L)</th>"
+			newRow.insertCell(-1).outerHTML="<th colspan=11>Loads (mg/day)</th>"
+
 			//add contaminant headers
 			var newRow=table.insertRow(-1);
-			for(var node in Loads) {
-				for(var contaminant in Loads[node].contaminants) {
-					newRow.insertCell(-1).outerHTML="<td style=background:orange><b>"+contaminant+"</b></td>";
-				}
-				break;
-			}
+			contaminants.forEach(function(contaminant)
+			{
+				newRow.insertCell(-1).outerHTML="<td style=background:orange><b>"+contaminant+"</b></td>";
+			})
+
 			//add connections
 			for(var i in Connections)
 			{
@@ -81,18 +96,40 @@
 
 				//connection
 				var newRow=table.insertRow(-1);
-				newRow.insertCell(-1).outerHTML="<td style=text-align:right>"+from+"</td>";
+				newRow.insertCell(-1).innerHTML=from;
 				newRow.insertCell(-1).innerHTML="&rarr;"
-				newRow.insertCell(-1).innerHTML=to;
+				newRow.insertCell(-1).outerHTML="<td style=text-align:left>"+to+"</td>";
 
 				//flow
-				newRow.insertCell(-1).innerHTML=flow;
+				newRow.insertCell(-1).innerHTML=format(flow);
+
+				//add contaminants
+				for(var j in contaminants){
+					var load = format(Connections[i].contaminants[contaminants[j]]);
+					var newCell=newRow.insertCell(-1);
+					newCell.innerHTML=load;
+					//newCell.innerHTML = load=="0" ? "" : load;
+				}
 			}
 		}
 	</script>
+
 	<style>
 		body {background:#ddd}
 		#navbar a[page=loads]{background:orange;color:black}
+		#loads, #connections {
+			margin:0.3em auto;
+		}
+		#loads {
+			font-size:10px
+		}
+		#connections {
+			font-size:11px;
+			margin-bottom:2em;
+		}
+		#connections td {
+			text-align:right;
+		}
 	</style>
 </head><body onload=init()>
 <!--navbar--><?php include'navbar.php'?>
@@ -101,23 +138,11 @@
 <div class=title>4. Solve Loads: <span class=subtitle>Contaminants</span></div>
 
 <!--table for loads (mg/use)-->
-<div class="card"><?php cardMenu('Loads')?>
+<div class="card folded"><?php cardMenu('Loads per service (mg/use)')?>
 	<table id=loads></table>
-		<style>
-			#loads {
-				margin:0.2em auto;
-				font-size:10px
-			}
-		</style>
 </div>
 
 <!--table of loads per connection-->
-<div class="card"><?php cardMenu('Concentration (mg/L) for each contaminant')?>
-	<table id=concentrations></table>
-		<style>
-			#concentrations {
-				margin:0.2em auto;
-				font-size:10px
-			}
-		</style>
+<div class="card"><?php cardMenu('Loads per connection (mg/day)')?>
+	<table id=connections></table>
 </div>

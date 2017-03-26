@@ -10,5 +10,5 @@
 
 <pre style=margin:1em>
 	Results will appear here (work in progress)
-	for example, summary tables
+	summary tables
 </pre>

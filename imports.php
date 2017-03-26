@@ -20,6 +20,29 @@
 		if(str=="NaN" || !isFinite(number)){return number} 
 		return str
 	}
+
+	/*for network solving functions*/
+	//get a string array of nodes connected to node:<string>
+	function getInputs(node){ 
+		var nodes=[];
+		for(var i in Connections){
+			if(node==Connections[i].to){
+				nodes.push(Connections[i].from);
+			}
+		}
+		return nodes; //string array
+	}
+	//get a string array of nodes connected to node:<string>
+	function getOutputs(node){ 
+		var nodes=[];
+		for(var i in Connections){
+			if(node==Connections[i].from){
+				nodes.push(Connections[i].to);
+			}
+		}
+		return nodes; //string array
+	}
+	/*for network solving functions*/
 	
 	/** Set cookies **/
 	function updateCookies()

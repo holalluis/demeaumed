@@ -1,14 +1,17 @@
-//Solve the Network
-//means finding a flow for each connection or node
-//Construct new object "Network"
-//Format:
-//Nodes={"name":{value:<number>},}
-//Connections=[{from:<string>,to:<string>,tec:<string>,flow:<number>},]
+/*
+  Solve the Network
+  means finding a flow for each connection or node
+  Construct new object "Network"
+  Format:
+  Nodes={"name":{value:<number>},}
+  Connections=[{from:<string>,to:<string>,tec:<string>,flow:<number>},]
+*/
 
 var Network={
 	Nodes:Nodes,             //from 'js/nodes.js'
 	Connections:Connections, //from 'js/connections.js'
 };
+
 //Add tanks from 'js/tanks.js' they are nodes as well (user-created)
 (function(){
 	for(var i in Tanks){
@@ -20,28 +23,6 @@ var Network={
 		}
 	}
 })();
-
-//get a string array of nodes connected to node:<string>
-function getInputs(node){ 
-	var nodes=[];
-	for(var i in Connections){
-		if(node==Connections[i].to){
-			nodes.push(Connections[i].from);
-		}
-	}
-	return nodes; //string array
-}
-
-//get a string array of nodes connected to node:<string>
-function getOutputs(node){ 
-	var nodes=[];
-	for(var i in Connections){
-		if(node==Connections[i].from){
-			nodes.push(Connections[i].to);
-		}
-	}
-	return nodes; //string array
-}
 
 //bool: is the node calculable (node:<string>)
 function isCalculable(node) {
@@ -186,7 +167,7 @@ function getNonCalcNodes()
 		}
 		if(nci==nonCalcNodes)
 		{
-			console.log("ERROR! We are not solving new nodes. Network probably contains loops!");
+			alert("ERROR! We are not solving new nodes. Network probably contains loops!");
 			return;
 		}
 		nonCalcNodes=nci;
