@@ -11,8 +11,19 @@
 			drawConcTable();
 		}
 
+		var method="load";
+
+		function toggleConcLoad()
+		{
+			//modify global variable
+			if(method=="load") method="conc"; else method="load";
+			init()
+		}
+
 		function drawLoadTable() {
 			var table=document.querySelector('#loads');
+			table.innerHTML="";
+
 			var newRow=table.insertRow(-1);
 
 			/*headers*/
@@ -64,6 +75,7 @@
 
 		function drawConcTable() {
 			var table=document.querySelector('#connections');
+			table.innerHTML="";
 
 			//get array of contaminants (strings)
 			var contaminants=[];
@@ -78,7 +90,11 @@
 			var newRow=table.insertRow(-1);
 			newRow.insertCell(-1).outerHTML="<th rowspan=2 colspan=3>Connection</th>";
 			newRow.insertCell(-1).outerHTML="<th rowspan=2>Flow (L/day)</th>"
-			newRow.insertCell(-1).outerHTML="<th colspan=11>Loads (mg/day)</th>"
+
+			if(method=="load")
+				newRow.insertCell(-1).outerHTML="<th colspan=11>Loads (mg/day)</th>"
+			else if(method=="conc")
+				newRow.insertCell(-1).outerHTML="<th colspan=11>Loads (mg/L)</th>"
 
 			//add contaminant headers
 			var newRow=table.insertRow(-1);
@@ -107,8 +123,19 @@
 				for(var j in contaminants){
 					var load = format(Connections[i].contaminants[contaminants[j]]);
 					var newCell=newRow.insertCell(-1);
-					newCell.innerHTML=load;
-					//newCell.innerHTML = load=="0" ? "" : load;
+					if(method=="load")
+					{
+						newCell.innerHTML=load;
+					}else if(method=="conc")
+					{
+						var loa = Connections[i].contaminants[contaminants[j]];
+						var vol = Connections[i].flow;
+						var con = vol==0 ? 0 : format(loa/vol);
+						newCell.innerHTML=con;
+					}
+					else
+						alert("error in method")
+
 				}
 			}
 		}
@@ -144,5 +171,8 @@
 
 <!--table of loads per connection-->
 <div class="card"><?php cardMenu('Loads per connection (mg/day)')?>
+	<div style=text-align:center>
+		<button onclick=toggleConcLoad() style="margin:0.5em">Change to Concentration<->Load</button>
+	</div>
 	<table id=connections></table>
 </div>
