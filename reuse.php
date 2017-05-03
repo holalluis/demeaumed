@@ -224,7 +224,7 @@
 			style="display:inline-block;margin:auto;padding:1em 4em"
 			>Create a default network</button>
 		<button 
-			onclick="Connections=[];Tanks=[];updateCookies();init()"
+			onclick="Connections=[];Tanks=[];Nodes={};init();window.location.reload()"
 			style="display:inline-block;margin:auto;padding:1em 4em"
 			>Clear network</button>
 	</div>
@@ -257,7 +257,7 @@
 	<!--connections created-->
 	<div id=allTanks>
 		<h3>All Tanks
-			<button onclick="Tanks=[];">Remove all</button>
+			<button onclick="Nodes={};Tanks=[];init();">Remove all</button>
 		</h3> 
 		<div id=tanks></div>
 	</div>

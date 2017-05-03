@@ -10,6 +10,9 @@
 <script src="js/connections.js"></script>
 <script src="js/tanks.js"></script>
 
+<!--dev-->
+<script src="balancMateria.js"></script>
+
 <!--php utils--><?php include'utils.php'?>
 
 <!--js utils-->

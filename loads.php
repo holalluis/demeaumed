@@ -172,7 +172,7 @@
 <!--table of loads per connection-->
 <div class="card"><?php cardMenu('Loads per connection (mg/day)')?>
 	<div style=text-align:center>
-		<button onclick=toggleConcLoad() style="margin:0.5em">Change to Concentration<->Load</button>
+		<button onclick=toggleConcLoad() style="margin:0.5em">Concentration <-> Load</button>
 	</div>
 	<table id=connections></table>
 </div>

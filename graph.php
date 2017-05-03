@@ -52,9 +52,10 @@
 
 <!--create graph-->
 <script>
-	createGraph() //called in <body onload=init()>
-	function createGraph(gravetat)
-	{
+	//called in <body onload=init()>
+	createGraph() 
+
+	function createGraph(gravetat) {
 		gravetat = Math.abs(gravetat)+0.01 || 60;
 
 		//empty element
@@ -94,9 +95,8 @@
 
 		//add links
 		//find max flow
-		var max_flow = Connections.map(function(con){return con.flow}).reduce(function(max,item){if(item>max){max=item};return max},0)
-		for(var i in Connections)
-		{
+		var max_flow = Connections.map(function(con){return con.flow}).reduce(function(max,item){if(item>max){max=item};return max},0) // O_O
+		for(var i in Connections) {
 			var divisor=max_flow/300;
 			var value=Connections[i].flow/divisor||1;
 			json.links.push( { source:Connections[i].from, target:Connections[i].to, value:value } )
@@ -104,8 +104,8 @@
 		
 		//draw
 		dibuixa(json,gravetat);
-		function dibuixa(json,gravetat) 
-		{
+
+		function dibuixa(json,gravetat) {
 			gravetat = gravetat || 60;
 			var svg = d3.select("svg"),
 			width   = +svg.attr("width"),
@@ -122,8 +122,10 @@
 				.data(json.links)
 				.enter().append("line")
 				.attr("stroke-width", function(d) { return Math.sqrt(d.value)||1; })
+
 			//controla distancia dels nodes
 			simulation.force('charge',d3.forceManyBody().strength(function(){return -1*gravetat}))
+
 			var node = svg.append("g")
 				.attr("class","nodes")
 				.selectAll("node")
@@ -145,13 +147,14 @@
 				.nodes(json.nodes)
 				.on("tick", ticked);
 			simulation.force("link")
-				.links(json.links);
+				.links(json.links)
+
 			function ticked(){
 				link
 					.attr("x1", function(d) {return d.source.x;})
 					.attr("y1", function(d) {return d.source.y;})
 					.attr("x2", function(d) {return d.target.x;})
-					.attr("y2", function(d) {return d.target.y;});
+					.attr("y2", function(d) {return d.target.y;})
 				node.selectAll('circle')
 					.attr("cx", function(d) {return d.x;})
 					.attr("cy", function(d) {return d.y;});
