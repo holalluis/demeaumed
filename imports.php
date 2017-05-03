@@ -9,8 +9,9 @@
 <script src="js/outputs.js"></script>
 <script src="js/connections.js"></script>
 <script src="js/tanks.js"></script>
-<!--php utils-->
-<?php include'utils.php'?>
+
+<!--php utils--><?php include'utils.php'?>
+
 <!--js utils-->
 <script>
 	/** return 3.999,4 instead of 3999.4*/
@@ -61,7 +62,8 @@
 			Connections=JSON.parse(getCookie('Connections'))
 		if(getCookie('Tanks')!=null) 
 			Tanks=JSON.parse(getCookie('Tanks'))
-	})(); //execute it
+	})();//execute it
 </script>
+
 <!--update nodes after cookies-->
 <script src="js/nodes.js"></script>

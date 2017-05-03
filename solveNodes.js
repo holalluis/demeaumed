@@ -1,10 +1,9 @@
 /*
-  Solve the Network
-  means finding a flow for each connection or node
-  Construct new object "Network"
-  Format:
-  Nodes={"name":{value:<number>},}
-  Connections=[{from:<string>,to:<string>,tec:<string>,flow:<number>},]
+	Solving the Network
+	means finding a flow for each node
+	Format:
+	Nodes={"name":{value:<number>},}
+	Connections=[{from:<string>,to:<string>,tec:<string>,flow:<number>},]
 */
 
 var Network={
@@ -17,8 +16,7 @@ var Network={
 	for(var i in Tanks){
 		var name=Tanks[i].name;
 		var node={value:null};
-		if(Nodes[name]===undefined)
-		{
+		if(Nodes[name]===undefined) {
 			Nodes[name]=node;
 		}
 	}
@@ -31,11 +29,9 @@ function isCalculable(node) {
 	//1. check if all inputs have a value
 	var allInputs=true;
 	var inputs=getInputs(node);
-	for(var i in inputs) 
-	{
+	for(var i in inputs) {
 		var input=inputs[i];
-		if(Nodes[input].value===null) 
-		{
+		if(Nodes[input].value===null) {
 			allInputs=false;
 			break;
 		}
@@ -55,7 +51,8 @@ function isCalculable(node) {
 		}
 	}
 	if(allOutputs) return true;
-	//if we reach here, node is not calculable
+
+	//if we are here, node is not calculable
 	return false;
 }
 
@@ -67,10 +64,8 @@ function causeOfCalc(node) {
 	//check inputs, and no need to check outputs because it's calculable
 	var cause_inputs=true;
 	var inputs=getInputs(node);
-	for(var i in inputs)
-	{
-		if(Nodes[inputs[i]].value===null)
-		{
+	for(var i in inputs) {
+		if(Nodes[inputs[i]].value===null) {
 			cause_inputs=false;
 			break;
 		}
@@ -83,8 +78,7 @@ function causeOfCalc(node) {
 
 //find the flow through the node (property "value" from the node object)
 //node:<string>
-function calculate(node) 
-{
+function calculate(node) {
 	//make sure node has a null value
 	if(Nodes[node].value!=null) {console.log('Warning! Attempted to calculate an already calculated node');return}
 
@@ -98,28 +92,25 @@ function calculate(node)
 	var cause=causeOfCalc(node); 
 	if(!cause){console.log('error, node is not calculable');return;}
 
-	if(cause=="inputs")
-	{
+	if(cause=="inputs") {
 		//find all inputs and flows
 		var inputs=getInputs(node); //array of strings
 
 		//input flows
-		for(var i in inputs)
-		{
+		for(var i in inputs) {
 			var input=inputs[i];//string
 			var input_outputs=getOutputs(input).length;//int
+			//TODO instead weight each input!
 			var input_flow=Nodes[input].value/input_outputs;
 			value+=input_flow;
 		}
 	}
-	if(cause=="outputs")
-	{
+	if(cause=="outputs") {
 		//find all outputs
 		var outputs=getOutputs(node); //array of strings
 
 		//the flow will be sum of the values of the output nodes
-		for(var i in outputs)
-		{
+		for(var i in outputs) {
 			var output=outputs[i];//string
 			var output_flow=Nodes[output].value;
 			value+=output_flow;
@@ -132,17 +123,17 @@ function calculate(node)
 }
 
 //get the number of non calculable nodes to see if we are improving each calc iteration
-function getNonCalcNodes() 
-{
+function getNonCalcNodes() {
 	var n=0;
 	for(var node in Nodes) if(!isCalculable(node)) n++;
 	return n;
 }
 
 //---------------------------------------------------------
-//main function that solves the network
+//main function solving the network
 (function test(){
 	var nonCalcNodes=Infinity;//initial value that we have to get to 0
+
 	//infinte loop for solving network
 	while(true)
 	{
@@ -170,6 +161,6 @@ function getNonCalcNodes()
 			alert("ERROR! We are not solving new nodes. Network probably contains loops!");
 			return;
 		}
-		nonCalcNodes=nci;
+		nonCalcNodes=nci;//update nonCalcNodes
 	}
 })();

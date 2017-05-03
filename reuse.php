@@ -1,26 +1,39 @@
 <!doctype html><html><head><?php include'imports.php'?>
-	<style>
-		#defaultNet, #newCon, #newTank, #allCon, #allTanks
-		{
-			padding:0.5em;
-			border-bottom:1px solid #ccc;
-			border-right:1px solid #ccc;
-			font-size:11px;
-		}
-		#newCon, #newTank { background:#eee; }
-		#newTank input, #newCon input { width:65px; }
-		#allCon, #allTanks {
-			max-height:200px;
-			overflow-y:auto;
-		}
-		span.small {font-size:12px}
-
-		#navbar a[page=reuse]{background:orange;color:black;}
-	</style>
+<style>
+	div#defaultNet, #newCon, #newTank, #allCon, #allTanks
+	{
+		padding:0.5em;
+		border-bottom:1px solid #ccc;
+		border-right:1px solid #ccc;
+		font-size:11px;
+	}
+	#newCon, #newTank { background:#eee; }
+	#newTank input, #newCon input { width:65px; }
+	#allCon, #allTanks {
+		max-height:200px;
+		overflow-y:auto;
+	}
+	span.small {font-size:12px}
+	div#navbar a[page=reuse]{background:orange;color:black;}
+</style>
 
 <script>
-	function newConnection()
-	{
+	function init() {
+		//Add tanks (stored in cookies) from 'js/tanks.js' they are nodes as well (user-created)
+		(function(){
+			for(var i in Tanks){
+				var name=Tanks[i].name;
+				var node={value:null};
+				if(Nodes[name]===undefined)
+					Nodes[name]=node;
+			}
+		})();
+		Views.update();
+		createGraph(); //inside "graph.php"
+		updateCookies();
+	}
+
+	function newConnection() {
 		//inputs
 		var from = document.querySelector('#newCon #from').value;
 		var to   = document.querySelector('#newCon #to').value;
@@ -40,8 +53,7 @@
 		init();
 	}
 
-	function newTank()
-	{
+	function newTank() {
 		//inputs
 		var name   = document.querySelector('#newTank #name').value;
 		var volume = document.querySelector('#newTank #volume').value;
@@ -55,58 +67,84 @@
 		init();
 	}
 
+	//default network 1
+	function initialData() {
+		if(Tanks.length==0 && Connections.length==0) {
+			//create new tanks
+			Tanks.push({name:"Tap" ,   volume:100});
+			Tanks.push({name:"Room" ,  volume:100});
+			Tanks.push({name:"Lobby",  volume:100});
+			Tanks.push({name:"Kitchen",volume:100});
+			Tanks.push({name:"Sewer",  volume:100});
+			Tanks.push({name:"INPUT",  volume:100});
+			Tanks.push({name:"OUTPUT", volume:100});
+			//create new connections
+			Connections.push({from:"INPUT",              to:"Tap",                tec:"none", flow:0});
+			Connections.push({from:"Tap",                to:"Room Bath",          tec:"none", flow:0});
+			Connections.push({from:"Tap",                to:"Room Shower",        tec:"none", flow:0});
+			Connections.push({from:"Tap",                to:"Room Sink",          tec:"none", flow:0});
+			Connections.push({from:"Tap",                to:"Room Toilet",        tec:"none", flow:0});
+			Connections.push({from:"Tap",                to:"Lobby Sink",         tec:"none", flow:0});
+			Connections.push({from:"Tap",                to:"Lobby Toilet",       tec:"none", flow:0});
+			Connections.push({from:"Tap",                to:"Kitchen Sink",       tec:"none", flow:0});
+			Connections.push({from:"Tap",                to:"Kitchen Dishwasher", tec:"none", flow:0});
+			Connections.push({from:"Tap",                to:"Pool",               tec:"none", flow:0});
+			Connections.push({from:"Tap",                to:"Laundry",            tec:"none", flow:0});
+			Connections.push({from:"Tap",                to:"Garden",             tec:"none", flow:0});
+			Connections.push({from:"Room Bath",          to:"Room",               tec:"none", flow:0});
+			Connections.push({from:"Room Shower",        to:"Room",               tec:"none", flow:0});
+			Connections.push({from:"Room Sink",          to:"Room",               tec:"none", flow:0});
+			Connections.push({from:"Room Toilet",        to:"Room",               tec:"none", flow:0});
+			Connections.push({from:"Lobby Sink",         to:"Lobby",              tec:"none", flow:0});
+			Connections.push({from:"Lobby Toilet",       to:"Lobby",              tec:"none", flow:0});
+			Connections.push({from:"Kitchen Sink",       to:"Kitchen",            tec:"none", flow:0});
+			Connections.push({from:"Kitchen Dishwasher", to:"Kitchen",            tec:"none", flow:0});
+			Connections.push({from:"Room",               to:"Sewer",              tec:"none", flow:0});
+			Connections.push({from:"Lobby",              to:"Sewer",              tec:"none", flow:0});
+			Connections.push({from:"Kitchen",            to:"Sewer",              tec:"none", flow:0});
+			Connections.push({from:"Pool",               to:"Sewer",              tec:"none", flow:0});
+			Connections.push({from:"Laundry",            to:"Sewer",              tec:"none", flow:0});
+			Connections.push({from:"Garden",             to:"Sewer",              tec:"none", flow:0});
+			Connections.push({from:"Sewer",              to:"OUTPUT",             tec:"none", flow:0});
+		}
+		else alert("Network must be empty");
+		init();
+	}
+</script>
+
+<script>
 	/** functions that update visual elements*/
-	var Views = 
-	{
-		update:function()
-		{
+	var Views = {
+		update:function() {
 			//wrapper for all functions that update views
 			this.updateNewConMenus();
 			this.updateConList();
 			this.updateTankList();
 		},
-		updateNewConMenus:function()
-		{
+		updateNewConMenus:function() {
 			updateFrom();
 			updateTo();
 			updateUsing();
 
-			function updateFrom()
-			{
+			function updateFrom() {
 				var select=document.querySelector('#newCon #from')
 				select.innerHTML=""
-				for(var node in Nodes)
-				{
+				for(var node in Nodes) {
 					var option=document.createElement('option');
 					option.innerHTML=node;
 					select.appendChild(option);
 				}
-				for(var i in Tanks)
-				{
-					var option=document.createElement('option');
-					option.innerHTML=Tanks[i].name;
-					select.appendChild(option);
-				}
 			}
-			function updateTo()
-			{
+			function updateTo() {
 				var select=document.querySelector('#newCon #to')
 				select.innerHTML=""
-				for(var node in Nodes)
-				{
+				for(var node in Nodes) {
 					var option = document.createElement('option');
 					select.appendChild(option);
 					option.innerHTML=node
 				}
-				for(var i in Tanks)
-				{
-					var option = document.createElement('option');
-					select.appendChild(option);
-					option.innerHTML=Tanks[i].name
-				}
 			}
-			function updateUsing()
-			{
+			function updateUsing() {
 				var Techs = [
 					"none",
 					"MBR",
@@ -117,23 +155,20 @@
 
 				var select=document.querySelector('#newCon #using')
 				select.innerHTML=""
-				for(var i in Techs)
-				{
+				for(var i in Techs) {
 					var option = document.createElement('option');
 					select.appendChild(option);
 					option.innerHTML=Techs[i];
 				}
 			}
 		},
-		updateConList:function()
-		{
+		updateConList:function() {
 			var div = document.querySelector('#connections')
 			div.innerHTML=""
-			if(Connections.length==0)
+			if(Connections.length==0) {
 				div.innerHTML="<i style='color:#ccc'>~No connections</i>"
-
-			for(var i in Connections)
-			{
+			}
+			for(var i in Connections) {
 				//new div == connection
 				var con = document.createElement('div')
 				div.appendChild(con)
@@ -151,14 +186,13 @@
 				button.setAttribute('onclick','Connections.splice('+i+',1);init()')
 			}
 		},
-		updateTankList:function()
-		{
+		updateTankList:function() {
 			var div = document.querySelector('#tanks')
 			div.innerHTML=""
-			if(Tanks.length==0)
+			if(Tanks.length==0) {
 				div.innerHTML="<i style='color:#ccc'>~No tanks</i>"
-			for(var i in Tanks)
-			{
+			}
+			for(var i in Tanks) {
 				//new div == tank
 				var tank = document.createElement('div')
 				div.appendChild(tank)
@@ -175,68 +209,6 @@
 			}
 		},
 	};
-
-	function initialData()
-	{
-		if(Tanks.length==0 && Connections.length==0)
-		{
-			//create new tanks
-			var tank={name:"Tap" ,   volume:100};Tanks.push(tank);
-			var tank={name:"Room" ,  volume:100};Tanks.push(tank);
-			var tank={name:"Lobby",  volume:100};Tanks.push(tank);
-			var tank={name:"Kitchen",volume:100};Tanks.push(tank);
-			var tank={name:"Sewer",  volume:100};Tanks.push(tank);
-			var tank={name:"INPUT",  volume:100};Tanks.push(tank);
-			var tank={name:"OUTPUT", volume:100};Tanks.push(tank);
-			//create new connections
-			var con={from:"INPUT",              to:"Tap",                tec:"none", flow:0}; Connections.push(con);
-			var con={from:"Tap",                to:"Room Bath",          tec:"none", flow:0}; Connections.push(con);
-			var con={from:"Tap",                to:"Room Shower",        tec:"none", flow:0}; Connections.push(con);
-			var con={from:"Tap",                to:"Room Sink",          tec:"none", flow:0}; Connections.push(con);
-			var con={from:"Tap",                to:"Room Toilet",        tec:"none", flow:0}; Connections.push(con);
-			var con={from:"Tap",                to:"Lobby Sink",         tec:"none", flow:0}; Connections.push(con);
-			var con={from:"Tap",                to:"Lobby Toilet",       tec:"none", flow:0}; Connections.push(con);
-			var con={from:"Tap",                to:"Kitchen Sink",       tec:"none", flow:0}; Connections.push(con);
-			var con={from:"Tap",                to:"Kitchen Dishwasher", tec:"none", flow:0}; Connections.push(con);
-			var con={from:"Tap",                to:"Pool",               tec:"none", flow:0}; Connections.push(con);
-			var con={from:"Tap",                to:"Laundry",            tec:"none", flow:0}; Connections.push(con);
-			var con={from:"Tap",                to:"Garden",             tec:"none", flow:0}; Connections.push(con);
-			var con={from:"Room Bath",          to:"Room",               tec:"none", flow:0}; Connections.push(con);
-			var con={from:"Room Shower",        to:"Room",               tec:"none", flow:0}; Connections.push(con);
-			var con={from:"Room Sink",          to:"Room",               tec:"none", flow:0}; Connections.push(con);
-			var con={from:"Room Toilet",        to:"Room",               tec:"none", flow:0}; Connections.push(con);
-			var con={from:"Lobby Sink",         to:"Lobby",              tec:"none", flow:0}; Connections.push(con);
-			var con={from:"Lobby Toilet",       to:"Lobby",              tec:"none", flow:0}; Connections.push(con);
-			var con={from:"Kitchen Sink",       to:"Kitchen",            tec:"none", flow:0}; Connections.push(con);
-			var con={from:"Kitchen Dishwasher", to:"Kitchen",            tec:"none", flow:0}; Connections.push(con);
-			var con={from:"Room",               to:"Sewer",              tec:"none", flow:0}; Connections.push(con);
-			var con={from:"Lobby",              to:"Sewer",              tec:"none", flow:0}; Connections.push(con);
-			var con={from:"Kitchen",            to:"Sewer",              tec:"none", flow:0}; Connections.push(con);
-			var con={from:"Pool",               to:"Sewer",              tec:"none", flow:0}; Connections.push(con);
-			var con={from:"Laundry",            to:"Sewer",              tec:"none", flow:0}; Connections.push(con);
-			var con={from:"Garden",             to:"Sewer",              tec:"none", flow:0}; Connections.push(con);
-			var con={from:"Sewer",              to:"OUTPUT",             tec:"none", flow:0}; Connections.push(con);
-		}
-		else alert("Network must be empty");
-		init();
-	}
-
-	function init()
-	{
-		//Add tanks from 'js/tanks.js' they are nodes as well (user-created)
-		(function(){
-			for(var i in Tanks){
-				var name=Tanks[i].name;
-				var node={value:null};
-				if(Nodes[name]===undefined)
-					Nodes[name]=node;
-			}
-		})();
-
-		Views.update();
-		createGraph(); //inside "graph.php"
-		updateCookies();
-	}
 </script>
 
 </head><body onload=init()>
@@ -277,7 +249,7 @@
 	<!--connections created-->
 	<div id=allCon>
 		<h3>All Connections
-			<button onclick="Connections=[];updateCookies();init()">Remove all</button>
+			<button onclick="Connections=[];init()">Remove all</button>
 		</h3> 
 		<div id=connections></div>
 	</div>
@@ -285,7 +257,7 @@
 	<!--connections created-->
 	<div id=allTanks>
 		<h3>All Tanks
-			<button onclick="Tanks=[];updateCookies();init()">Remove all</button>
+			<button onclick="Tanks=[];">Remove all</button>
 		</h3> 
 		<div id=tanks></div>
 	</div>

@@ -4,6 +4,43 @@
 	#navbar a[page=solveNetwork]{background:orange;color:black}
 	#nodes button {font-size:10px}
 </style>
+
+<script>
+	function init() {
+		Views.update()
+		createGraph() //inside graph.php
+		updateCookies()
+	}
+
+	function see(node) {
+		var froms=document.querySelectorAll('div#connections tr[from="'+node+'"]');
+		var tos=document.querySelectorAll('div#connections tr[to="'+node+'"]');
+		for(var i=0;i<froms.length;i++)
+		{
+			froms[i].style.background="#abc";
+		}
+		for(var i=0;i<tos.length;i++)
+		{
+			tos[i].style.background="#bca";
+		}
+	}
+	function unsee() {
+		var list=document.querySelectorAll('div#connections tr');
+		for(var i=0;i<list.length;i++)
+		{
+			list[i].style.background="";
+		}
+	}
+
+	//recalculate the flows for current network
+	function recalculateFlows() {
+		//reset flows
+		Connections.forEach(function(con){con.flow=0})
+		updateCookies()
+		window.location.reload()
+	}
+</script>
+
 <script>
 	/** update visual elements */
 	var Views= {
@@ -61,46 +98,13 @@
 			}
 		},
 	};
-
-	function see(node)
-	{
-		var froms=document.querySelectorAll('div#connections tr[from="'+node+'"]');
-		var tos=document.querySelectorAll('div#connections tr[to="'+node+'"]');
-		for(var i=0;i<froms.length;i++)
-		{
-			froms[i].style.background="#abc";
-		}
-		for(var i=0;i<tos.length;i++)
-		{
-			tos[i].style.background="#bca";
-		}
-	}
-	function unsee()
-	{
-		var list=document.querySelectorAll('div#connections tr');
-		for(var i=0;i<list.length;i++)
-		{
-			list[i].style.background="";
-		}
-	}
-
-	function init() {
-		Views.update()
-		createGraph() //inside graph.php
-		updateCookies()
-	}
-
-	//recalculate the flows for current network
-	function recalculateFlows()
-	{
-		Connections.forEach(function(con){con.flow=0})
-		updateCookies()
-		window.location.reload()
-	}
 </script>
+
 <!--network solving-->
-<script src="solveNodes.js"></script><!--this solves nodes outputs-->
-<script src="solveConnections.js"></script><!--this solves connection flows-->
+<script src="solveNodes.js"></script><!--solve nodes outputs ('value' property)-->
+<script src="solveConnections.js"></script><!--solve connection flows ('flow' property)-->
+<!--network solving-->
+
 </head><body onload=init()>
 <!--navbar--><?php include'navbar.php'?>
 <!--title--><div class=title>3. Solve network: <span class=subtitle>Find flows</span></div>
@@ -130,4 +134,8 @@
 	<div id=nodes       class=inline style="padding:0.5em;font-size:10px;max-width:50%"></div>
 	<div id=connections class=inline style="padding:0.5em;font-size:10px;max-width:50%"></div>
 </div>
-<!--graph--><div class=inline style="width:50%;border:1px solid #ccc;border-top:none"><?php include'graph.php'?></div>
+
+<!--graph-->
+<div class=inline style="width:50%;border:1px solid #ccc;border-top:none">
+	<?php include'graph.php'?>
+</div>

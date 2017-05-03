@@ -11,8 +11,7 @@
 			drawConcTable();
 		}
 
-		var method="load";
-
+		var method="load"; //default. toggle view "loads" or "conc"
 		function toggleConcLoad()
 		{
 			//modify global variable
@@ -159,6 +158,7 @@
 		}
 	</style>
 </head><body onload=init()>
+
 <!--navbar--><?php include'navbar.php'?>
 
 <!--title-->
