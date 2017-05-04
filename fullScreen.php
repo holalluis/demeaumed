@@ -15,6 +15,7 @@
 		svg.setAttribute('height','800');
 		svg.style.border='1px solid black';
 		svg.style.borderTop='none';
+		createGraph();
 	}
 </script>
 
@@ -22,4 +23,4 @@
 
 <!--navbar--><?php include'navbar.php'?>
 
-<!--graph--> <div style="text-align:center;border:1px solid #ccc"> <?php include'graph.php'?> </div>
+<!--graph--> <div style="text-align:center;border:1px solid #ccc"> <?php include'graph2.php'?> </div>

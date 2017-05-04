@@ -263,4 +263,6 @@
 	</div>
 </div>
 
-<!--graph--> <div class=inline style="width:50%;border:1px solid #ccc;border-top:none"> <?php include'graph.php'?> </div>
+<!--graph--> <div class=inline style="width:50%;border:1px solid #ccc;border-top:none"> 
+	<?php include'graph2.php'?> 
+</div>

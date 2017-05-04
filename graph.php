@@ -42,13 +42,20 @@
 	<!--full-screen-btn-->
 	<button onclick=window.location='fullScreen.php' style=float:right>full screen</button>
 </div>
-<!--main svg-->
-<svg id=main width="700" height="600"></svg>
 <style>
 	.links line { stroke:#999; stroke-opacity: 0.6; }
 	.nodes circle { stroke:#fff; stroke-width: 1.5px; }
 	.node text { pointer-events: none; font: 10px sans-serif; }
+
+	.arrow{
+		stroke-width:5;
+		stroke:#000;
+		stroke-dasharray:5, 5;
+	}
 </style>
+
+<!--main svg-->
+<svg id=main width="700" height="600"></svg>
 
 <!--create graph-->
 <script>
@@ -56,66 +63,49 @@
 	createGraph() 
 
 	function createGraph(gravetat) {
+
 		gravetat = Math.abs(gravetat)+0.01 || 60;
 
 		//empty element
 		document.querySelector('svg').innerHTML="";
 
-		var json = { 
-			nodes: [
-				// {"name": "Napoleon", "group": 1},
-				// {"name": "Myriel",   "group": 1},
-			],
-			links: [
-				// {"source": "Napoleon", "target": "Myriel", "value": 1},
-				// {"source": "Myriel",  "target": "Myriel", "value": 8},
-			],
-		};
-
-		function existsTank(tank)
-		{
-			for(var i in Tanks)
-			{
-				if(Tanks[i].name==tank) return true
-			}
-			return false
-		}
-
-		//add nodes: services and tanks
-		for(var i in Tanks)
-		{
-			json.nodes.push( {name:Tanks[i].name, group:1} )
-		}
-		for(var node in Nodes)
-		{
+		//load data
+			var json = { 
+				nodes: [
+					// {"name": "Napoleon", "group": 1},
+				],
+				links: [
+					// {"source": "Napoleon", "target": "Myriel", "value": 1},
+				],
+			};
+			function existsTank(tank) { for(var i in Tanks) { if(Tanks[i].name==tank) return true } return false }
+			//add nodes: services and tanks
+			for(var i in Tanks) { json.nodes.push( {name:Tanks[i].name, group:1} ) }
 			//add only if not exists in tanks
-			if(!existsTank(node))
-				json.nodes.push( {name:node, group:0} )
-		}
-
-		//add links
-		//find max flow
-		var max_flow = Connections.map(function(con){return con.flow}).reduce(function(max,item){if(item>max){max=item};return max},0) // O_O
-		for(var i in Connections) {
-			var divisor=max_flow/300;
-			var value=Connections[i].flow/divisor||1;
-			json.links.push( { source:Connections[i].from, target:Connections[i].to, value:value } )
-		}
+			for(var node in Nodes) { if(!existsTank(node)) json.nodes.push( {name:node, group:0} ) }
+			//add links
+			//find max flow
+			var max_flow = Connections.map(function(con){return con.flow}).reduce(function(max,item){if(item>max){max=item};return max},0) // O_O
+			for(var i in Connections) {
+				var divisor=max_flow/300;
+				var value=Connections[i].flow/divisor||1;
+				json.links.push( { source:Connections[i].from, target:Connections[i].to, value:value } )
+			}
+		//load data end
 		
-		//draw
-		dibuixa(json,gravetat);
-
 		function dibuixa(json,gravetat) {
 			gravetat = gravetat || 60;
 			var svg = d3.select("svg"),
-			width   = +svg.attr("width"),
-			height  = +svg.attr("height");
+			width   = svg.attr("width"),
+			height  = svg.attr("height");
 			document.querySelector('svg').setAttribute('gravetat',gravetat)
 			var color = d3.scaleOrdinal(d3.schemeCategory20);
+
 			var simulation = d3.forceSimulation()
 				.force("link", d3.forceLink().id(function(d){return d.name}))
 				.force("charge",d3.forceManyBody())
 				.force("center",d3.forceCenter(width/2,height/2))
+
 			var link = svg.append("g")
 				.attr("class", "links")
 				.selectAll("line")
@@ -132,6 +122,7 @@
 				.data(json.nodes)
 				.enter().append("g")
 				.attr("class", "node")
+
 			node.append("circle")
 				.attr("r", 7)
 				.attr("fill", function(d) { return color(d.group); })
@@ -139,10 +130,12 @@
 					.on("start", dragstarted)
 					.on("drag", dragged)
 					.on("end", dragended));
+
 			node.append("text")
 				.attr("dx", 12)
 				.attr("dy", ".35em")
 				.text(function(d) { return d.name; });
+
 			simulation
 				.nodes(json.nodes)
 				.on("tick", ticked);
@@ -177,5 +170,8 @@
 				d.fy = null;
 			}
 		}
+
+		//draw
+		dibuixa(json,gravetat);
 	}
 </script>

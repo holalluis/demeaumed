@@ -30,16 +30,14 @@ function balMat(node) //node: string
 	//return
 	var ret=E==S;
 	if(!ret) {
-		console.log('  E: '+E+', S: '+S)
+		console.log(node+' -  E: '+E+', S: '+S)
 	}
 	return ret;
 }
 
 function balanços()
 {
-	for(var node in Nodes)
-	{
+	for(var node in Nodes) {
 		var bal=balMat(node);
-		console.log(node+": "+bal)
 	}
 }
