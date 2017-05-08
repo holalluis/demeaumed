@@ -61,13 +61,14 @@
 			newRow.insertCell(-1).innerHTML="<b>Output (L/day)</b>";
 			newRow.insertCell(-1).innerHTML="<b>See</b>";
 			var n=1;
-			for(var node in Nodes) {
+
+			Nodes.concat(Tanks).forEach(function(node){
 				var newRow=table.insertRow(-1);
-				newRow.insertCell(-1).innerHTML=node;
-				newRow.insertCell(-1).innerHTML=format(Nodes[node].value);
-				newRow.insertCell(-1).innerHTML="<button onmouseenter=\"see('"+node+"')\" onmouseout=unsee()>see</button>";;
+				newRow.insertCell(-1).innerHTML=node.name;
+				newRow.insertCell(-1).innerHTML=format(node.value);
+				newRow.insertCell(-1).innerHTML="<button onmouseenter=\"see('"+node.name+"')\" onmouseout=unsee()>see</button>";;
 				n++;
-			}
+			});
 		},
 		//update connections list
 		updateConList:function() {

@@ -3,7 +3,7 @@
 	<script src=js/loads.js></script>
 
 	<!--perform concentration calculations for each connection-->
-	<script src=calcLoads.js></script>
+	<script src="calcLoads.js"></script>
 
 	<script>
 		function init() {

@@ -1,14 +1,14 @@
 //nodes per afegir a "reuse.php"
-var Nodes={
-	"Room Toilet"       :{value:Outputs.Room.Toilet()},
-	"Room Sink"         :{value:Outputs.Room.Sink()},
-	"Room Shower"       :{value:Outputs.Room.Shower()},
-	"Room Bath"         :{value:Outputs.Room.Bath()},
-	"Pool"              :{value:Outputs.Pool.Flow()},
-	"Garden"            :{value:Outputs.Garden.Sprinklers()},
-	"Laundry"           :{value:Outputs.Laundry.Laundry()},
-	"Lobby Toilet"      :{value:Outputs.Lobby.Toilet()},
-	"Lobby Sink"        :{value:Outputs.Lobby.Sink()},
-	"Kitchen Sink"      :{value:Outputs.Kitchen.Sink()},
-	"Kitchen Dishwasher":{value:Outputs.Kitchen.Dishwasher()},
-};
+var Nodes=[
+	{name:"Room Toilet"       , value:Outputs.Room.Toilet()},
+	{name:"Room Sink"         , value:Outputs.Room.Sink()},
+	{name:"Room Shower"       , value:Outputs.Room.Shower()},
+	{name:"Room Bath"         , value:Outputs.Room.Bath()},
+	{name:"Pool"              , value:Outputs.Pool.Flow()},
+	{name:"Garden"            , value:Outputs.Garden.Sprinklers()},
+	{name:"Laundry"           , value:Outputs.Laundry.Laundry()},
+	{name:"Lobby Toilet"      , value:Outputs.Lobby.Toilet()},
+	{name:"Lobby Sink"        , value:Outputs.Lobby.Sink()},
+	{name:"Kitchen Sink"      , value:Outputs.Kitchen.Sink()},
+	{name:"Kitchen Dishwasher", value:Outputs.Kitchen.Dishwasher()},
+];

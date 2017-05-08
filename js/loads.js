@@ -126,7 +126,7 @@ var Loads = {
 		},
 	},
 	"Kitchen Sink":{
-		uses:Inputs.Services.Kitchen.Sink.useFreq*guests,
+		uses:Inputs.Services.Kitchen.Sink.useFreq*diners,
 		contaminants:{
 			SST:0,
 			PO4:0,

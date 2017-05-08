@@ -6,32 +6,20 @@
 	Connections=[{from:<string>,to:<string>,tec:<string>,flow:<number>},]
 */
 
-var Network={
-	Nodes:Nodes,             //from 'js/nodes.js'
-	Connections:Connections, //from 'js/connections.js'
-};
-
 //Add tanks from 'js/tanks.js' they are nodes as well (user-created)
-(function(){
-	for(var i in Tanks){
-		var name=Tanks[i].name;
-		var node={value:null};
-		if(Nodes[name]===undefined) {
-			Nodes[name]=node;
-		}
-	}
-})();
+Tanks.forEach(function(tank){tank.value=null})
+Nodes_and_Tanks=Nodes.concat(Tanks);
 
 //bool: is the node calculable (node:<string>)
 function isCalculable(node) {
-	if(Nodes[node].value!=null) { return true } //if its already calculated, return true
+	if(getNodeByName(node).value!=null) { return true } //if its already calculated, return true
 
 	//1. check if all inputs have a value
 	var allInputs=true;
 	var inputs=getInputs(node);
 	for(var i in inputs) {
 		var input=inputs[i];
-		if(Nodes[input].value===null) {
+		if(getNodeByName(input).value===null) {
 			allInputs=false;
 			break;
 		}
@@ -44,7 +32,7 @@ function isCalculable(node) {
 	for(var i in outputs) 
 	{
 		var output=outputs[i];
-		if(Nodes[output].value===null) 
+		if(getNodeByName(output).value===null) 
 		{
 			allOutputs=false;
 			break;
@@ -65,7 +53,7 @@ function causeOfCalc(node) {
 	var cause_inputs=true;
 	var inputs=getInputs(node);
 	for(var i in inputs) {
-		if(Nodes[inputs[i]].value===null) {
+		if(getNodeByName(inputs[i]).value===null) {
 			cause_inputs=false;
 			break;
 		}
@@ -80,7 +68,7 @@ function causeOfCalc(node) {
 //node:<string>
 function calculate(node) {
 	//make sure node has a null value
-	if(Nodes[node].value!=null) {console.log('Warning! Attempted to calculate an already calculated node');return}
+	if(getNodeByName(node).value!=null) {console.log('Warning! Attempted to calculate an already calculated node');return}
 
 	//make sure node is calculable
 	if(!isCalculable(node)) {console.log('Warning! Attempted to calculate a non-calculable node');return}
@@ -101,7 +89,7 @@ function calculate(node) {
 			var input=inputs[i];//string
 			var input_outputs=getOutputs(input).length;//int
 			//TODO instead weight each input!
-			var input_flow=Nodes[input].value/input_outputs;
+			var input_flow=getNodeByName(input).value/input_outputs;
 			value+=input_flow;
 		}
 	}
@@ -112,20 +100,20 @@ function calculate(node) {
 		//the flow will be sum of the values of the output nodes
 		for(var i in outputs) {
 			var output=outputs[i];//string
-			var output_flow=Nodes[output].value;
+			var output_flow=getNodeByName(output).value;
 			value+=output_flow;
 		}
 	}
 
 	//end step: set the value
-	Nodes[node].value=value;
+	getNodeByName(node).value=value;
 	console.log("  "+node+" flow calculated ("+value+")");
 }
 
 //get the number of non calculable nodes to see if we are improving each calc iteration
 function getNonCalcNodes() {
 	var n=0;
-	for(var node in Nodes) if(!isCalculable(node)) n++;
+	for(var i in Nodes_and_Tanks) if(!isCalculable(Nodes_and_Tanks[i].name)) n++;
 	return n;
 }
 
@@ -138,16 +126,16 @@ function getNonCalcNodes() {
 	while(true)
 	{
 		console.log("[+] new solver iteration");
-		for(var node in Nodes)
+		for(var i in Nodes_and_Tanks)
 		{
 			//console.log(node);
 			//console.log("    Inputs: "+getInputs(node));
 			//console.log("    Outputs: "+getOutputs(node));
-			if(Nodes[node].value===null && isCalculable(node))
+			if(Nodes_and_Tanks[i].value===null && isCalculable(Nodes_and_Tanks[i].name))
 			{
 				//console.log(node);
 				//console.log("cause: "+causeOfCalc(node));
-				calculate(node);
+				calculate(Nodes_and_Tanks[i].name);
 			}
 		}
 		//check if we are solving new nodes

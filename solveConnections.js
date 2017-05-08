@@ -14,7 +14,7 @@ for(var i in Connections)
 	{
 		if(Connections[i].flow==0)
 		{
-			Connections[i].flow=Nodes[from].value;
+			Connections[i].flow=getNodeByName(from).value;
 		}
 	}
 }

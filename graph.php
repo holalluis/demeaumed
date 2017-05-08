@@ -78,11 +78,21 @@
 					// {"source": "Napoleon", "target": "Myriel", "value": 1},
 				],
 			};
+
 			function existsTank(tank) { for(var i in Tanks) { if(Tanks[i].name==tank) return true } return false }
-			//add nodes: services and tanks
-			for(var i in Tanks) { json.nodes.push( {name:Tanks[i].name, group:1} ) }
+
+			Tanks.forEach(function(tank){
+				json.nodes.push( {name:tank.name, group:1} )
+			});
+
 			//add only if not exists in tanks
-			for(var node in Nodes) { if(!existsTank(node)) json.nodes.push( {name:node, group:0} ) }
+			Nodes.forEach(function(node){
+				if(!existsTank(node.name))	
+				{
+					json.nodes.push( {name:node.name, group:0} ) 
+				}
+			});
+
 			//add links
 			//find max flow
 			var max_flow = Connections.map(function(con){return con.flow}).reduce(function(max,item){if(item>max){max=item};return max},0) // O_O

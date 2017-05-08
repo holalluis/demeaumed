@@ -48,18 +48,6 @@ for(var node in Loads){
 }
 
 //2nd iteration
-//Add tanks from 'js/tanks.js' they are nodes as well (user-created)
-(function(){
-	for(var i in Tanks){
-		var name=Tanks[i].name;
-		var node={value:null};
-		if(Nodes[name]===undefined)
-		{
-			Nodes[name]=node;
-		}
-	}
-})();
-
 function calc_load_propagated(nodeName,contaminant)
 {
 	//sum all loads that are connected to nodeName
@@ -114,13 +102,12 @@ function isAllCalculated()
 while(!isAllCalculated())
 {
 	console.log("New iteration");
-	for(var node in Nodes)
-	{
+	Nodes.concat(Tanks).forEach(function(node){
 		contaminants.forEach(function(contaminant)
 		{
-			calc_load_propagated(node,contaminant);
+			calc_load_propagated(node.name,contaminant);
 		});
-	}
+	})
 }
 
 console.log('SUCCESS! All loads calculated');

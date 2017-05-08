@@ -4,11 +4,12 @@
 		SambaNet
 	</h1>
 
-	<a href="water.php"        page=water>1. Water use           </a> &#10148; 
-	<a href="reuse.php"        page=reuse>2. Create Network      </a> &#10148; 
+	<a href="water.php"        page=water>1. Water use</a> &#10148; 
+	<a href="create.php"       page=create>2. Create Network</a> &#10148; 
 	<a href="solveNetwork.php" page=solveNetwork>3. Solve Network</a> &#10148; 
-	<a href="loads.php"        page=loads>4. Solve Loads         </a> &#10148; 
-	<a href="results.php"      page=results>5. Results           </a>
+	<a href="loads.php"        page=loads>4. Solve Loads</a> &#10148; 
+	<a href="reuse.php"        page=reuse>5. Add water reuse</a> &#10148; 
+	<a href="results.php"      page=results>6. Results</a>
 </div>
 
 <style>
