@@ -2,7 +2,6 @@
 //per comprovar si la xarxa està ben calculada
 
 //BM: E+G=S+A -> G=0, A=0 -> E=S
-
 function balMat(node) //node: string
 {
 	var E=0,S=0;
@@ -35,9 +34,11 @@ function balMat(node) //node: string
 	return ret;
 }
 
+//fes un balanç a tots els nodes
 function balanços()
 {
-	for(var node in Nodes) {
+	for(var node in Nodes) 
+	{
 		var bal=balMat(node);
 	}
 }

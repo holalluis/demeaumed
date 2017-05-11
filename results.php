@@ -2,12 +2,20 @@
 <?php include'imports.php'?>
 <style>
 	#navbar a[page=results]{background:orange;color:black}
+	#root {padding:1em}
 </style>
 
 </head><body>
 <!--navbar--><?php include'navbar.php'?>
-<!--title--><div class=title>Summary results: <span class=subtitle>Summary here</span></div>
+<!--title--><div class=title>Results: <span class=subtitle>Summary</span></div>
 
-<pre style=margin:1em>
-	Results will appear here (work in progress)
-</pre>
+<div id=root>
+	<div>
+		Results will appear here (work in progress)
+	</div>
+	<ul>
+		<li>Water quality
+		<li>Water savings
+		<li>?
+	</ul>
+</div>

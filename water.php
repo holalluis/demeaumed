@@ -55,6 +55,9 @@
 	/**/
 	
 	/*options menu*/
+		div#title {
+			justify-content:space-between;
+		}
 		div#title button {
 			margin-left:0.5em;
 			padding:0.5em;
@@ -232,9 +235,9 @@
 </head><body onload=init()><!--title--><?php include'navbar.php'?>
 
 <!--menu visibility-->
-<div id=title class=title>
+<div id=title class="title flex">
 	<span>1. Water use: <span class=subtitle>calculate water consumed per day</span></span>
-	<div style="display:inline-block;float:right;font-size:16px">
+	<div style="font-size:15px">
 		Options
 		<button onclick=setAll('active')>&#9660; Expand all</button><!--
 		--><button onclick=setAll('inactive')><span id=coll>&#9660;</span> Collapse all</button><!--
@@ -243,14 +246,15 @@
 </div>
 
 <!--inputs and outputs container-->
-<div id=io>
-	<!--inputs-->
-	<div class=inline style="width:49%;min-height:700px;border-right:1px solid #aaa">
+<div id=io class=flex>
+
+	<!--left col inputs-->
+	<div style="min-width:49%;min-height:700px;border-right:1px solid #aaa">
 		<h3>Inputs: data about the hotel</h3>
 		<ul id=inputs></ul>
 	</div>
-	<!--outputs-->
-	<div class=inline style="width:49%">
+	<!--right col outputs-->
+	<div style="min-width:49%">
 		<h3>Outputs (L/day) &mdash; <a href=js/outputs.js target=_blank>see equations</a></h4>
 		<ul id=outputs></ul>
 	</div>

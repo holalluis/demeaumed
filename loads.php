@@ -1,5 +1,11 @@
 <!doctype html><html><head>
 	<?php include'imports.php'?>
+	<style>
+		td.valor:hover {
+			cursor:context-menu;
+			background:#abc;
+		}
+	</style>
 	<script src=js/loads.js></script>
 
 	<!--perform concentration calculations for each connection-->
@@ -120,16 +126,20 @@
 
 				//add contaminants
 				for(var j in contaminants){
-					var load = format(Connections[i].contaminants[contaminants[j]]);
 					var newCell=newRow.insertCell(-1);
+					newCell.classList.add("valor");
 					if(method=="load")
 					{
-						newCell.innerHTML=load;
+						var load = Connections[i].contaminants[contaminants[j]];
+						var load_f = format(load);
+						newCell.title=load;
+						newCell.innerHTML=load_f;
 					}else if(method=="conc")
 					{
 						var loa = Connections[i].contaminants[contaminants[j]];
 						var vol = Connections[i].flow;
 						var con = vol==0 ? 0 : format(loa/vol);
+						newCell.title= vol==0 ? 0 : loa/vol;
 						newCell.innerHTML=con;
 					}
 					else
@@ -144,7 +154,7 @@
 		body {background:#ddd}
 		#navbar a[page=loads]{background:orange;color:black}
 		#loads, #connections {
-			margin:0.3em auto;
+			margin:0 auto;
 		}
 		#loads {
 			font-size:10px
@@ -156,6 +166,19 @@
 		#connections td {
 			text-align:right;
 		}
+
+		#loads th:first-child,
+		#loads td:first-child,
+		#connections th:first-child,
+		#connections td:first-child{
+			border-left:none;
+		}
+		#loads th:last-child,
+		#loads td:last-child,
+		#connections th:last-child,
+		#connections td:last-child{
+			border-right:none;
+		}
 	</style>
 </head><body onload=init()>
 
@@ -164,15 +187,19 @@
 <!--title-->
 <div class=title>4. Solve Loads: <span class=subtitle>Contaminants</span></div>
 
+<div class=flex>
+
 <!--table for loads (mg/use)-->
-<div class="card folded"><?php cardMenu('Loads per service (mg/use)')?>
+<div class="card"><?php cardMenu('Inputs: Loads per service (mg/use)')?>
 	<table id=loads></table>
 </div>
 
 <!--table of loads per connection-->
-<div class="card"><?php cardMenu('Loads per connection (mg/day)')?>
+<div class="card"><?php cardMenu('Outputs: Loads per connection (mg/day)')?>
 	<div style=text-align:center>
 		<button onclick=toggleConcLoad() style="margin:0.5em">Concentration <-> Load</button>
 	</div>
 	<table id=connections></table>
+</div>
+
 </div>

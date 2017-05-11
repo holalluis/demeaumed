@@ -2,7 +2,7 @@
 var Info = {
 	ambTemp:"Ambient Temperature (ºC)",
 	amount:"Number of sprinklers",
-	area:"Area (m2)",
+	area:"Area (m<sup>2</sup>)",
 	avgRate:"Average use (min/use)",
 	capacity:"Capacity (L/load)",
 	dewPoin:"Dew point (ºC)",
@@ -11,7 +11,7 @@ var Info = {
 	duration:"Duration per day (min/day)",
 	flushCap:"Flush capacity (L/flush)",
 	guests:"Number of guests",
-	irrigationRate:"Irrigation rate (L/m2/day)",
+	irrigationRate:"Irrigation rate (L/m<sup>2</sup>/day)",
 	loadsDayGuest:"Loads per day per guest (loads/day/person)",
 	loadsDayDiner:"Loads per day per diner (loads/day/diner)",
 	perc:"Average % of volume filled per use (%/use)",

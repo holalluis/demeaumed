@@ -8,21 +8,6 @@
 <!--main svg--><svg id=main width="700" height="600"></svg>
 <script src="http://d3js.org/d3.v3.js"></script>
 <script>
-	function createGraph(){
-		//load data
-		/*{source:"Mario",target:"Peter",value:1.2}*/
-		links=[ ];
-		for(var i in Connections) {
-			links.push({
-				source:Connections[i].from,
-				target:Connections[i].to,
-				value:Connections[i].flow,
-			});
-		}
-
-		dibuixa(links);
-	};
-
 	function dibuixa(links) {
 		var nodes = {};
 		//compute the distinct nodes from the links.
@@ -104,4 +89,20 @@
 						return "translate(" + d.x + "," + d.y + ")"; });
 		}
 	}
+
+	function createGraph(){
+		//load data
+		/*{source:"Mario",target:"Peter",value:1.2}*/
+		links=[ ];
+		for(var i in Connections) {
+			links.push({
+				source:Connections[i].from,
+				target:Connections[i].to,
+				value:Connections[i].flow,
+			});
+		}
+
+		dibuixa(links);
+	};
+
 </script>

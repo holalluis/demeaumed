@@ -2,24 +2,36 @@
 
 <body><!--title--><?php include'navbar.php'?>
 
-<div class=title>Start: <span class=subtitle>first steps</span></div>
+<div class=title>Get started: <span class=subtitle>Overview</span></div>
 
-<p id=paragraph>
+<div id=root>
 	<style>
-		#paragraph {
-			margin:1em 4em 1em 2em;
+		#root {
+			padding:1em;
+		}
+		#root div {
+			margin-bottom:1em;
 		}
 	</style>
-	<img src=img/icra.jpg style="display:block;float:right">
 
-	What is SambaNet?<br>
-	Bla, bla bla, bla bla<br>
+	<div>
+		What is SambaNet? [Description here]
+	</div>
 
-	<br>
-	How it works:
-	<ol>
-		<li>Calculate water consumed
-		<li>Connect hotel services for water reuse
-		<li>Display results
-	</ol>
-</p>
+	<div>
+		Simulation steps:
+		<ol>
+			<li>Enter information about the water use.
+			<li>Create a water network of the hotel services.
+			<li>Calculate the water consumption.
+			<li>Calculate the water quality (concentration of contaminants).
+			<li>Add water reuse with water treatment technologiesa.
+			<li>See results
+		</ol>
+	</div>
+
+	<div>
+		<img src=img/icra.jpg style="display:block;margin:auto">
+	</div>
+
+</div>

@@ -3,8 +3,8 @@
 	div#defaultNet, #newCon, #newTank, #allCon, #allTanks
 	{
 		padding:0.5em;
-		border-bottom:1px solid #ccc;
-		border-right:1px solid #ccc;
+		border:1px solid #ccc;
+		border-top:none;
 		font-size:11px;
 	}
 	#newCon, #newTank { background:#eee; }
@@ -18,9 +18,15 @@
 </style>
 
 <script>
+	var arrows = true;
+	if(Connections.length && Connections.map(function(con){return con.flow}).filter(function(flow){return flow!=null}).length)
+	{
+		arrows = false;
+	}
+
 	function init() {
 		Views.update();
-		createGraph(); //inside "graph.php"
+		createGraph(60,arrows); //inside "graph.php"
 		updateCookies();
 	}
 
@@ -33,13 +39,16 @@
 		var Con = {
 			from:from,
 			to:to,
-			flow:0,
+			flow:null,
 		};
 
 		//add it to Connections
 		Connections.push(Con);
 
 		init();
+
+		document.querySelector('#newCon #from').value=from;
+		document.querySelector('#newCon #to').value=to;
 	}
 
 	function newTank() {
@@ -68,33 +77,33 @@
 			Tanks.push({name:"INPUT",  volume:100});
 			Tanks.push({name:"OUTPUT", volume:100});
 			//create new connections
-			Connections.push({from:"INPUT",              to:"Tap",                flow:0});
-			Connections.push({from:"Tap",                to:"Room Bath",          flow:0});
-			Connections.push({from:"Tap",                to:"Room Shower",        flow:0});
-			Connections.push({from:"Tap",                to:"Room Sink",          flow:0});
-			Connections.push({from:"Tap",                to:"Room Toilet",        flow:0});
-			Connections.push({from:"Tap",                to:"Lobby Sink",         flow:0});
-			Connections.push({from:"Tap",                to:"Lobby Toilet",       flow:0});
-			Connections.push({from:"Tap",                to:"Kitchen Sink",       flow:0});
-			Connections.push({from:"Tap",                to:"Kitchen Dishwasher", flow:0});
-			Connections.push({from:"Tap",                to:"Pool",               flow:0});
-			Connections.push({from:"Tap",                to:"Laundry",            flow:0});
-			Connections.push({from:"Tap",                to:"Garden",             flow:0});
-			Connections.push({from:"Room Bath",          to:"Room",               flow:0});
-			Connections.push({from:"Room Shower",        to:"Room",               flow:0});
-			Connections.push({from:"Room Sink",          to:"Room",               flow:0});
-			Connections.push({from:"Room Toilet",        to:"Room",               flow:0});
-			Connections.push({from:"Lobby Sink",         to:"Lobby",              flow:0});
-			Connections.push({from:"Lobby Toilet",       to:"Lobby",              flow:0});
-			Connections.push({from:"Kitchen Sink",       to:"Kitchen",            flow:0});
-			Connections.push({from:"Kitchen Dishwasher", to:"Kitchen",            flow:0});
-			Connections.push({from:"Room",               to:"Sewer",              flow:0});
-			Connections.push({from:"Lobby",              to:"Sewer",              flow:0});
-			Connections.push({from:"Kitchen",            to:"Sewer",              flow:0});
-			Connections.push({from:"Pool",               to:"Sewer",              flow:0});
-			Connections.push({from:"Laundry",            to:"Sewer",              flow:0});
-			Connections.push({from:"Garden",             to:"Sewer",              flow:0});
-			Connections.push({from:"Sewer",              to:"OUTPUT",             flow:0});
+			Connections.push({from:"INPUT",              to:"Tap",                flow:null});
+			Connections.push({from:"Tap",                to:"Room Bath",          flow:null});
+			Connections.push({from:"Tap",                to:"Room Shower",        flow:null});
+			Connections.push({from:"Tap",                to:"Room Sink",          flow:null});
+			Connections.push({from:"Tap",                to:"Room Toilet",        flow:null});
+			Connections.push({from:"Tap",                to:"Lobby Sink",         flow:null});
+			Connections.push({from:"Tap",                to:"Lobby Toilet",       flow:null});
+			Connections.push({from:"Tap",                to:"Kitchen Sink",       flow:null});
+			Connections.push({from:"Tap",                to:"Kitchen Dishwasher", flow:null});
+			Connections.push({from:"Tap",                to:"Pool",               flow:null});
+			Connections.push({from:"Tap",                to:"Laundry",            flow:null});
+			Connections.push({from:"Tap",                to:"Garden",             flow:null});
+			Connections.push({from:"Room Bath",          to:"Room",               flow:null});
+			Connections.push({from:"Room Shower",        to:"Room",               flow:null});
+			Connections.push({from:"Room Sink",          to:"Room",               flow:null});
+			Connections.push({from:"Room Toilet",        to:"Room",               flow:null});
+			Connections.push({from:"Lobby Sink",         to:"Lobby",              flow:null});
+			Connections.push({from:"Lobby Toilet",       to:"Lobby",              flow:null});
+			Connections.push({from:"Kitchen Sink",       to:"Kitchen",            flow:null});
+			Connections.push({from:"Kitchen Dishwasher", to:"Kitchen",            flow:null});
+			Connections.push({from:"Room",               to:"Sewer",              flow:null});
+			Connections.push({from:"Lobby",              to:"Sewer",              flow:null});
+			Connections.push({from:"Kitchen",            to:"Sewer",              flow:null});
+			Connections.push({from:"Pool",               to:"Sewer",              flow:null});
+			Connections.push({from:"Laundry",            to:"Sewer",              flow:null});
+			Connections.push({from:"Garden",             to:"Sewer",              flow:null});
+			Connections.push({from:"Sewer",              to:"OUTPUT",             flow:null});
 		}
 		else alert("Network must be empty");
 		init();
@@ -183,53 +192,54 @@
 <!--navbar--><?php include'navbar.php'?>
 <!--title--><div class=title>2. Create network: <span class=subtitle>Connect hotel services. Optional: create tanks</span></div>
 
-<!--column-->
-<div class=inline style=width:50%>
-	<!--Default network btn-->
-	<div id=defaultNet style="padding:1em 0.5em;text-align:center">
-		<button 
-			onclick=initialData() 
-			style="display:inline-block;margin:auto;padding:1em 4em"
-			>Create a default network</button>
-		<button 
-			onclick="Connections=[];Tanks=[];Nodes=[];init();window.location.reload()"
-			style="display:inline-block;margin:auto;padding:1em 4em"
-			>Clear network</button>
+<div id=root class=flex style="justify-content:center">
+	<!--left column-->
+	<div>
+		<!--Default network btn-->
+		<div id=defaultNet style="padding:1em 0.5em;text-align:center">
+			<button 
+				onclick=initialData() 
+				style="display:inline-block;margin:auto;padding:1em 4em"
+				>Create an example network</button>
+			<button 
+				onclick="Connections=[];Tanks=[];Nodes=[];init();window.location.reload()"
+				style="display:inline-block;margin:auto;padding:1em 4em"
+				>Clear network</button>
+		</div>
+
+		<!--new connection menu-->
+		<div id=newCon>
+			<h3>+ New connection <span class=small>(=connect nodes)</span></h4>
+			&emsp; From   <select id=from>  </select>
+			&rarr; To 	  <select id=to>    </select>
+			<button onclick=newConnection()>Add</button>
+		</div>
+
+		<!--new tank menu-->
+		<div id=newTank>
+			<h3>+ New tank <span class=small>(=new node)</span></h4>
+			&emsp;Name   <input id=name   placeholder="Tank name"> &emsp;
+			Volume <input id=volume placeholder="Volume" type=number value=100> (L)
+			<button onclick=newTank()>Add</button>
+		</div>
+
+		<!--connections created-->
+		<div id=allCon>
+			<h3>All Connections
+				<button onclick="Connections=[];init()">Remove all</button>
+			</h3> 
+			<div id=connections></div>
+		</div>
+
+		<!--connections created-->
+		<div id=allTanks>
+			<h3>All Tanks
+				<button onclick="Tanks=[];init();">Remove all</button>
+			</h3> 
+			<div id=tanks></div>
+		</div>
 	</div>
 
-	<!--new connection menu-->
-	<div id=newCon>
-		<h3>+ New connection <span class=small>(=connect nodes)</span></h4>
-		&emsp; From   <select id=from>  </select>
-		&rarr; To 	  <select id=to>    </select>
-		<button onclick=newConnection()>Add</button>
-	</div>
-
-	<!--new tank menu-->
-	<div id=newTank>
-		<h3>+ New tank <span class=small>(=new node)</span></h4>
-		&emsp;Name   <input id=name   placeholder="Tank name"> &emsp;
-		Volume <input id=volume placeholder="Volume" type=number value=100> (L)
-		<button onclick=newTank()>Add</button>
-	</div>
-
-	<!--connections created-->
-	<div id=allCon>
-		<h3>All Connections
-			<button onclick="Connections=[];init()">Remove all</button>
-		</h3> 
-		<div id=connections></div>
-	</div>
-
-	<!--connections created-->
-	<div id=allTanks>
-		<h3>All Tanks
-			<button onclick="Tanks=[];init();">Remove all</button>
-		</h3> 
-		<div id=tanks></div>
-	</div>
-</div>
-
-<!--graph--> <div class=inline style="width:50%;border:1px solid #ccc;border-top:none"> 
-	<?php include'graph.php'?> 
+	<!--right col graph--> 
+	<div style="min-width:49%;border:1px solid #ccc;border-top:none;margin-left:-1px"><?php include'graph.php'?></div>
 </div>

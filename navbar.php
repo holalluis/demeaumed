@@ -1,14 +1,14 @@
 <!--navbar on top-->
-<div id=navbar>
+<div id=navbar class=flex>
 	<h1 onclick=window.location='index.php'>
 		SambaNet
 	</h1>
 
-	<a href="water.php"        page=water>1. Water use</a> &#10148; 
-	<a href="create.php"       page=create>2. Create Network</a> &#10148; 
-	<a href="solveNetwork.php" page=solveNetwork>3. Solve Network</a> &#10148; 
-	<a href="loads.php"        page=loads>4. Solve Loads</a> &#10148; 
-	<a href="reuse.php"        page=reuse>5. Add water reuse</a> &#10148; 
+	<a href="water.php"        page=water>1. Water use</a>
+	<a href="create.php"       page=create>2. Create network</a>
+	<a href="solveNetwork.php" page=solveNetwork>3. Solve network</a>
+	<a href="loads.php"        page=loads>4. Contaminants </a>
+	<a href="reuse.php"        page=reuse>5. Water reuse</a>
 	<a href="results.php"      page=results>6. Results</a>
 </div>
 
@@ -19,6 +19,7 @@
 		background:#abc;
 		margin:0;
 		box-shadow: 0 1px 2px rgba(0,0,0,.1);
+		font-size:12px;
 	}
 	#navbar h1 {
 		display:inline-block;
@@ -26,7 +27,8 @@
 		cursor:pointer;
 	}
 	#navbar a {
-		margin:0 0.3em;
+		display:block;
+		margin:1px 0.3em;
 		padding:0.5em;
 		border-radius:0.5em;
 		text-decoration:none;

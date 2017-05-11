@@ -3,6 +3,9 @@
 <?php include'imports.php'?>
 
 <script>
+	//global
+	var arrows = arrows || false;
+
 	function init()
 	{
 		fullScreen()
@@ -15,7 +18,7 @@
 		svg.setAttribute('height','800');
 		svg.style.border='1px solid #ccc';
 		svg.style.borderTop='none';
-		createGraph();
+		createGraph(60,arrows);
 	}
 </script>
 
