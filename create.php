@@ -38,6 +38,17 @@
 		//error if from==to
 		if(from==to){alert("Error - you cannot connect a node to itself");return;}
 
+		//error if connection already exists
+		for(var i=0; i<Connections.length; i++)
+		{
+			var c=Connections[i];
+			if(c.from==from && c.to==to)
+			{
+				alert("Error - Connection already exists");
+				return;
+			}
+		}
+
 		//create new object
 		var Con = {
 			from:from,

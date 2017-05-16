@@ -99,8 +99,16 @@
 		}
 	</script>
 	<style>
-		#navbar a[page=solveNetwork]{background:orange;color:black}
+		div#navbar a[page=solveNetwork]{background:orange;color:black}
 		#nodes button {font-size:10px}
+		#botonera {
+			justify-content:center;
+		}
+		#botonera button {
+		display:block;
+		padding:1em 4em;
+		margin:2px;
+		}
 	</style>
 </head><body onload=init()>
 <!--navbar--><?php include'navbar.php'?>
@@ -116,21 +124,15 @@
 <div id=root class=flex style="justify-content:center">
 	<!--left column-->
 	<div>
-		<div class=flex>
-			<div style=padding:0.5em;text-align:center>
+		<div id=botonera class=flex>
 				<button 
 					onclick=recalculateFlows() 
-					style="display:inline-block;margin:auto;padding:1em 4em"
 					>Reset Flows
 				</button>
-			</div>
-			<div style=padding:0.5em;text-align:center>
 				<button 
 					onclick="solveNetwork();init()";
-					style="display:inline-block;margin:auto;padding:1em 4em"
 					>Solve Network
 				</button>
-			</div>
 		</div>
 
 		<!--nodes i connexions-->

@@ -27,6 +27,11 @@
 	{
 		border-right:none;
 	}
+
+	button.X {
+		display:block;
+		margin:auto;
+	}
 </style>
 
 <script>
@@ -47,8 +52,8 @@
 			while(t.rows.length>2)t.deleteRow(-1);
 			if(Reuse.length==0){
 				var newCell=t.insertRow(-1).insertCell(-1);
-				newCell.innerHTML='<center>~0 reuse connections</center>'
-				newCell.colSpan=4;
+				newCell.innerHTML='<center style=color:#666>~0 reuse connections</center>'
+				newCell.colSpan=5;
 			}
 			for(var i in Reuse)
 			{
@@ -57,7 +62,8 @@
 				newRow.insertCell(-1).innerHTML=reuse.from;
 				newRow.insertCell(-1).innerHTML=reuse.to;
 				newRow.insertCell(-1).innerHTML=reuse.tec;
-				newRow.insertCell(-1).innerHTML="<button onclick=Reuse.splice("+i+",1);init()>X</button>"
+				newRow.insertCell(-1).innerHTML=reuse.maxFlow;
+				newRow.insertCell(-1).innerHTML="<button class=X onclick=Reuse.splice("+i+",1);init()>X</button>"
 			}
 		})();
 
@@ -100,25 +106,42 @@
 		var from = document.querySelector('#newCon #from').value;
 		var to   = document.querySelector('#newCon #to').value;
 		var tec  = document.querySelector('#newCon #using').value;
+		var maxF = document.querySelector('#newCon #maxFlow').value;
 
 		//error if from==to
 		if(from==to){alert("Error - you cannot connect a node to itself");return;}
+
+		//error if connection already exists
+		for(var i=0; i<Connections.length; i++)
+		{
+			var c=Connections[i];
+			if(c.from==from && c.to==to)
+			{
+				alert("Error - Connection already exists");
+				return;
+			}
+		}
 
 		//create new object
 		var Con = {
 			from:from,
 			to:to,
 			tec:tec,
+			maxFlow:maxF,
 		};
 		//add it to Reuse
 		Reuse.push(Con);
 		init();
+
+		//reselect items
+		document.querySelector('#newCon #from').value=from;
+		document.querySelector('#newCon #to').value=to;
 	}
 </script>
 
 </head><body onload=init()>
 <!--navbar--><?php include'navbar.php'?>
-<!--title--><div class=title>5. Water reuse: <span class=subtitle>Add water reuse connections</span></div>
+<!--title--><div class=title>5. Water reuse: <span class=subtitle>Water reuse connections</span></div>
 
 <div id=root style="justify-content:center">
 	<!--left: menus-->
@@ -126,8 +149,8 @@
 		<!--reuse table-->
 		<div>
 			<table id=reuse>
-				<tr><th colspan=4>Water reuse connections
-				<tr><th>From<th>To<th>Technology<th>Options
+				<tr><th colspan=5>Water reuse connections
+				<tr><th>From<th>To<th>Technology<th>Max flow (L/day)<th>Options
 			</table>
 		</div>
 
@@ -139,10 +162,15 @@
 					<tr><td>From       <td><select id=from></select>
 					<tr><td>To 	       <td><select id=to></select>
 					<tr><td>Technology <td><select id=using></select>
+					<tr>
+						<td>Max flow (L/day)
+						<td><input id=maxFlow value=0 onclick=this.select()>
+					</tr>
+					<tr>
+						<td colspan=2>
+						<button onclick=newConnection() style="display:block;margin:auto;padding:0.5em 4em">Add</button>
+					</tr>
 				</table>
-				<div style="margin:0 auto;">
-					<button onclick=newConnection() style="padding:2em 1em ">Add</button>
-				</div>
 			</div>
 		</div>
 	</div>

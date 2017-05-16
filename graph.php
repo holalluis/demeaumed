@@ -109,6 +109,19 @@
 			.force("charge",d3.forceManyBody())
 			.force("center",d3.forceCenter(width/2,height/2))
 
+		function linkColor(d)
+		{
+			if(d.reuse==1) {
+				return "#0f0"
+			}
+			if(d.value==-1){
+				return "#f00"
+			}
+			else{
+				return "#999"
+			}
+		}
+			
 		var link = svg.append("g")
 			.attr("class", "links")
 			.attr("marker-end",function(){return arrows ? "url(#end)" : ""})
@@ -116,7 +129,7 @@
 			.data(json.links)
 			.enter().append("line")
 			.attr("stroke-width", function(d) { return Math.sqrt(d.value)||1; })
-			.attr("stroke", function(d) { if(d.value==-1){return "#f00"}else{return "#999"}})
+			.attr("stroke",function(d){return linkColor(d)})
 
 		//controla distancia dels nodes
 		simulation.force('charge',d3.forceManyBody().strength(function(){return -1*gravetat}))
@@ -192,6 +205,11 @@
 				if(flow==null){value=-1}
 				json.links.push( { source:Connections[i].from, target:Connections[i].to, value:value } )
 			}
+			//add reuse connections
+			Reuse.forEach(function(con){
+				json.links.push( { source:con.from, target:con.to, value:null, reuse:1} )
+			})
+
 		//load data end
 		
 		//draw
