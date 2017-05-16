@@ -153,12 +153,18 @@
 	<style>
 		body {background:#ddd}
 		#navbar a[page=loads]{background:orange;color:black}
+
+		#loads_cnt, #connections_cnt {
+			margin:auto;
+		}
+
 		#loads, #connections {
 			margin:0 auto;
 		}
 		#loads {
 			font-size:10px
 		}
+
 		#connections {
 			font-size:11px;
 			margin-bottom:2em;
@@ -181,25 +187,24 @@
 		}
 	</style>
 </head><body onload=init()>
-
 <!--navbar--><?php include'navbar.php'?>
+<!--title--><div class=title>4. Solve Loads: <span class=subtitle>Contaminants</span></div>
 
-<!--title-->
-<div class=title>4. Solve Loads: <span class=subtitle>Contaminants</span></div>
-
-<div class=flex>
+<div id=root>
 
 <!--table for loads (mg/use)-->
-<div class="card"><?php cardMenu('Inputs: Loads per service (mg/use)')?>
+<div id=loads_cnt class=card>
+	<?php cardMenu('Inputs: Loads per service (mg/use)')?>
 	<table id=loads></table>
 </div>
 
 <!--table of loads per connection-->
-<div class="card"><?php cardMenu('Outputs: Loads per connection (mg/day)')?>
+<div id=connections_cnt class=card>
+	<?php cardMenu('Outputs: Loads per connection (mg/day)')?>
 	<div style=text-align:center>
-		<button onclick=toggleConcLoad() style="margin:0.5em">Concentration <-> Load</button>
+		<button onclick=toggleConcLoad() style="margin:0.5em">Concentration &harr; Load</button>
 	</div>
 	<table id=connections></table>
 </div>
 
-</div>
+</div root>

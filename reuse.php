@@ -100,6 +100,10 @@
 		var from = document.querySelector('#newCon #from').value;
 		var to   = document.querySelector('#newCon #to').value;
 		var tec  = document.querySelector('#newCon #using').value;
+
+		//error if from==to
+		if(from==to){alert("Error - you cannot connect a node to itself");return;}
+
 		//create new object
 		var Con = {
 			from:from,
