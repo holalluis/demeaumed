@@ -89,6 +89,7 @@
 			Tanks.push({name:"KITCHEN",volume:100});
 			Tanks.push({name:"SEWER",  volume:100});
 			Tanks.push({name:"INPUT",  volume:100});
+			Tanks.push({name:"OUT", volume:100});
 			Tanks.push({name:"OUTPUT", volume:100});
 			//create new connections
 			Connections.push({from:"INPUT",              to:"TAP",                flow:null});
@@ -100,9 +101,11 @@
 			Connections.push({from:"TAP",                to:"Lobby Toilet",       flow:null});
 			Connections.push({from:"TAP",                to:"Kitchen Sink",       flow:null});
 			Connections.push({from:"TAP",                to:"Kitchen Dishwasher", flow:null});
-			Connections.push({from:"TAP",                to:"Pool",               flow:null});
+			Connections.push({from:"TAP",                to:"Pool Flow",          flow:null});
+			Connections.push({from:"TAP",                to:"Pool Evaporation",   flow:null});
 			Connections.push({from:"TAP",                to:"Laundry",            flow:null});
 			Connections.push({from:"TAP",                to:"Garden",             flow:null});
+			Connections.push({from:"Pool Evaporation",   to:"OUT",                flow:null});
 			Connections.push({from:"Room Bath",          to:"ROOM",               flow:null});
 			Connections.push({from:"Room Shower",        to:"ROOM",               flow:null});
 			Connections.push({from:"Room Sink",          to:"ROOM",               flow:null});
@@ -114,12 +117,13 @@
 			Connections.push({from:"ROOM",               to:"SEWER",              flow:null});
 			Connections.push({from:"LOBBY",              to:"SEWER",              flow:null});
 			Connections.push({from:"KITCHEN",            to:"SEWER",              flow:null});
-			Connections.push({from:"Pool",               to:"SEWER",              flow:null});
+			Connections.push({from:"Pool Flow",          to:"SEWER",              flow:null});
 			Connections.push({from:"Laundry",            to:"SEWER",              flow:null});
 			Connections.push({from:"Garden",             to:"SEWER",              flow:null});
-			Connections.push({from:"SEWER",              to:"OUTPUT",             flow:null});
-			Reuse.push({from:"ROOM",    to:"Garden", tec:"none", maxFlow:60e3, flow:null});
-			Reuse.push({from:"KITCHEN", to:"Pool",   tec:"none", maxFlow:15e3, flow:null});
+			Connections.push({from:"SEWER",              to:"OUT",                flow:null});
+			Connections.push({from:"OUT",                to:"OUTPUT",             flow:null});
+			Reuse.push({from:"ROOM",    to:"Garden",    tec:"none", maxFlow:60e3, flow:null});
+			Reuse.push({from:"KITCHEN", to:"Pool Flow", tec:"none", maxFlow:15e3, flow:null});
 		}
 		else alert("Network must be empty");
 		init();
@@ -216,7 +220,7 @@
 			<button 
 				onclick=initialData() 
 				style="display:inline-block;margin:auto;padding:1em 4em"
-				>Create an example network</button>
+				>Create example network</button>
 			<button 
 				onclick="Connections=[];Tanks=[];Nodes=[];Reuse=[];init();window.location.reload()"
 				style="display:inline-block;margin:auto;padding:1em 4em"

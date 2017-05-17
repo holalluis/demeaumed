@@ -9,6 +9,7 @@
 	<a href="loads.php"        page=loads>4. Contaminants </a>
 	<a href="reuse.php"        page=reuse>5. Create water reuse</a>
 	<a href="solveReuse.php"   page=solveReuse>6. Solve water reuse</a>
+	<a href="loadsDiagram.php" page=loadsDiagram>7. Water reuse contaminants</a>
 	<a href="results.php"      page=results class=right>99. Results</a>
 </div>
 
