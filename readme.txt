@@ -1,6 +1,5 @@
-===========================================
-SambaNet hotel model app and network solver
-===========================================
+# SambaNet 
+Hotel model app and network solver
 
 * status: under development
 
