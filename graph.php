@@ -216,3 +216,5 @@
 		dibuixa(json,gravetat,arrows);
 	}
 </script>
+
+<?php include'legend.php'; ?>

@@ -117,7 +117,7 @@
 			var tos=document.querySelectorAll('#taules tr[to="'+node+'"]');
 			for(var i=0;i<froms.length;i++)
 			{
-				froms[i].style.background="#abc";
+				froms[i].style.background="orange";
 			}
 			for(var i=0;i<tos.length;i++)
 			{

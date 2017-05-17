@@ -250,12 +250,12 @@
 
 	<!--left col inputs-->
 	<div style="min-width:49%;min-height:700px;border-right:1px solid #aaa">
-		<h3>Inputs: data about the hotel</h3>
+		<h3>Inputs: hotel info</h3>
 		<ul id=inputs></ul>
 	</div>
 	<!--right col outputs-->
 	<div style="min-width:49%">
-		<h3>Outputs (L/day) &mdash; <a href=js/outputs.js target=_blank>see equations</a></h4>
+		<h3>Outputs: water consumption (L/day) &mdash; <a href=js/outputs.js target=_blank>see equations</a></h4>
 		<ul id=outputs></ul>
 	</div>
 </div>
