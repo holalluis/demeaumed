@@ -17,7 +17,10 @@ la connexio no es calculable
 */
 
 function isConCalculable(con) {
-	if(con.flow){return "already calculated"} //already calculated
+
+	if(con.flow!=null){
+		return true;
+	} //already calculated
 
 	//cas especial: quan no hi ha inputs al node from només es pot mirar els outputs del node to 
 	//EXEMPLE: INPUT--->TAP->[altres nodes]
@@ -25,17 +28,14 @@ function isConCalculable(con) {
 	//               |_aquesta connexio
 	//
 	if( Connections
-			.filter(function(c){return c.to==con.from})
-			.length==0
+				.filter(function(c){return c.to==con.from})
+				.length==0
 		) { 
-
 			//si tots els outputs del node to tenen valor...
-			if(
-				Connections
-					.filter(function(c){return c.from==con.to})
-					.filter(function(c){return c.flow==null}).length==0
-			)
-			{
+			if( Connections
+						.filter(function(c){return c.from==con.to})
+						.filter(function(c){return c.flow==null}).length==0
+			) {
 				//calcula-ho i retorna true
 				con.flow = Connections
 					.filter(function(c){return c.from==con.to})
@@ -43,7 +43,6 @@ function isConCalculable(con) {
 					.reduce(function(prev,curr){return prev+curr})
 				return true;
 			}
-			
 			return false;
 	}
 
@@ -112,31 +111,31 @@ function isConCalculable(con) {
 function sumInputsAndOtherOutputs(con) {
 	var sum = 0;
 	Connections
-	.filter(function(c){return c.to==con.from})
-	.forEach(function(c){
-		sum += c.flow;
-	});
+		.filter(function(c){return c.to==con.from})
+		.forEach(function(c){
+			sum += c.flow;
+		});
 	Connections
-	.filter(function(c){return c.from==con.from})
-	.forEach(function(c){
-		sum -= c.flow;
-	});
+		.filter(function(c){return c.from==con.from})
+		.forEach(function(c){
+			sum -= c.flow;
+		});
 	return sum
 }
 
 function sumOutputsAndOtherInputs(con) {
 	var sum = 0;
 	Connections
-	.filter(function(c){return c.to==con.to})
-	.forEach(function(c){
-		sum -= c.flow;
-	});
+		.filter(function(c){return c.to==con.to})
+		.forEach(function(c){
+			sum -= c.flow;
+		});
 	//tots els outputs de node.to estan calculats
 	var are_all_outputs_of_node_to_calc = true;
 	Connections
-	.filter(function(c){return c.from==con.to})
-	.forEach(function(c){
-		sum += c.flow;
-	});
+		.filter(function(c){return c.from==con.to})
+		.forEach(function(c){
+			sum += c.flow;
+		});
 	return sum
 }

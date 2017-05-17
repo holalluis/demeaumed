@@ -12,7 +12,7 @@
 <script src="js/reuse.js"></script>
 <script src="js/technologies.js"></script>
 
-<!--dev-->
+<!--funció per fer balanç E+G=S+A-->
 <script src="balancMateria.js"></script>
 
 <!--php utils--><?php include'utils.php'?>
@@ -63,8 +63,7 @@
 	/*for network solving functions*/
 	
 	/** Set cookies **/
-	function updateCookies()
-	{
+	function updateCookies() {
 		setCookie("Inputs",JSON.stringify(Inputs));
 		setCookie("Connections",JSON.stringify(Connections));
 		setCookie("Tanks",JSON.stringify(Tanks));
@@ -72,12 +71,11 @@
 	}
 
 	/** Read cookies and update objects **/
-	(function updateFromCookies()
-	{
-		if(getCookie('Inputs')!=null) { Inputs=JSON.parse(getCookie('Inputs')) }
+	(function updateFromCookies() {
+		if(getCookie('Inputs')!=null) {      Inputs=JSON.parse(getCookie('Inputs')) }
 		if(getCookie('Connections')!=null) { Connections=JSON.parse(getCookie('Connections')) }
-		if(getCookie('Tanks')!=null) { Tanks=JSON.parse(getCookie('Tanks')) }
-		if(getCookie('Reuse')!=null) { Reuse=JSON.parse(getCookie('Reuse')) }
+		if(getCookie('Tanks')!=null) {       Tanks=JSON.parse(getCookie('Tanks')) }
+		if(getCookie('Reuse')!=null) {       Reuse=JSON.parse(getCookie('Reuse')) }
 	})();//execute it
 </script>
 

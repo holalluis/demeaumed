@@ -107,27 +107,27 @@
 		var to   = document.querySelector('#newCon #to').value;
 		var tec  = document.querySelector('#newCon #using').value;
 		var maxF = document.querySelector('#newCon #maxFlow').value;
-
-		//error if from==to
+		
+		/*input errors*/
 		if(from==to){alert("Error - you cannot connect a node to itself");return;}
-
-		//error if connection already exists
-		for(var i=0; i<Connections.length; i++)
-		{
+		if(parseFloat(maxF)<=0){alert("Error - max flow cannot be zero or negative");document.querySelector('#newCon #maxFlow').select();return;}
+		//connection already exists
+		for(var i=0; i<Connections.length; i++) {
 			var c=Connections[i];
-			if(c.from==from && c.to==to)
-			{
+			if(c.from==from && c.to==to) {
 				alert("Error - Connection already exists");
 				return;
 			}
 		}
+		/*input errors*/
 
 		//create new object
 		var Con = {
 			from:from,
 			to:to,
 			tec:tec,
-			maxFlow:maxF,
+			flow:null,
+			maxFlow:parseFloat(maxF),
 		};
 		//add it to Reuse
 		Reuse.push(Con);
@@ -144,6 +144,7 @@
 <!--title--><div class=title>5. Water reuse: <span class=subtitle>Water reuse connections</span></div>
 
 <div id=root style="justify-content:center">
+
 	<!--left: menus-->
 	<div style="border:1px solid #ccc;border-top:none">
 		<!--reuse table-->

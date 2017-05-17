@@ -1,5 +1,6 @@
 <!--figure to be included anywhere (needs imports.php)-->
-<script src="https://d3js.org/d3.v4.min.js"></script>
+<script src="d3js/d3.v4.min.js"></script>
+
 <!--btns zoom-->
 <div id=graph_zoom>
 	<style>
@@ -109,14 +110,11 @@
 			.force("charge",d3.forceManyBody())
 			.force("center",d3.forceCenter(width/2,height/2))
 
-		function linkColor(d)
-		{
-			if(d.reuse==1) {
-				return "#0f0"
-			}
-			if(d.value==-1){
-				return "#f00"
-			}
+    //set link color
+		function linkColor(d) {
+			if(d.reuse== 1){ return "#800080" }
+			else if(d.value==-1){ return "#f00" }
+      else if(d.value==0){ return "green" }
 			else{
 				return "#999"
 			}
@@ -198,18 +196,20 @@
 			//add links
 			//find max flow
 			var max_flow = Connections.map(function(con){return con.flow}).reduce(function(max,item){if(item>max){max=item};return max},0) // O_O
+			var divisor=max_flow/300||1;
 			for(var i in Connections){
-				var divisor=max_flow/300;
 				var flow=Connections[i].flow;
-				var value = flow/divisor||1;
+				var value = flow/divisor;
 				if(flow==null){value=-1}
 				json.links.push( { source:Connections[i].from, target:Connections[i].to, value:value } )
 			}
 			//add reuse connections
 			Reuse.forEach(function(con){
-				json.links.push( { source:con.from, target:con.to, value:null, reuse:1} )
+				var flow=con.flow;
+				var value=flow/divisor||1;
+				if(flow==null){value=-1}
+				json.links.push( { source:con.from, target:con.to, value:value, reuse:1} )
 			})
-
 		//load data end
 		
 		//draw

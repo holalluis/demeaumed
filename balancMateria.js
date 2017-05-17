@@ -2,43 +2,38 @@
 //per comprovar si la xarxa està ben calculada
 
 //BM: E+G=S+A -> G=0, A=0 -> E=S
-function balMat(node) //node: string
-{
-	var E=0,S=0;
+function balMat(node) {
+	//inputs: node is a string
 
-	//1. troba les connexions que apunten a node
-	for(var i in Connections)
+	//mass balance will be always incorrect for extreme nodes (input & output), so return true
+	var n_ins = Connections
+		.concat(Reuse)
+		.filter(function(con){return con.to==node})
+		.length
+	
+	var n_outs = Connections
+		.concat(Reuse)
+		.filter(function(con){return con.from==node})
+		.length
+	
+	if(n_ins==0 || n_outs==0)
 	{
-		var to=Connections[i].to;
-		if(to==node)
-		{
-			E+=Connections[i].flow;
-		}
+		//console.log("Skipping mass balance for node "+node)
+		return true;
 	}
+
+	var E=null, S=null;	
+
+	//1. suma les connexions que apunten a node
+	Connections
+		.filter(function(c){return c.to==node})
+		.forEach(function(c){E+=c.flow});
 
 	//2. troba les connexions que surten de node
-	for(var i in Connections)
-	{
-		var from=Connections[i].from;
-		if(from==node)
-		{
-			S+=Connections[i].flow;
-		}
-	}
+	Connections
+		.filter(function(c){return c.from==node})
+		.forEach(function(c){S+=c.flow});
 
-	//return
-	var ret=E==S;
-	if(!ret) {
-		console.log(node+' -  E: '+E+', S: '+S)
-	}
-	return ret;
-}
-
-//fes un balanç a tots els nodes
-function balanços()
-{
-	for(var node in Nodes) 
-	{
-		var bal=balMat(node);
-	}
+	//return if E==S
+	return (E!=null && S!=null && E==S);
 }

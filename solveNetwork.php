@@ -11,10 +11,11 @@
 		//recalculate the flows for current network
 		function recalculateFlows() {
 			//reset flows
-			Connections.forEach(function(con){con.flow=null})
-			Tanks.forEach(function(tank){tank.value=null})
-			updateCookies()
-			window.location.reload()
+			Connections.forEach(function(con){con.flow=null});
+			Reuse.forEach(function(con){con.flow=null});
+			Tanks.forEach(function(tank){tank.value=null});
+			updateCookies();
+			window.location.reload();
 		}
 	</script>
 	<script>
@@ -28,37 +29,49 @@
 			//update node list
 			updateNodList:function() {
 				var div = document.querySelector('#nodes')
+
 				if(Nodes.length==0){ div.innerHTML="<i style='color:#ccc'>~No nodes</i>";return}
+
 				div.innerHTML="";
 				var table=document.createElement('table');
 				div.appendChild(table);
 				var newRow=table.insertRow(-1);
-				newRow.insertCell(-1).innerHTML="<b>Node</b>";
-				newRow.insertCell(-1).innerHTML="<b>Output (L/day)</b>";
-				newRow.insertCell(-1).innerHTML="<b>See</b>";
-				var n=1;
+				newRow.insertCell(-1).outerHTML="<th>Nodes</th>";
+				newRow.insertCell(-1).outerHTML="<th>Output (L/day)";
 
-				Nodes.concat(Tanks).forEach(function(node){
+				Nodes.forEach(function(node){
 					var newRow=table.insertRow(-1);
+					newRow.onmouseenter=function(){see(node.name)};
+					newRow.onmouseout=function(){unsee()};
 					newRow.insertCell(-1).innerHTML=node.name;
 					newRow.insertCell(-1).innerHTML=node.value==null ? "<b style=color:red>not calc</b>" : format(node.value);
-					newRow.insertCell(-1).innerHTML="<button onmouseenter=\"see('"+node.name+"')\" onmouseout=unsee()>see</button>";;
-					n++;
+				});
+				var newRow=table.insertRow(-1);
+				newRow.insertCell(-1).outerHTML="<th>Tanks</th>";
+				newRow.insertCell(-1).outerHTML="<th>Output (L/day)";
+				Tanks.forEach(function(node){
+					var newRow=table.insertRow(-1);
+					newRow.onmouseenter=function(){see(node.name)};
+					newRow.onmouseout=function(){unsee()};
+					newRow.insertCell(-1).innerHTML=node.name;
+					newRow.insertCell(-1).innerHTML=node.value==null ? "<b style=color:red>not calc</b>" : format(node.value);
 				});
 			},
 			//update connections list
 			updateConList:function() {
 				var div = document.querySelector('#connections')
 				div.innerHTML="";
-				if(Connections.length==0)
+				if(Connections.length==0) {
 					div.innerHTML="<i style='color:#ccc'>~No connections</i>"
+				}
 				else{
 					var table=document.createElement('table');
 					div.appendChild(table);
 					//header
 					var newRow=table.insertRow(-1);
-					newRow.insertCell(-1).outerHTML="<td colspan=3><b>Connection</b></td>";
-					newRow.insertCell(-1).innerHTML="<b>Flow (L/day)</b>";
+					newRow.insertCell(-1).outerHTML="<th colspan=3>Connections</th>";
+					newRow.insertCell(-1).outerHTML="<th>Flow (L/day)";
+
 					//body
 					for(var i in Connections) {
 						var from = Connections[i].from;
@@ -83,11 +96,11 @@
 			var tos=document.querySelectorAll('div#connections tr[to="'+node+'"]');
 			for(var i=0;i<froms.length;i++)
 			{
-				froms[i].style.background="#abc";
+				froms[i].style.background="#bca";
 			}
 			for(var i=0;i<tos.length;i++)
 			{
-				tos[i].style.background="#bca";
+				tos[i].style.background="#cba";
 			}
 		}
 		function unsee() {
@@ -105,9 +118,9 @@
 			justify-content:center;
 		}
 		#botonera button {
-		display:block;
-		padding:1em 4em;
-		margin:2px;
+			display:block;
+			padding:1em 4em;
+			margin:2px;
 		}
 	</style>
 </head><body onload=init()>
@@ -118,21 +131,14 @@
 <script src="solveConnections2.js"></script><!--solve connection flows ('flow' property)-->
 <script src="solveNodes2.js"></script><!--solve nodes outputs ('value' property)-->
 <script src="solve.js"></script>
-
 <!--network solving-->
 
 <div id=root class=flex style="justify-content:center">
 	<!--left column-->
 	<div>
 		<div id=botonera class=flex>
-				<button 
-					onclick=recalculateFlows() 
-					>Reset Flows
-				</button>
-				<button 
-					onclick="solveNetwork();init()";
-					>Solve Network
-				</button>
+			<button onclick="recalculateFlows()">Reset Connection Flows and Tanks</button>
+			<button onclick="solveNetwork();init()">Solve Network</button>
 		</div>
 
 		<!--nodes i connexions-->

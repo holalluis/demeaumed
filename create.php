@@ -83,41 +83,43 @@
 	function initialData() {
 		if(Tanks.length==0 && Connections.length==0) {
 			//create new tanks
-			Tanks.push({name:"Tap" ,   volume:100});
-			Tanks.push({name:"Room" ,  volume:100});
-			Tanks.push({name:"Lobby",  volume:100});
-			Tanks.push({name:"Kitchen",volume:100});
-			Tanks.push({name:"Sewer",  volume:100});
+			Tanks.push({name:"TAP" ,   volume:100});
+			Tanks.push({name:"ROOM" ,  volume:100});
+			Tanks.push({name:"LOBBY",  volume:100});
+			Tanks.push({name:"KITCHEN",volume:100});
+			Tanks.push({name:"SEWER",  volume:100});
 			Tanks.push({name:"INPUT",  volume:100});
 			Tanks.push({name:"OUTPUT", volume:100});
 			//create new connections
-			Connections.push({from:"INPUT",              to:"Tap",                flow:null});
-			Connections.push({from:"Tap",                to:"Room Bath",          flow:null});
-			Connections.push({from:"Tap",                to:"Room Shower",        flow:null});
-			Connections.push({from:"Tap",                to:"Room Sink",          flow:null});
-			Connections.push({from:"Tap",                to:"Room Toilet",        flow:null});
-			Connections.push({from:"Tap",                to:"Lobby Sink",         flow:null});
-			Connections.push({from:"Tap",                to:"Lobby Toilet",       flow:null});
-			Connections.push({from:"Tap",                to:"Kitchen Sink",       flow:null});
-			Connections.push({from:"Tap",                to:"Kitchen Dishwasher", flow:null});
-			Connections.push({from:"Tap",                to:"Pool",               flow:null});
-			Connections.push({from:"Tap",                to:"Laundry",            flow:null});
-			Connections.push({from:"Tap",                to:"Garden",             flow:null});
-			Connections.push({from:"Room Bath",          to:"Room",               flow:null});
-			Connections.push({from:"Room Shower",        to:"Room",               flow:null});
-			Connections.push({from:"Room Sink",          to:"Room",               flow:null});
-			Connections.push({from:"Room Toilet",        to:"Room",               flow:null});
-			Connections.push({from:"Lobby Sink",         to:"Lobby",              flow:null});
-			Connections.push({from:"Lobby Toilet",       to:"Lobby",              flow:null});
-			Connections.push({from:"Kitchen Sink",       to:"Kitchen",            flow:null});
-			Connections.push({from:"Kitchen Dishwasher", to:"Kitchen",            flow:null});
-			Connections.push({from:"Room",               to:"Sewer",              flow:null});
-			Connections.push({from:"Lobby",              to:"Sewer",              flow:null});
-			Connections.push({from:"Kitchen",            to:"Sewer",              flow:null});
-			Connections.push({from:"Pool",               to:"Sewer",              flow:null});
-			Connections.push({from:"Laundry",            to:"Sewer",              flow:null});
-			Connections.push({from:"Garden",             to:"Sewer",              flow:null});
-			Connections.push({from:"Sewer",              to:"OUTPUT",             flow:null});
+			Connections.push({from:"INPUT",              to:"TAP",                flow:null});
+			Connections.push({from:"TAP",                to:"Room Bath",          flow:null});
+			Connections.push({from:"TAP",                to:"Room Shower",        flow:null});
+			Connections.push({from:"TAP",                to:"Room Sink",          flow:null});
+			Connections.push({from:"TAP",                to:"Room Toilet",        flow:null});
+			Connections.push({from:"TAP",                to:"Lobby Sink",         flow:null});
+			Connections.push({from:"TAP",                to:"Lobby Toilet",       flow:null});
+			Connections.push({from:"TAP",                to:"Kitchen Sink",       flow:null});
+			Connections.push({from:"TAP",                to:"Kitchen Dishwasher", flow:null});
+			Connections.push({from:"TAP",                to:"Pool",               flow:null});
+			Connections.push({from:"TAP",                to:"Laundry",            flow:null});
+			Connections.push({from:"TAP",                to:"Garden",             flow:null});
+			Connections.push({from:"Room Bath",          to:"ROOM",               flow:null});
+			Connections.push({from:"Room Shower",        to:"ROOM",               flow:null});
+			Connections.push({from:"Room Sink",          to:"ROOM",               flow:null});
+			Connections.push({from:"Room Toilet",        to:"ROOM",               flow:null});
+			Connections.push({from:"Lobby Sink",         to:"LOBBY",              flow:null});
+			Connections.push({from:"Lobby Toilet",       to:"LOBBY",              flow:null});
+			Connections.push({from:"Kitchen Sink",       to:"KITCHEN",            flow:null});
+			Connections.push({from:"Kitchen Dishwasher", to:"KITCHEN",            flow:null});
+			Connections.push({from:"ROOM",               to:"SEWER",              flow:null});
+			Connections.push({from:"LOBBY",              to:"SEWER",              flow:null});
+			Connections.push({from:"KITCHEN",            to:"SEWER",              flow:null});
+			Connections.push({from:"Pool",               to:"SEWER",              flow:null});
+			Connections.push({from:"Laundry",            to:"SEWER",              flow:null});
+			Connections.push({from:"Garden",             to:"SEWER",              flow:null});
+			Connections.push({from:"SEWER",              to:"OUTPUT",             flow:null});
+			Reuse.push({from:"ROOM",    to:"Garden", tec:"none", maxFlow:60e3, flow:null});
+			Reuse.push({from:"KITCHEN", to:"Pool",   tec:"none", maxFlow:15e3, flow:null});
 		}
 		else alert("Network must be empty");
 		init();
@@ -216,7 +218,7 @@
 				style="display:inline-block;margin:auto;padding:1em 4em"
 				>Create an example network</button>
 			<button 
-				onclick="Connections=[];Tanks=[];Nodes=[];init();window.location.reload()"
+				onclick="Connections=[];Tanks=[];Nodes=[];Reuse=[];init();window.location.reload()"
 				style="display:inline-block;margin:auto;padding:1em 4em"
 				>Clear network</button>
 		</div>
