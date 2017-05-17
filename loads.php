@@ -188,7 +188,7 @@
 	</style>
 </head><body onload=init()>
 <!--navbar--><?php include'navbar.php'?>
-<!--title--><div class=title>4. Solve Loads: <span class=subtitle>Contaminants without water reuse</span></div>
+<!--title--><div class=title>6. Solve Loads: <span class=subtitle>Contaminants without water reuse</span></div>
 
 <div id=root>
 

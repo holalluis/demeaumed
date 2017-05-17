@@ -33,8 +33,8 @@
 				var table=document.createElement('table');
 				div.appendChild(table);
 				var newRow=table.insertRow(-1);
-				newRow.insertCell(-1).innerHTML="<b>Nodes</b>";
-				newRow.insertCell(-1).innerHTML="<b>Output (L/day)</b>";
+				newRow.insertCell(-1).outerHTML="<th>Nodes</th>";
+				newRow.insertCell(-1).outerHTML="<th>Output (L/day)</th>";
 				var n=1;
 
 				Nodes.concat(Tanks).forEach(function(node){
@@ -60,8 +60,8 @@
 					div.appendChild(table);
 					//header
 					var newRow=table.insertRow(-1);
-					newRow.insertCell(-1).outerHTML="<td colspan=3><b>Connections</b></td>";
-					newRow.insertCell(-1).innerHTML="<b>Flow (L/day)</b>";
+					newRow.insertCell(-1).outerHTML="<th colspan=3><b>Connections</b></th>";
+					newRow.insertCell(-1).outerHTML="<th>Flow (L/day)</th>";
 					//body
 					for(var i in Connections) {
 						var from = Connections[i].from;
@@ -90,9 +90,9 @@
 					div.appendChild(table);
 					//header
 					var newRow=table.insertRow(-1);
-					newRow.insertCell(-1).outerHTML="<td colspan=3><b>Water reuse connections</b></td>";
-					newRow.insertCell(-1).innerHTML="<b>Max flow (L/day)</b>";
-					newRow.insertCell(-1).innerHTML="<b>Flow (L/day)</b>";
+					newRow.insertCell(-1).outerHTML="<th colspan=3>Water reuse connections</th>";
+					newRow.insertCell(-1).outerHTML="<th>Max flow (L/day)</th>";
+					newRow.insertCell(-1).outerHTML="<th>Flow (L/day)</th>";
 					//body
 					for(var i in Reuse) {
 						var from = Reuse[i].from;
@@ -103,7 +103,7 @@
 						newRow.setAttribute('from',from);
 						newRow.setAttribute('to',to);
 						newRow.insertCell(-1).outerHTML="<td style=text-align:right>"+from+"</th>";
-						newRow.insertCell(-1).innerHTML="&rarr;";
+						newRow.insertCell(-1).innerHTML="<center>&rarr;</center>";
 						newRow.insertCell(-1).innerHTML=to;
 						newRow.insertCell(-1).innerHTML=format(Reuse[i].maxFlow);
 						newRow.insertCell(-1).outerHTML="<td title='"+flow+"'>"+flow_f+"</td>";
@@ -152,12 +152,15 @@
 			padding:1px;
 			font-size:10px;
 			margin:0 auto;
-			max-width:33%;
+		}
+		#reuse table {
+			margin:1em auto;
+			width:100%;
 		}
 	</style>
 </head><body onload=init()>
 <!--navbar--><?php include'navbar.php'?>
-<!--title--><div class=title>6. Solve reuse: <span class=subtitle>Find flows resulting from water reuse</span></div>
+<!--title--><div class=title>5. Solve reuse: <span class=subtitle>Find flows resulting from water reuse</span></div>
 
 <!--network solving-->
 <script src=solveReuse.js></script>
@@ -172,11 +175,12 @@
 			<button onclick="solveReuse();init()">Solve Reuse</button>
 		</div>
 
+		<div id=reuse></div>
+
 		<!--nodes i connexions-->
 		<div class=flex id=taules>
 			<div id=nodes></div>
 			<div id=connections></div>
-			<div id=reuse></div>
 		</div>
 
 	</div>

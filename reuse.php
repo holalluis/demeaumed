@@ -141,7 +141,7 @@
 
 </head><body onload=init()>
 <!--navbar--><?php include'navbar.php'?>
-<!--title--><div class=title>5. Water reuse: <span class=subtitle>Water reuse connections</span></div>
+<!--title--><div class=title>4. Water reuse: <span class=subtitle>Water reuse connections</span></div>
 
 <div id=root style="justify-content:center">
 

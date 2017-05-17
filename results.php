@@ -39,7 +39,7 @@
 			Actual water saved from reuse: <b id=waterSaved></b> L/day
 		</li>
 		<li>
-			Contaminants: PENDING
+			Contaminants: APPLY REMOVAL RATES TO EACH CONNECTION PENDING
 		</li>
 	</ul>
 
