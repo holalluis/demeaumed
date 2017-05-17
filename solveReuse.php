@@ -171,8 +171,8 @@
 	<!--left column-->
 	<div id=left>
 		<div id=botonera class=flex>
-			<button onclick="recalculateFlows()">Reset Water Reuse Flows</button>
 			<button onclick="solveReuse();init()">Solve Reuse</button>
+			<button onclick="recalculateFlows()">Reset Water Reuse</button>
 		</div>
 
 		<div id=reuse></div>

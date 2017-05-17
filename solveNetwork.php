@@ -137,8 +137,8 @@
 	<!--left column-->
 	<div>
 		<div id=botonera class=flex>
-			<button onclick="recalculateFlows()">Reset Connection Flows and Tanks</button>
 			<button onclick="solveNetwork();init()">Solve Network</button>
+			<button onclick="recalculateFlows()">Reset Connection Flows and Tanks</button>
 		</div>
 
 		<!--nodes i connexions-->
