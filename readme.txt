@@ -14,7 +14,8 @@ Hotel model app and network solver
 to do list
 ==========
 
-1. program technologies
-2. diagram for each contaminant
+1. program contaminant propagation through nodes
+
+2. view a diagram for each contaminant
 
 99. alinear caselles amb números a la dreta
