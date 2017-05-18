@@ -1,21 +1,76 @@
 //Technologies for water reuse
+//removals are in percentage
 
 //array of objects
 var Technologies=[
-	{name:"none",},
-	{name:"Smart Air MBR",},
-	{name:"Green Walls",},
-	{name:"Plimmer",},
-	{name:"Photo-Electro Fenton",},
+	{name:"none",
+		removal:{
+			SST: 0,
+			PO4: 0,
+			SO4: 0,
+			TOC: 0,
+			COD: 0,
+			BOD: 0,
+			TN:  0,
+			Caffeine: 0,
+			Carbamazepine: 0,
+			Diclophenac: 0,
+		},
+	},
+	{name:"Smart Air MBR",
+		removal:{
+			SST: 97,
+			PO4: 5.4,
+			SO4: 0,
+			TOC: 89.8,
+			COD: 90,
+			BOD: 96.9,
+			TN: 36.1,
+			Caffeine: 93.1,
+			Carbamazepine: 38.3,
+			Diclophenac: 62.5,
+		},
+	},
+	{name:"Green Walls",
+		removal:{
+			SST: 92.1,
+			PO4: 0,
+			SO4: 0,    
+			TOC: 86.4,
+			COD: 89.8,
+			BOD: 94.2,
+			TN: 36.9,
+			Caffeine: 92.6,
+			Carbamazepine: 58.0,
+			Diclophenac: 86.9,
+		},
+	},
+	{name:"Plimmer",
+		removal:{
+			SST: 39.2,
+			PO4: 42.8,
+			SO4: 59,
+			TOC: 0,
+			COD: 0,
+			BOD: 0,
+			TN: 66.4,
+			Caffeine: 0,
+			Carbamazepine: 61.4,
+			Diclophenac: 0,
+		},
+	},
+	{name:"Photo-Electro Fenton",
+		removal:{
+			SST: 0,
+			PO4: 74.3,
+			SO4: 0,
+			TOC: 0,
+			COD: 31.6,
+			BOD: 61.9,
+			TN: 5.6,
+			Caffeine: 0,
+			Carbamazepine: 100.0,
+			Diclophenac: 96.0,
+		},
+	},
 ];
-
-/*
-
-Contaminant	TSS	P-PO4	S-SO4	TOC	COD	BOD	TN	Caffeine	Carbamazepine	Diclophenac
-Smart Air MBR	97.0	5.4	0.0	89.8	90.0	96.9	36.1	93.1	38.3	62.5
-Green Walls	92.1	-51.4	-5.4	86.4	89.8	94.2	36.9	92.6	58.0	86.9
-Plimmer	39.2	42.8	59.0	-5.3	0.0	-52.9	66.4	0.0	61.4	-68.8
-Photo-Electro Fenton	-3669.1	74.3	-589.1	-6.1	31.6	61.9	5.6	0.0	100.0	96.0
-
-*/
-

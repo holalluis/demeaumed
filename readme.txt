@@ -14,6 +14,7 @@ Hotel model app and network solver
 to do list
 ==========
 
-1. add display flex to all views (left right)
-2. add arrows to graph.php (copy from graph2.php)
-3. account pool evaporation in network
+1. program technologies
+2. diagram for each contaminant
+
+99. alinear caselles amb números a la dreta

@@ -11,10 +11,19 @@
 	#newTank input, #newCon input { width:65px; }
 	#allCon, #allTanks {
 		max-height:200px;
-		overflow-y:auto;
+		overflow-y:scroll;
 	}
 	span.small {font-size:12px}
 	div#navbar a[page=create]{background:orange;color:black;}
+
+	.connection, .tank {
+		display:flex;
+		justify-content:space-between;
+	}
+
+	.connection:hover, .tank:hover {
+		background:orange;
+	}
 </style>
 
 <script>
@@ -39,11 +48,9 @@
 		if(from==to){alert("Error - you cannot connect a node to itself");return;}
 
 		//error if connection already exists
-		for(var i=0; i<Connections.length; i++)
-		{
+		for(var i=0; i<Connections.length; i++) {
 			var c=Connections[i];
-			if(c.from==from && c.to==to)
-			{
+			if(c.from==from && c.to==to) {
 				alert("Error - Connection already exists");
 				return;
 			}
@@ -89,7 +96,7 @@
 			Tanks.push({name:"KITCHEN",volume:100});
 			Tanks.push({name:"SEWER",  volume:100});
 			Tanks.push({name:"INPUT",  volume:100});
-			Tanks.push({name:"OUT", volume:100});
+			Tanks.push({name:"OUT",    volume:100});
 			Tanks.push({name:"OUTPUT", volume:100});
 			//create new connections
 			Connections.push({from:"INPUT",              to:"TAP",                flow:null});
@@ -169,6 +176,7 @@
 			for(var i in Connections) {
 				//new div == connection
 				var con = document.createElement('div')
+				con.classList.add('connection');
 				div.appendChild(con)
 				//get fields
 				var from = Connections[i].from
@@ -192,6 +200,7 @@
 			for(var i in Tanks) {
 				//new div == tank
 				var tank = document.createElement('div')
+				tank.classList.add('tank');
 				div.appendChild(tank)
 				//get fields
 				var name = Tanks[i].name
