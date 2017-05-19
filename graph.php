@@ -56,7 +56,7 @@
 </style>
 
 <!--main svg-->
-<svg id=main width="700" height="800"></svg>
+<svg id=main width="750" height="750"></svg>
 
 <!--create graph-->
 <script>
@@ -79,7 +79,7 @@
 			.attr("class", "node")
 
 		node.append("circle")
-			.attr("r", 7)
+			.attr("r", 14)
 			.attr("fill", function(d) { return color(d.group); })
 			.call(d3.drag()
 				.on("start", dragstarted)

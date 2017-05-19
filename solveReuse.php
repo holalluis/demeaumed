@@ -145,7 +145,7 @@
 		}
 		#botonera button {
 			display:block;
-			padding:1em 4em;
+			padding:1em 3em;
 			margin:1px;
 		}
 		#nodes, #connections, #reuse {

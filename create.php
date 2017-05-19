@@ -8,7 +8,6 @@
 		font-size:11px;
 	}
 	#newCon, #newTank { background:#eee; }
-	#newTank input, #newCon input { width:65px; }
 	#allCon, #allTanks {
 		max-height:200px;
 		overflow-y:scroll;
@@ -75,10 +74,9 @@
 	function newTank() {
 		//inputs
 		var name   = document.querySelector('#newTank #name').value;
-		var volume = document.querySelector('#newTank #volume').value;
 
 		//create new object
-		var tank = {name:name,volume:volume};
+		var tank = {name:name};
 
 		//add it to Connections
 		Tanks.push(tank);
@@ -90,14 +88,14 @@
 	function initialData() {
 		if(Tanks.length==0 && Connections.length==0) {
 			//create new tanks
-			Tanks.push({name:"TAP" ,   volume:100});
-			Tanks.push({name:"ROOM" ,  volume:100});
-			Tanks.push({name:"LOBBY",  volume:100});
-			Tanks.push({name:"KITCHEN",volume:100});
-			Tanks.push({name:"SEWER",  volume:100});
-			Tanks.push({name:"INPUT",  volume:100});
-			Tanks.push({name:"OUT",    volume:100});
-			Tanks.push({name:"OUTPUT", volume:100});
+			Tanks.push({name:"TAP" ,   });
+			Tanks.push({name:"ROOM" ,  });
+			Tanks.push({name:"LOBBY",  });
+			Tanks.push({name:"KITCHEN",});
+			Tanks.push({name:"SEWER",  });
+			Tanks.push({name:"INPUT",  });
+			Tanks.push({name:"OUT",    });
+			Tanks.push({name:"OUTPUT", });
 			//create new connections
 			Connections.push({from:"INPUT",              to:"TAP",                flow:null});
 			Connections.push({from:"TAP",                to:"Room Bath",          flow:null});
@@ -204,9 +202,8 @@
 				div.appendChild(tank)
 				//get fields
 				var name = Tanks[i].name
-				var volume = Tanks[i].volume
 				var n=parseInt(i)+1;
-				tank.innerHTML="&emsp;"+n+". "+name+" ["+volume+" L] ";
+				tank.innerHTML="&emsp;"+n+". "+name;
 				//button for removing the tank
 				var button = document.createElement('button')
 				tank.appendChild(button)
@@ -228,11 +225,11 @@
 		<div id=defaultNet style="padding:1em 0.5em;text-align:center">
 			<button 
 				onclick=initialData() 
-				style="display:inline-block;margin:auto;padding:1em 4em"
+				style="display:inline-block;margin:auto;padding:1em 3em"
 				>Create example network</button>
 			<button 
 				onclick="Connections=[];Tanks=[];Nodes=[];Reuse=[];init();window.location.reload()"
-				style="display:inline-block;margin:auto;padding:1em 4em"
+				style="display:inline-block;margin:auto;padding:1em 3em"
 				>Clear network</button>
 		</div>
 
@@ -247,8 +244,7 @@
 		<!--new tank menu-->
 		<div id=newTank>
 			<h3>+ New tank <span class=small>(=new node)</span></h4>
-			&emsp;Name   <input id=name   placeholder="Tank name"> &emsp;
-			Volume <input id=volume placeholder="Volume" type=number value=100> (L)
+			&emsp;Name   <input id=name   placeholder="Tank name"> 
 			<button onclick=newTank()>Add</button>
 		</div>
 

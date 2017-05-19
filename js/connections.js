@@ -1,4 +1,3 @@
-//here the user creates connections for water reuse
-//Connection: {from:<string>,tec:<string>,to:<string>,vol:<number>}
+//this object stores connections for the network
+//connection: {from:<string>,to:<string>,flow:<float>}
 var Connections = [];
-

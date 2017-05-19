@@ -1,4 +1,5 @@
 # SambaNet 
+
 Hotel model app and network solver
 
 * status: under development
@@ -14,8 +15,11 @@ Hotel model app and network solver
 to do list
 ==========
 
-1. program contaminant propagation through nodes
+1. Program contaminant propagation through nodes
 
-2. view a diagram for each contaminant
+2. Afegir taula tecnologies a loads.php
 
+3. View a diagram for each contaminant
+
+98. Export network to json
 99. alinear caselles amb números a la dreta

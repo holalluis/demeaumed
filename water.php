@@ -236,7 +236,7 @@
 
 <!--menu visibility-->
 <div id=title class="title flex">
-	<span>1. Water use: <span class=subtitle>calculate water consumed per day</span></span>
+	<span>1. Water use: <span class=subtitle>calculate water consumption per day</span></span>
 	<div style="font-size:15px">
 		Options
 		<button onclick=setAll('active')>&#9660; Expand all</button><!--

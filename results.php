@@ -3,6 +3,9 @@
 	<style>
 		#navbar a[page=results]{background:orange;color:black}
 		#root {padding:1em}
+		li {
+			margin:1em 0em;
+		}
 	</style>
 
 	<script>
@@ -11,6 +14,7 @@
 			calcWaterSaved();
 		}
 
+		//water saved from reuse: potential and actual
 		function calcWaterPotential() {
 			var sum=0;
 			sum+=Reuse.map(function(con){return con.maxFlow}).reduce(function(prev,curr){return prev+curr});
@@ -32,14 +36,22 @@
 
 	<!--results-->
 	<ul id=results>
-		<li> 
-			Potential water saved from reuse: <b id=waterPotential></b> L/day
-		</li>
-		<li> 
-			Actual water saved from reuse: <b id=waterSaved></b> L/day
+		<li>Water reuse 
+			<ul>
+				<li>
+					Potential water savings: <b id=waterPotential></b> L/day
+				</li>
+				<li> 
+					Actual water savings: <b id=waterSaved></b> L/day
+				</li>
+			</ul>
 		</li>
 		<li>
-			Contaminants: APPLY REMOVAL RATES TO EACH CONNECTION PENDING
+			Load / export [TO DO]
+			<ul>
+				<li><button>Load network...</button>
+				<li><button>Export network </button>
+			</ul>
 		</li>
 	</ul>
 

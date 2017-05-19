@@ -1,6 +1,6 @@
 //Tanks for water reuse
 
-//example: Tanks.push( { name:"Tap" , volume:100 } );
+//example: Tanks.push( { name:"Tap" } );
 
 var Tanks=[]; //array of objects
 
