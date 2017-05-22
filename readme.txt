@@ -15,9 +15,8 @@ Hotel model app and network solver
 to do list
 ==========
 
-2. Afegir taula tecnologies a loads.php
-
 1. Add contamiant removed (mg) for each contaminant in results
+2. Afegir taula tecnologies a loads.php
 
 98. Export network to json
 99. alinear caselles amb números a la dreta

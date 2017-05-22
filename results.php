@@ -45,7 +45,7 @@
 			conts.forEach(c=>{
 				var li=document.createElement('li');
 				ul.appendChild(li);
-				li.innerHTML=c+": (not calculated)";
+				li.innerHTML=c+": (under development)";
 			});
 		}
 	</script>
