@@ -63,6 +63,7 @@
 				var reuse=Reuse[i];
 				var newRow=t.insertRow(-1)
 				newRow.insertCell(-1).innerHTML=reuse.from;
+				newRow.insertCell(-1).innerHTML="&rarr;";
 				newRow.insertCell(-1).innerHTML=reuse.to;
 				newRow.insertCell(-1).innerHTML=reuse.tec;
 				newRow.insertCell(-1).innerHTML=reuse.maxFlow;
@@ -144,7 +145,7 @@
 
 </head><body onload=init()>
 <!--navbar--><?php include'navbar.php'?>
-<!--title--><div class=title>4. Water reuse: <span class=subtitle>Water reuse connections</span></div>
+<!--title--><div class=title>4. Water reuse: <span class=subtitle>create connections for water reuse and treatment</span></div>
 
 <div id=root style="justify-content:center">
 
@@ -153,8 +154,8 @@
 		<!--reuse table-->
 		<div>
 			<table id=reuse>
-				<tr><th colspan=5>Water reuse connections
-				<tr><th>From<th>To<th>Technology<th>Max flow (L/day)<th>Options
+				<tr><th colspan=6>Water reuse connections
+				<tr><th colspan=3>From &rarr; To<th>Treatment technology<th>Max flow (L/day)<th>Options
 			</table>
 		</div>
 

@@ -52,7 +52,7 @@
 
 </head><body onload=init()>
 <!--navbar--><?php include'navbar.php'?>
-<!--title--><div class=title>Results: <span class=subtitle>Summary</span></div>
+<!--title--><div class=title>Results: <span class=subtitle>summary</span></div>
 
 <div id=root>
 
@@ -62,10 +62,10 @@
 			<ul>
 				<li>Water reuse connections: <b id=waterReuseConnections>0</b>
 				<li>
-					Potential water savings: <b id=waterPotential></b> L/day
+					Maximum theoretical water savings: <b id=waterPotential></b> L/day
 				</li>
 				<li> 
-					Actual water savings: <b id=waterSaved></b> L/day
+					Current water savings: <b id=waterSaved></b> L/day
 				</li>
 				<li>Contaminants removed (mg/day):
 					<ul id=contaminants_rmvd></ul>

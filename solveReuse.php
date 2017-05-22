@@ -158,7 +158,7 @@
 	</style>
 </head><body onload=init()>
 <!--navbar--><?php include'navbar.php'?>
-<!--title--><div class=title>5. Solve reuse: <span class=subtitle>Find flows resulting from water reuse</span></div>
+<!--title--><div class=title>5. Solve reuse: <span class=subtitle>calculate water flows with water reuse</span></div>
 
 <!--network solving-->
 <script src=solveReuse.js></script>

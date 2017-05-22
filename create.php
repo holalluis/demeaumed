@@ -216,7 +216,7 @@
 
 </head><body onload=init()>
 <!--navbar--><?php include'navbar.php'?>
-<!--title--><div class=title>2. Create network: <span class=subtitle>Connect hotel services. Optional: create tanks</span></div>
+<!--title--><div class=title>2. Create network: <span class=subtitle>connect hotel services</span></div>
 
 <div id=root class=flex style="justify-content:center">
 	<!--left column-->

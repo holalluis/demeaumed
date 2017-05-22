@@ -125,7 +125,7 @@
 	</style>
 </head><body onload=init()>
 <!--navbar--><?php include'navbar.php'?>
-<!--title--><div class=title>3. Solve network: <span class=subtitle>Find flows</span></div>
+<!--title--><div class=title>3. Solve network: <span class=subtitle>calculate water flows</span></div>
 
 <!--network solving-->
 <script src="solveConnections2.js"></script><!--solve connection flows ('flow' property)-->
