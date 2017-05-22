@@ -15,11 +15,9 @@ Hotel model app and network solver
 to do list
 ==========
 
-1. Program contaminant propagation through nodes
-
 2. Afegir taula tecnologies a loads.php
 
-3. View a diagram for each contaminant
+1. Add contamiant removed (mg) for each contaminant in results
 
 98. Export network to json
 99. alinear caselles amb números a la dreta

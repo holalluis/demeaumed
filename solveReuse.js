@@ -28,26 +28,20 @@ function solveReuse(){
 			.forEach(function(c){reuse_flow += c.flow});
 
 		//if the flow calculated is greater than required, shave it
-		if( reuse_flow > getNodeByName(reu.to).value ) 
-		{
+		if( reuse_flow > getNodeByName(reu.to).value ) {
 			reuse_flow = getNodeByName(reu.to).value;
 		}
-
 		//if the flow is still greater than max flow, shave it
-		if( reuse_flow > reu.maxFlow ) 
-		{
+		if( reuse_flow > reu.maxFlow ) {
 			reuse_flow = reu.maxFlow;
 		}
 
-		//final step: set it
+		//final step: set the calculated flow
 		reu.flow = reuse_flow;
-
 	});
 
-	//reset connections
+	//reset connections and tanks
 	Connections.forEach(function(c){c.flow=null});
-
-	//reset tanks
 	Tanks.forEach(function(t){t.value=null});
 
 	//add connections and reuse to the same array
@@ -67,7 +61,6 @@ function solveReuse(){
 				}
 			}
 	});
-
 
 	var notCalcItems=Infinity;//initial value that we have to get to 0
 

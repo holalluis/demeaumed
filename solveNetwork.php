@@ -36,8 +36,8 @@
 				var table=document.createElement('table');
 				div.appendChild(table);
 				var newRow=table.insertRow(-1);
-				newRow.insertCell(-1).outerHTML="<th>Nodes</th>";
-				newRow.insertCell(-1).outerHTML="<th>Output (L/day)";
+				newRow.insertCell(-1).outerHTML="<th class=nodeColor>Nodes</th>";
+				newRow.insertCell(-1).outerHTML="<th class=nodeColor>Output (L/day)";
 
 				Nodes.forEach(function(node){
 					var newRow=table.insertRow(-1);
@@ -47,8 +47,8 @@
 					newRow.insertCell(-1).innerHTML=node.value==null ? "<b style=color:red>not calc</b>" : format(node.value);
 				});
 				var newRow=table.insertRow(-1);
-				newRow.insertCell(-1).outerHTML="<th>Tanks</th>";
-				newRow.insertCell(-1).outerHTML="<th>Output (L/day)";
+				newRow.insertCell(-1).outerHTML="<th class=tankColor>Tanks</th>";
+				newRow.insertCell(-1).outerHTML="<th class=tankColor>Output (L/day)";
 				Tanks.forEach(function(node){
 					var newRow=table.insertRow(-1);
 					newRow.onmouseenter=function(){see(node.name)};

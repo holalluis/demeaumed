@@ -10,39 +10,37 @@
 			text-align:center;
 		}
 		#graph_zoom button { 
-			border-radius:1em;
-			padding:0.5em 2em;
 			background:#abc;
+			border-radius:1em;
 			border:none;
-			font-size:18px;
+			font-size:16px;
 			outline:none;
+			padding:0.5em 1em;
 		}
 		#graph_zoom button:hover {background:#bca}
 	</style>
 	Zoom
-	&#128270; 
 	<button onclick=zoom("-")>-</button>
 	<button onclick=zoom("+")>+</button>
-
 	<script>
 		function zoom(option) {
 			var gravetat=parseInt(document.querySelector('svg').getAttribute('gravetat'))
 			var augments=750;
-			switch(option)
-			{
-				case "-":
-					gravetat-=augments;break;
-				case "+":
-					gravetat+=augments;break;
+			switch(option) {
+				case "-": gravetat-=augments;break;
+				case "+": gravetat+=augments;break;
 				default:return;break;
 			}
-			createGraph(gravetat,arrows);
+			zoomFunction(gravetat,arrows);
 		}
 	</script>
-
 	<!--full-screen-btn-->
-	<button onclick=window.location='fullScreen.php' style=float:right>full screen</button>
+	<button onclick=window.location='fullScreen.php'>full screen</button>
 </div>
+
+<!--main svg-->
+<svg id=main width="800" height="800" lastContaminant="SST"></svg>
+
 <style>
 	.links line { stroke-opacity: 0.6;}
 	.nodes circle { stroke:#fff; stroke-width: 1.5px; }
@@ -55,12 +53,9 @@
 	}
 </style>
 
-<!--main svg-->
-<svg id=main width="750" height="750"></svg>
-
 <!--create graph-->
 <script>
-	//called in <body onload=init()>
+	//main graph function
 	function dibuixa(json,gravetat,arrows) {
 		gravetat = gravetat || 60;
 		arrows = arrows || false;
@@ -161,6 +156,7 @@
 			d.fy = d3.event.y;
 		}
 		function dragended(d) {
+			return;
 			if (!d3.event.active) simulation.alphaTarget(0);
 			d.fx = null;
 			d.fy = null;
@@ -170,6 +166,8 @@
 	function createGraph(gravetat,arrows) {
 		gravetat = Math.abs(gravetat)+0.01 || 60;
 		arrows = arrows || false;
+
+		zoomFunction=createGraph;
 
 		//empty element
 		document.querySelector('svg').innerHTML="";
@@ -215,6 +213,10 @@
 		//draw
 		dibuixa(json,gravetat,arrows);
 	}
+
+	/*remember last called function in a global variable*/
+	var zoomFunction=createGraph;
 </script>
 
-<?php include'legend.php'; ?>
+<!--graph legend-->
+<?php include'legend.php'?>

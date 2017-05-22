@@ -17,6 +17,9 @@
 		font-size:12px;
 		width:100%;
 	}
+	#reuse th {
+		background:#800080;
+	}
 	table#reuse td:first-child,
 	table#reuse th:first-child
 	{
