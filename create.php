@@ -1,7 +1,6 @@
 <!doctype html><html><head><?php include'imports.php'?>
 <style>
-	div#defaultNet, #newCon, #newTank, #allCon, #allTanks
-	{
+	div#defaultNet, #newCon, #newTank, #allCon, #allTanks {
 		padding:0.5em;
 		border:1px solid #ccc;
 		border-top:none;
@@ -18,6 +17,7 @@
 	.connection, .tank {
 		display:flex;
 		justify-content:space-between;
+		line-height:2em;
 	}
 
 	.connection:hover, .tank:hover {
@@ -27,8 +27,7 @@
 
 <script>
 	var arrows = true;
-	if(Connections.length && Connections.map(function(con){return con.flow}).filter(function(flow){return flow!=null}).length)
-	{
+	if(Connections.length && Connections.map(function(con){return con.flow}).filter(function(flow){return flow!=null}).length) {
 		arrows = false;
 	}
 

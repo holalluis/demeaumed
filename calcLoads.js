@@ -1,5 +1,8 @@
 /*
-	Solve contaminant concentration
+	1. Solve contaminant concentration
+	2. Solve technologies contaminant removal
+	3. Propagate removal through the network
+
 */
 
 //get a string array array of contaminant names

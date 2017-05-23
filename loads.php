@@ -1,44 +1,20 @@
-<!doctype html><html><head>
-	<?php include'imports.php'?>
-
+<!doctype html><html><head><?php include'imports.php'?>
 	<style>
-		td.valor:hover {
-			cursor:context-menu;
-			background:#abc;
-		}
 		body {background:#ddd}
 		#navbar a[page=loads]{background:orange;color:black}
 
-		#loads_cnt, #connections_cnt {
-			margin:auto;
-		}
-
-		#loads, #connections {
-			margin:0 auto;
-		}
-		#loads {
-			font-size:10px
-		}
-
-		#connections {
+		#root table {
 			font-size:11px;
-			margin-bottom:2em;
+			margin:2px;
 		}
-		#connections td {
+
+		#root table td {
 			text-align:right;
 		}
 
-		#loads th:first-child,
-		#loads td:first-child,
-		#connections th:first-child,
-		#connections td:first-child{
-			border-left:none;
-		}
-		#loads th:last-child,
-		#loads td:last-child,
-		#connections th:last-child,
-		#connections td:last-child{
-			border-right:none;
+		td.valor:hover {
+			cursor:context-menu;
+			background:#abc;
 		}
 
 		tr.reuse {
@@ -53,17 +29,15 @@
 
 	<script>
 		function init() {
+			updateViews();
+		}
+
+		/*<views>*/
+		function updateViews() {
 			drawLoadTable();
+			drawTechsTable();
 			drawConcTable();
 		}
-
-		var method="load"; //default. toggle view "loads" or "conc"
-		function toggleConcLoad() {
-			//modify global variable
-			if(method=="load") method="conc"; else method="load";
-			init()
-		}
-
 		function drawLoadTable() {
 			var table=document.querySelector('#loads');
 			table.innerHTML="";
@@ -74,7 +48,7 @@
 			//service
 			var newCell=document.createElement('th');
 			newRow.appendChild(newCell);
-			newCell.innerHTML="Service"
+			newCell.innerHTML="Hotel service"
 			newCell.rowSpan=2;
 			//uses
 			var newCell=document.createElement('th');
@@ -87,36 +61,63 @@
 			newCell.innerHTML="Loads (mg/use) for each contaminant"
 			newCell.colSpan=11;
 			//add headers foreach contaminants
-			for(var node in Loads)
-			{
+			for(var node in Loads) {
 				var newRow=table.insertRow(-1)
-				for(var contaminant in Loads[node].contaminants)
-				{
-					newRow.insertCell(-1).outerHTML="<td style=background:orange><b>"+contaminant+"</b></td>";
+				for(var contaminant in Loads[node].contaminants) {
+					newRow.insertCell(-1).outerHTML="<td style=background:#bca><b>"+contaminant+"</b></td>";
 				}
 				break;
 			}
 
 			//add info
-			for(var node in Loads)
-			{
+			for(var node in Loads) {
 				var newRow=table.insertRow(-1)
-				newRow.insertCell(-1).innerHTML="<b>"+node+"</b>";
-
+				newRow.insertCell(-1).outerHTML="<th style=text-align:left>"+node+"</th>";
 				//add uses
 				newRow.insertCell(-1).innerHTML=Loads[node].uses
-
-				for(var contaminant in Loads[node].contaminants)
-				{
+				for(var contaminant in Loads[node].contaminants) {
 					//mg/use
 					newRow.insertCell(-1).innerHTML=format(
 						Loads[node].contaminants[contaminant]
 					);
 				}
 			}
-			//add uses
 		}
+		function drawTechsTable() {
+			var table=document.querySelector('#technologies');
+			table.innerHTML="";
 
+			var newRow=table.insertRow(-1);
+
+			/*headers*/
+			var newCell=document.createElement('th');
+			newRow.appendChild(newCell);
+			newCell.innerHTML="Treatment technologies"
+			newCell.rowSpan=2;
+			//header general contaminants
+			var newCell=document.createElement('th');
+			newRow.appendChild(newCell);
+			newCell.innerHTML="Removal efficiency (%)";
+			newCell.colSpan=11;
+
+			//add headers foreach contaminants
+			for(var node in Loads) {
+				var newRow=table.insertRow(-1);
+				for(var contaminant in Loads[node].contaminants) {
+					newRow.insertCell(-1).outerHTML="<td style=background:#bca><b>"+contaminant+"</b></td>";
+				}
+				break;
+			}
+
+			//add info
+			Technologies.forEach(function(tec) {
+				var newRow=table.insertRow(-1);
+				newRow.insertCell(-1).outerHTML="<th style=text-align:left>"+tec.name;
+				for(var contaminant in tec.removal) {
+					newRow.insertCell(-1).innerHTML=tec.removal[contaminant];
+				}
+			});
+		}
 		function drawConcTable() {
 			var table=document.querySelector('#connections');
 			table.innerHTML="";
@@ -143,7 +144,7 @@
 			//add contaminant headers
 			var newRow=table.insertRow(-1);
 			contaminants.forEach(function(contaminant) {
-				newRow.insertCell(-1).outerHTML="<td style=background:orange><b>"+contaminant+"</b></td>";
+				newRow.insertCell(-1).outerHTML="<td style=background:#bca><b>"+contaminant+"</b></td>";
 			})
 
 			//add connections
@@ -159,9 +160,14 @@
 					newRow.style.cursor="help";
 				}
 
-				newRow.insertCell(-1).innerHTML=con.from;
-				newRow.insertCell(-1).innerHTML="&rarr;"
-				newRow.insertCell(-1).outerHTML="<td style='text-align:left;'>"+con.to+"</td>";
+				newRow.insertCell(-1).outerHTML="<th style='text-align:left;'>"+con.from+"</th>";
+				if(con.tec) {
+					newRow.insertCell(-1).innerHTML="<center>&rarr; "+con.tec+" &rarr;</center>"
+				}
+				else {
+					newRow.insertCell(-1).innerHTML="<center>&rarr;</center>"
+				}
+				newRow.insertCell(-1).outerHTML="<th style='text-align:left;'>"+con.to+"</th>";
 
 				//add flow
 				newRow.insertCell(-1).innerHTML=format(con.flow);
@@ -187,6 +193,15 @@
 
 			});
 		}
+		/*</views>*/
+
+		/*toggle load (mg/day) <-> concentration (mg/L) */
+		var method='load'; //default. toggle view "loads" or "conc"
+		function toggleConcLoad() {
+			//modify global variable
+			method = (method=='load') ? 'conc' : 'load';
+			init();
+		}
 	</script>
 </head><body onload=init()>
 <!--navbar--><?php include'navbar.php'?>
@@ -198,7 +213,10 @@
 	<!--table for loads (mg/use)-->
 	<div id=loads_cnt class=card>
 		<?php cardMenu('Inputs: Loads per service (mg/use)')?>
-		<table id=loads></table>
+		<div class=flex style=justify-content:center>
+			<table id=loads></table>
+			<table id=technologies></table>
+		</div>
 	</div>
 
 	<!--table of loads per connection-->
@@ -207,7 +225,11 @@
 		<div style=text-align:center>
 			<button onclick=toggleConcLoad() style="margin:0.5em">Concentration &harr; Load</button>
 		</div>
-		<table id=connections></table>
+		<div class=flex style=justify-content:center>
+			<table id=connections></table>
+		</div>
 	</div>
 
 </div root>
+
+<div style=margin-bottom:5em></div>

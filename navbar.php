@@ -6,7 +6,7 @@
 	<a href="water.php"        page=water class=left>1. Water use</a>
 	<a href="create.php"       page=create>2. Create network</a>
 	<a href="solveNetwork.php" page=solveNetwork>3. Solve network</a>
-	<a href="reuse.php"        page=reuse>4. Create water reuse</a>
+	<a href="reuse.php"        page=reuse>4. Water reuse</a>
 	<a href="solveReuse.php"   page=solveReuse>5. Solve water reuse</a>
 	<a href="loads.php"        page=loads>6. Contaminants </a>
 	<a href="results.php"      page=results class=right>99. Results</a>
