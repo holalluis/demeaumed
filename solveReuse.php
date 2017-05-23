@@ -33,8 +33,8 @@
 				var table=document.createElement('table');
 				div.appendChild(table);
 				var newRow=table.insertRow(-1);
-				newRow.insertCell(-1).outerHTML="<th>Nodes</th>";
-				newRow.insertCell(-1).outerHTML="<th>Output (L/day)</th>";
+				newRow.insertCell(-1).outerHTML="<th class=tankColor>Nodes</th>";
+				newRow.insertCell(-1).outerHTML="<th class=tankColor>Output (L/day)</th>";
 				var n=1;
 
 				Nodes.concat(Tanks).forEach(function(node){
@@ -90,9 +90,9 @@
 					div.appendChild(table);
 					//header
 					var newRow=table.insertRow(-1);
-					newRow.insertCell(-1).outerHTML="<th colspan=3>Water reuse connections</th>";
-					newRow.insertCell(-1).outerHTML="<th>Max flow (L/day)</th>";
-					newRow.insertCell(-1).outerHTML="<th>Flow (L/day)</th>";
+					newRow.insertCell(-1).outerHTML="<th colspan=3 class=reuseColor>Water reuse connections</th>";
+					newRow.insertCell(-1).outerHTML="<th class=reuseColor>Max flow (L/day)</th>";
+					newRow.insertCell(-1).outerHTML="<th class=reuseColor>Flow (L/day)</th>";
 					//body
 					for(var i in Reuse) {
 						var from = Reuse[i].from;
@@ -115,12 +115,10 @@
 		function see(node) {
 			var froms=document.querySelectorAll('#taules tr[from="'+node+'"]');
 			var tos=document.querySelectorAll('#taules tr[to="'+node+'"]');
-			for(var i=0;i<froms.length;i++)
-			{
+			for(var i=0;i<froms.length;i++) {
 				froms[i].style.background="orange";
 			}
-			for(var i=0;i<tos.length;i++)
-			{
+			for(var i=0;i<tos.length;i++) {
 				tos[i].style.background="#bca";
 			}
 		}
@@ -160,7 +158,7 @@
 	</style>
 </head><body onload=init()>
 <!--navbar--><?php include'navbar.php'?>
-<!--title--><div class=title>5. Solve reuse: <span class=subtitle>Find flows resulting from water reuse</span></div>
+<!--title--><div class=title>5. Solve reuse: <span class=subtitle>calculate water flows with water reuse</span></div>
 
 <!--network solving-->
 <script src=solveReuse.js></script>

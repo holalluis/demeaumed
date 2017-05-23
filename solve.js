@@ -68,7 +68,7 @@ function solveNetwork(){
 			return;
 		}
 		if(nci==notCalcItems) {
-			alert("ERROR! We are not solving new items (nodes and links). System is undetermined");
+			alert("ERROR! We are not solving new items (nodes and links). System is undetermined or is already calculated");
 			return;
 		}
 		notCalcItems=nci;//update nonCalcNodes

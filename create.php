@@ -126,8 +126,8 @@
 			Connections.push({from:"Garden",             to:"SEWER",              flow:null});
 			Connections.push({from:"SEWER",              to:"OUT",                flow:null});
 			Connections.push({from:"OUT",                to:"OUTPUT",             flow:null});
-			Reuse.push({from:"ROOM",    to:"Garden",    tec:"none", maxFlow:60e3, flow:null});
-			Reuse.push({from:"KITCHEN", to:"Pool Flow", tec:"none", maxFlow:15e3, flow:null});
+			Reuse.push({from:"ROOM",    to:"Pool Flow", tec:"none", maxFlow:60e3, flow:null});
+			Reuse.push({from:"KITCHEN", to:"Garden",    tec:"none", maxFlow:15e3, flow:null});
 		}
 		else alert("Network must be empty");
 		init();
@@ -215,7 +215,7 @@
 
 </head><body onload=init()>
 <!--navbar--><?php include'navbar.php'?>
-<!--title--><div class=title>2. Create network: <span class=subtitle>Connect hotel services. Optional: create tanks</span></div>
+<!--title--><div class=title>2. Create network: <span class=subtitle>connect hotel services</span></div>
 
 <div id=root class=flex style="justify-content:center">
 	<!--left column-->
@@ -265,5 +265,5 @@
 	</div>
 
 	<!--right col graph--> 
-	<div style="min-width:49%;border:1px solid #ccc;border-top:none;margin-left:-1px"><?php include'graph.php'?></div>
+	<div style="border:1px solid #ccc;border-top:none;margin-left:-1px"><?php include'graph.php'?></div>
 </div>

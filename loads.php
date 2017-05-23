@@ -1,35 +1,16 @@
-<!doctype html><html><head><?php include'imports.php'?>
-	<style>
-		body {background:#ddd}
-		#navbar a[page=loads]{background:orange;color:black}
-
-		#root table {
-			font-size:11px;
-			margin:2px;
-		}
-
-		#root table td {
-			text-align:right;
-		}
-
-		td.valor:hover {
-			cursor:context-menu;
-			background:#abc;
-		}
-
-		tr.reuse {
-			background:#800080;
-			color:white;
-		}
-	</style>
+<!doctype html><html><head>
+	<?php include'imports.php'?>
 
 	<!--perform concentration calculations for each connection-->
 	<script src="js/loads.js"></script>
 	<script src="calcLoads.js"></script>
 
 	<script>
+		var arrows = false;
 		function init() {
-			updateViews();
+			drawLoadTable();
+			drawConcTable();
+			createGraph(60,arrows);
 		}
 
 		/*<views>*/
@@ -180,7 +161,7 @@
 						var load = con.contaminants[cont];
 						var load_f = format(load);
 						newCell.title=load;
-						newCell.innerHTML=load_f;
+						newCell.innerHTML=load_f=="0"?"<span style=color:#ccc>0</span>":load_f;
 					}else if(method=="conc") {
 						var loa = con.contaminants[cont];
 						var vol = con.flow;
@@ -203,25 +184,65 @@
 			init();
 		}
 	</script>
+
+	<style>
+		#root table {
+				font-family:monospace;
+			}
+		td.valor:hover {
+			cursor:context-menu;
+			background:#abc;
+		}
+		body {background:#ddd}
+		#navbar a[page=loads]{background:orange;color:black}
+
+		#loads_cnt, #connections_cnt {
+			margin:auto;
+		}
+
+		#loads, #connections {
+			margin:0 auto;
+		}
+		#loads {
+			font-size:10px
+		}
+
+		#connections {
+			font-size:11px;
+			margin-bottom:2em;
+		}
+		#root table td {
+			text-align:right;
+		}
+
+		#loads th:first-child,
+		#loads td:first-child,
+		#connections th:first-child,
+		#connections td:first-child{
+			border-left:none;
+		}
+		#loads th:last-child,
+		#loads td:last-child,
+		#connections th:last-child,
+		#connections td:last-child{
+			border-right:none;
+		}
+
+		tr.reuse {
+			background:#800080;
+			color:white;
+		}
+	</style>
+
 </head><body onload=init()>
 <!--navbar--><?php include'navbar.php'?>
-<!--title--><div class=title>6. Solve Loads: <span class=subtitle>Contaminants without water reuse</span></div>
+<!--title--><div class=title>6. Solve Loads: <span class=subtitle>calculate the contaminants at each water connection</span></div>
 
 <!--root-->
 <div id=root>
-
-	<!--table for loads (mg/use)-->
-	<div id=loads_cnt class=card>
-		<?php cardMenu('Inputs: Loads per service (mg/use)')?>
-		<div class=flex style=justify-content:center>
-			<table id=loads></table>
-			<table id=technologies></table>
-		</div>
-	</div>
-
 	<!--table of loads per connection-->
 	<div id=connections_cnt class=card>
-		<?php cardMenu('Outputs: Loads per connection (mg/day)')?>
+		<?php cardMenu('Outputs: Loads per connection (mg/day) (calculated)')?>
 		<div style=text-align:center>
 			<button onclick=toggleConcLoad() style="margin:0.5em">Concentration &harr; Load</button>
 		</div>
@@ -230,6 +251,132 @@
 		</div>
 	</div>
 
+	<!--table for loads (mg/use)-->
+	<div id=loads_cnt class='card folded'>
+		<?php cardMenu('Inputs: Loads per service (mg/use) (experimental data)')?>
+		<table id=loads></table>
+	</div>
+
+	<!--graph-->
+	<div class='card'>
+		<?php cardMenu('Graph')?>
+
+		<div id=selectContaminant>
+			Select contaminant &emsp;
+			<button name=SST onclick=contaminantDiagram(100,arrows,this.name)>SST</button>
+			<button name=PO4 onclick=contaminantDiagram(100,arrows,this.name)>PO4</button>
+			<button name=SO4 onclick=contaminantDiagram(100,arrows,this.name)>SO4</button>
+			<button name=TOC onclick=contaminantDiagram(100,arrows,this.name)>TOC</button>
+			<button name=COD onclick=contaminantDiagram(100,arrows,this.name)>COD</button>
+			<button name=BOD onclick=contaminantDiagram(100,arrows,this.name)>BOD</button>
+			<button name=TN  onclick=contaminantDiagram(100,arrows,this.name)>TN</button>
+			<button name=Caffeine      onclick=contaminantDiagram(100,arrows,this.name)>Caffeine</button>
+			<button name=Carbamazepine onclick=contaminantDiagram(100,arrows,this.name)>Carbamazepine</button>
+			<button name=Diclophenac   onclick=contaminantDiagram(100,arrows,this.name)>Diclophenac</button>
+		</div>
+
+		<style>
+			#selectContaminant {
+				display:flex;
+				flex-wrap:wrap;
+				justify-content:center;
+				padding:0.5em;
+			}
+			#selectContaminant button.selected {
+				background:orange;
+			}
+			#selectContaminant button{
+				border-radius:none;
+				outline:none;
+				margin:0;
+				margin-left:-1px;
+				display:block;
+				background:#fafafa;
+				border:1px solid #ccc;
+			}
+		</style>
+
+		<div style='text-align:center;border:1px solid #ccc;border-top:none'>
+			<?php include'graph.php'?>
+		</div>
+	</div>
+
 </div root>
 
-<div style=margin-bottom:5em></div>
+<script>
+	function contaminantDiagram(gravetat,arrows,contaminant) {
+		gravetat = Math.abs(gravetat)+0.01 || 60;
+		arrows = arrows || false;
+
+		contaminant = contaminant || document.querySelector('svg').getAttribute('lastContaminant');
+
+		document.querySelector('svg').setAttribute('lastContaminant',contaminant);
+
+		(function(){
+			var btns=document.querySelectorAll('#selectContaminant button[name]');
+			for(var i=0;i<btns.length;i++)
+				btns[i].classList.remove('selected');
+			document.querySelector('#selectContaminant button[name='+contaminant+']').classList.add('selected');
+		})();
+		
+		zoomFunction=contaminantDiagram;
+
+		//empty element
+		document.querySelector('svg').innerHTML="";
+		//load data
+			var json = { 
+				nodes: [
+					// {"name": "Napoleon", "group": 1},
+				],
+				links: [
+					// {"source": "Napoleon", "target": "Myriel", "value": 1},
+				],
+			};
+			function existsTank(tank) { for(var i in Tanks) { if(Tanks[i].name==tank) return true } return false }
+			Tanks.forEach(function(tank){
+				json.nodes.push( {name:tank.name, group:1} )
+			});
+			//add only if not exists in tanks
+			Nodes.forEach(function(node){
+				if(!existsTank(node.name))	
+				{
+					json.nodes.push( {name:node.name, group:0} ) 
+				}
+			});
+			//add links
+
+			//find max mg of contaminant
+			var max_cont = (function(){
+				var conts=['SST', 'PO4', 'SO4', 'TOC', 'COD', 'BOD', 'TN', 'Caffeine', 'Carbamazepine', 'Diclophenac'];
+				var ret=-1;
+				Connections
+					.map(function(con){return con.contaminants})
+					.forEach(obj=>{
+						conts.forEach(cont=>{
+							if(obj[cont]>ret) ret=obj[cont];
+						})
+					});
+				return ret;
+			})();
+
+			var divisor=max_cont/1000||1;
+
+			for(var i in Connections){
+				var flow=Connections[i].contaminants[contaminant];
+				var value = flow/divisor;
+				if(flow==null){value=-1}
+				json.links.push( { source:Connections[i].from, target:Connections[i].to, value:value } )
+			}
+			//add reuse connections
+			Reuse.forEach(function(con){
+				var flow=con.contaminants[contaminant];
+				var value=flow/divisor||1;
+				if(flow==null){value=-1}
+				json.links.push( { source:con.from, target:con.to, value:value, reuse:1} )
+			})
+		//load data end
+		
+		//draw
+		dibuixa(json,gravetat,arrows);
+	}
+</script>

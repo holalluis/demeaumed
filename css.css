@@ -78,3 +78,13 @@ button {
 	.card        .menu button:before {content:"-"}
 	.card.folded .menu button:before {content:"+"}
 /*end cards*/
+
+th.nodeColor {
+	background:#aec7e8;
+}
+th.tankColor {
+	background:#1f77b4;
+}
+th.reuseColor { 
+	background:#800080;
+}

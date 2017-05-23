@@ -7,11 +7,14 @@
 			margin:1em 0em;
 		}
 	</style>
+	<script src=js/loads.js></script>
 
 	<script>
 		function init() {
+			document.querySelector('#waterReuseConnections').innerHTML=Reuse.length;
 			calcWaterPotential();
 			calcWaterSaved();
+			calc_contaminants_rmvd();
 		}
 
 		//water saved from reuse: potential and actual
@@ -26,34 +29,51 @@
 			sum+=Reuse.map(function(con){return con.flow}).reduce(function(prev,curr){return prev+curr});
 			document.querySelector('#waterSaved').innerHTML=sum;
 		}
+		function calc_contaminants_rmvd() {
+			
+			var ul=document.querySelector('#contaminants_rmvd');
+
+			//array of contaminant names
+			var conts = []; 
+			for(var s in Loads) {
+				for(var c in Loads[s].contaminants) {
+					conts.push(c);
+				}
+				break;
+			}
+
+			conts.forEach(c=>{
+				var li=document.createElement('li');
+				ul.appendChild(li);
+				li.innerHTML=c+": (under development)";
+			});
+		}
 	</script>
 
 </head><body onload=init()>
 <!--navbar--><?php include'navbar.php'?>
-<!--title--><div class=title>Results: <span class=subtitle>Summary</span></div>
+<!--title--><div class=title>Results: <span class=subtitle>summary</span></div>
 
 <div id=root>
 
 	<!--results-->
 	<ul id=results>
-		<li>Water reuse 
+		<li>Water reuse summary
 			<ul>
+				<li>Water reuse connections: <b id=waterReuseConnections>0</b>
 				<li>
-					Potential water savings: <b id=waterPotential></b> L/day
+					Maximum theoretical water savings: <b id=waterPotential></b> L/day
 				</li>
 				<li> 
-					Actual water savings: <b id=waterSaved></b> L/day
+					Current water savings: <b id=waterSaved></b> L/day
 				</li>
-			</ul>
-		</li>
-		<li>
-			Load / export [TO DO]
-			<ul>
-				<li><button>Load network...</button>
-				<li><button>Export network </button>
+				<li>Contaminants removed (mg/day):
+					<ul id=contaminants_rmvd></ul>
+				</li>
 			</ul>
 		</li>
 	</ul>
+	<!--/results-->
 
 </div root>
 
