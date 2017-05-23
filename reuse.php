@@ -12,8 +12,7 @@
 		border-bottom:1px solid #ccc;
 		font-size:11px;
 	}
-	table#reuse
-	{
+	table#reuse {
 		font-size:12px;
 		width:100%;
 	}
@@ -21,13 +20,11 @@
 		background:#800080;
 	}
 	table#reuse td:first-child,
-	table#reuse th:first-child
-	{
+	table#reuse th:first-child {
 		border-left:none;
 	}
 	table#reuse td:last-child,
-	table#reuse th:last-child
-	{
+	table#reuse th:last-child {
 		border-right:none;
 	}
 
@@ -39,16 +36,14 @@
 
 <script>
 	var arrows = false;
-	function init()
-	{
+	function init() {
 		Views.update();
 		createGraph(60,arrows);
 		updateCookies();
 	}
 
 	var Views={}
-	Views.update=function()
-	{
+	Views.update=function() {
 		//update reuse connections table
 		(function(){
 			var t=document.querySelector('#reuse');
@@ -58,8 +53,7 @@
 				newCell.innerHTML='<center style=color:#666>~0 reuse connections</center>'
 				newCell.colSpan=5;
 			}
-			for(var i in Reuse)
-			{
+			for(var i in Reuse) {
 				var reuse=Reuse[i];
 				var newRow=t.insertRow(-1)
 				newRow.insertCell(-1).innerHTML=reuse.from;
@@ -161,7 +155,7 @@
 
 		<!--new connection menu-->
 		<div id=newCon>
-			<h3>+ New water reuse connection</h3>
+			<h3>+ Create new water reuse connection</h3>
 			<div class=flex style="justify-content:center">
 				<table>
 					<tr><td>From       <td><select id=from></select>

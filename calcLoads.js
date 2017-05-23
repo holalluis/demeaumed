@@ -57,7 +57,7 @@ function set_load(node,contaminant){
 				if(conn.tec) {
 					var tech=Technologies.filter(function(t){return t.name==conn.tec})[0];
 					var removal=tech.removal[contaminant]/100;
-					console.log("Tech: "+conn.tec+", "+contaminant+"->"+removal+"%");
+					//console.log("Tech: "+conn.tec+", "+contaminant+"->"+removal+"%");
 					conn.contaminants[contaminant] *= (1-removal);
 				}
 			});
@@ -114,7 +114,7 @@ function calc_load_propagated(nodeName,contaminant) {
 			if(conn.tec) {
 				var tech=Technologies.filter(function(t){return t.name==conn.tec})[0];
 				var removal=tech.removal[contaminant]/100;
-				console.log("Tech: "+conn.tec+", "+contaminant+"->"+removal+"%");
+				//console.log("Tech: "+conn.tec+", "+contaminant+"->"+removal+"%");
 				conn.contaminants[contaminant] *= (1-removal);
 			}
 

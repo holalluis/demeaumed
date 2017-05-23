@@ -4,12 +4,12 @@
 	<!--perform concentration calculations for each connection-->
 	<script src="js/loads.js"></script>
 	<script src="calcLoads.js"></script>
+	<script src="js/technologies.js"></script>
 
 	<script>
 		var arrows = false;
 		function init() {
-			drawLoadTable();
-			drawConcTable();
+			updateViews();
 			createGraph(60,arrows);
 		}
 
@@ -186,46 +186,28 @@
 	</script>
 
 	<style>
+		#navbar a[page=loads]{background:orange;color:black}
+		body {background:#ddd}
 		#root table {
-				font-family:monospace;
-			}
-		td.valor:hover {
+			font-family:monospace;
+		}
+		#root td.valor:hover {
 			cursor:context-menu;
 			background:#abc;
-		}
-		body {background:#ddd}
-		#navbar a[page=loads]{background:orange;color:black}
-
-		#loads_cnt, #connections_cnt {
-			margin:auto;
-		}
-
-		#loads, #connections {
-			margin:0 auto;
-		}
-		#loads {
-			font-size:10px
-		}
-
-		#connections {
-			font-size:11px;
-			margin-bottom:2em;
 		}
 		#root table td {
 			text-align:right;
 		}
 
-		#loads th:first-child,
-		#loads td:first-child,
-		#connections th:first-child,
-		#connections td:first-child{
-			border-left:none;
+		#connections {
+			font-size:11px;
+			margin-bottom:2em;
+			margin:0 auto;
 		}
-		#loads th:last-child,
-		#loads td:last-child,
-		#connections th:last-child,
-		#connections td:last-child{
-			border-right:none;
+
+		#loads, #technologies {
+			font-size:11px;
+			margin:0 0.2em;
 		}
 
 		tr.reuse {
@@ -254,7 +236,10 @@
 	<!--table for loads (mg/use)-->
 	<div id=loads_cnt class='card folded'>
 		<?php cardMenu('Inputs: Loads per service (mg/use) (experimental data)')?>
-		<table id=loads></table>
+		<div class=flex style=justify-content:center>
+			<table id=technologies></table>
+			<table id=loads></table>
+		</div>
 	</div>
 
 	<!--graph-->

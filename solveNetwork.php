@@ -41,6 +41,7 @@
 
 				Nodes.forEach(function(node){
 					var newRow=table.insertRow(-1);
+					newRow.classList.add('node');
 					newRow.onmouseenter=function(){see(node.name)};
 					newRow.onmouseout=function(){unsee()};
 					newRow.insertCell(-1).innerHTML=node.name;
@@ -51,6 +52,7 @@
 				newRow.insertCell(-1).outerHTML="<th class=tankColor>Output (L/day)";
 				Tanks.forEach(function(node){
 					var newRow=table.insertRow(-1);
+					newRow.classList.add('node');
 					newRow.onmouseenter=function(){see(node.name)};
 					newRow.onmouseout=function(){unsee()};
 					newRow.insertCell(-1).innerHTML=node.name;
@@ -100,7 +102,7 @@
 			}
 			for(var i=0;i<tos.length;i++)
 			{
-				tos[i].style.background="orange";
+				tos[i].style.background="#abc";
 			}
 		}
 		function unsee() {
@@ -121,6 +123,9 @@
 			display:block;
 			padding:1em 3em;
 			margin:2px;
+		}
+		.node:hover {
+			background:orange;
 		}
 	</style>
 </head><body onload=init()>

@@ -32,7 +32,7 @@
 <!--navbar--><?php include'navbar.php'?>
 
 <!--title-->
-<div class=title>Get started: <span class=subtitle>Overview</span></div>
+<div class=title>Get started: <span class=subtitle>modelling steps overview</span></div>
 
 <!--warning-->
 <div id=browser_warning style=display:none>
@@ -50,9 +50,10 @@
 			<li>Enter information about the water use.
 			<li>Create a water network of the hotel services.
 			<li>Calculate the water consumption.
+			<li>Add water reuse with water treatment technologies.
+			<li>Calculate the water savings.
 			<li>Calculate the water quality (concentration of contaminants).
-			<li>Add water reuse with water treatment technologiesa.
-			<li>See results
+			<li>See results.
 		</ol>
 	</div>
 	<div>

@@ -16,7 +16,7 @@ to do list
 ==========
 
 1. Add contamiant removed (mg) for each contaminant in results
-2. Afegir taula tecnologies a loads.php
 
+97. guardar valor de gravetat del grafic com a cookie.
 98. Export network to json
 99. alinear caselles amb números a la dreta
